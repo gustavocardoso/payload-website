@@ -1,0 +1,31 @@
+.background-light {
+  @apply bg-light;
+}
+
+.background-dark {
+  @apply bg-dark text-light;
+}
+
+.background-primary {
+  @apply bg-primary text-light;
+}
+
+.background-primary.hero h1 span {
+  @apply text-highlight;
+}
+
+.background-secondary {
+  @apply bg-secondary text-dark;
+}
+
+.background-secondary.hero h1 span {
+  @apply text-light;
+}
+
+.background-tertiary {
+  @apply bg-tertiary text-dark;
+}
+
+.background-tertiary.hero h1 span {
+  @apply text-light;
+}
