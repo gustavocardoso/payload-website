@@ -37,6 +37,7 @@ export type BlockButton = {
 }
 
 export type HeroBlock = {
+  type: string
   title: string
   titleTag: string
   alignment: string
@@ -71,5 +72,3 @@ export type HeroBlock = {
   id: string
   blockType: string
 }
-
-export type Alignment = 'right' | 'center' | 'left'

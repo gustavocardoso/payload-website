@@ -19,7 +19,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({ children, alignment = 'left' 
     default:
       break
   }
-  return <div className={`hero-buttons flex gap-x-6 ${alignmentClass}`}>{children}</div>
+  return <div className={`hero-buttons mt-16 flex gap-x-6 ${alignmentClass}`}>{children}</div>
 }
 
 export default ButtonGroup

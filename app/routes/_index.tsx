@@ -2,7 +2,8 @@ import { json, type LoaderFunction, type V2_MetaFunction } from '@remix-run/node
 import { useLoaderData } from '@remix-run/react'
 import qs from 'qs'
 import Hero from '~/Hero'
-import type { Alignment, Doc, Docs, HeroBlock } from '~/types/homepage'
+import type { Alignment, HeroType } from '~/types/hero'
+import type { Doc, Docs, HeroBlock } from '~/types/homepage'
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: 'Home | Logoipsum' }, { name: 'description', content: 'Welcome to Logoipsum!' }]
@@ -45,21 +46,21 @@ export default function Index() {
       {layout.map((block, index) => {
         switch (block.blockType) {
           case 'hero-block':
-            let $block = block as HeroBlock
+            const blockData = block as HeroBlock
+            const blockProps = {
+              type: blockData.type as HeroType,
+              title: blockData.title,
+              titleTag: blockData.titleTag,
+              description: blockData.description,
+              alignment: blockData.alignment as Alignment,
+              media: blockData.media.url,
+              mediaAlt: blockData.media.alt,
+              background: blockData.background,
+              buttons: blockData.buttons,
+              effects: blockData.effects
+            }
 
-            return (
-              <Hero
-                type='twoColumns'
-                title={$block.title}
-                description={$block.description}
-                alignment={$block.alignment as Alignment}
-                media={$block.media.url}
-                background={$block.background}
-                buttons={$block.buttons}
-                effects={$block.effects}
-                key={index}
-              />
-            )
+            return <Hero key={index} props={blockProps} />
             break
           case 'ribbon-block':
             return (
