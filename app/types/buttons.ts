@@ -12,7 +12,7 @@ export type ButtonColors =
   | 'button-outline-secondary'
   | 'button-outline-tertiary'
 
-export type Props = {
+export type ButtonProps = {
   href: string
   color?: ButtonColors
   textStyle?: 'lowercase' | 'uppercase'

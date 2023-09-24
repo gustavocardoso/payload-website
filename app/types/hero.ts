@@ -28,3 +28,37 @@ export type Props = {
     }
   }
 }
+
+export type TitleTagOptions = 'h1' | 'h2'
+
+export type HeroTitleProps = {
+  title: string
+  titleTag: TitleTagOptions
+}
+
+export type HeroDescriptionProps = {
+  text: string | undefined
+}
+
+export type HeroImageProps = {
+  media: string
+  mediaAlt: string
+  effects: {
+    rotate: boolean
+    scale: boolean
+    shadow: boolean
+    grayscale: boolean
+  }
+  maxSize: 'full' | 'height'
+}
+
+type Button = {
+  text: string
+  link: string
+  style: string
+}
+
+export type HeroButtonsProps = {
+  buttons: Button[]
+  alignment: Alignment
+}
