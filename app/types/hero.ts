@@ -3,10 +3,16 @@ import type { Background } from './background'
 
 export type Alignment = 'right' | 'center' | 'left'
 export type HeroType = 'centered' | 'two-columns'
+export type BackgroundOpacity = 'none' | '20' | '30' | '50'
+export type BackgroundTextColor = 'light' | 'dark'
 
 export type HeroWrapperProps = {
   children: ReactNode
   background: string
+  backgroundImage?: string
+  backgroundOpacity?: BackgroundOpacity
+  backgroundTextColor?: BackgroundTextColor
+  id?: string
 }
 
 export type Props = {
@@ -20,6 +26,10 @@ export type Props = {
     mediaAlt: string
     buttons?: Array<{ text: string; link: string; style: string }>
     background: Background
+    backgroundImage?: string
+    backgroundOpacity?: BackgroundOpacity
+    backgroundTextColor?: BackgroundTextColor
+    anchor?: string
     effects?: {
       rotate: boolean
       scale: boolean

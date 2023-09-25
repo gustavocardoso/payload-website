@@ -10,7 +10,8 @@
   @apply bg-primary text-light;
 }
 
-.background-primary.hero h1 span {
+.background-primary.hero h1 span,
+.background-primary.hero h2 span {
   @apply text-highlight;
 }
 
@@ -18,7 +19,8 @@
   @apply bg-secondary text-dark;
 }
 
-.background-secondary.hero h1 span {
+.background-secondary.hero h1 span,
+.background-secondary.hero h2 span {
   @apply text-light;
 }
 
@@ -26,6 +28,7 @@
   @apply bg-tertiary text-dark;
 }
 
-.background-tertiary.hero h1 span {
+.background-tertiary.hero h1 span,
+.background-tertiary.hero h2 span {
   @apply text-light;
 }

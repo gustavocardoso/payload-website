@@ -2,7 +2,7 @@ import { json, type LoaderFunction, type V2_MetaFunction } from '@remix-run/node
 import { useLoaderData } from '@remix-run/react'
 import qs from 'qs'
 import Hero from '~/Hero'
-import type { Alignment, HeroType } from '~/types/hero'
+import type { Alignment, BackgroundOpacity, BackgroundTextColor, HeroType } from '~/types/hero'
 import type { Doc, Docs, HeroBlock } from '~/types/homepage'
 
 export const meta: V2_MetaFunction = () => {
@@ -56,8 +56,12 @@ export default function Index() {
               media: blockData.media.url,
               mediaAlt: blockData.media.alt,
               background: blockData.background,
+              backgroundImage: blockData.backgroundImage?.url,
+              backgroundOpacity: blockData.backgroundOpacity as BackgroundOpacity,
+              backgroundTextColor: blockData.backgroundTextColor as BackgroundTextColor,
               buttons: blockData.buttons,
-              effects: blockData.effects
+              effects: blockData.effects,
+              anchor: blockData.anchor
             }
 
             return <Hero key={index} props={blockProps} />

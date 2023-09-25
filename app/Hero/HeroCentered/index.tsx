@@ -8,7 +8,7 @@ const HeroTwoCentered: React.FC<Props> = ({
   props: { title, titleTag, description, media, mediaAlt, buttons, effects }
 }) => {
   return (
-    <div className='container grid grid-cols-12 px-8'>
+    <div className='relative z-20 container grid grid-cols-12 px-8'>
       <div className='hero-content col-span-10 col-start-2 text-center'>
         <HeroTitle title={title} titleTag={titleTag as TitleTagOptions} />
         <HeroDescription text={description} />

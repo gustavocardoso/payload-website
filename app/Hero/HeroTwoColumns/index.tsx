@@ -29,7 +29,7 @@ const HeroTwoColumns: React.FC<Props> = ({
   }
 
   return (
-    <div className='container grid grid-cols-12 px-8'>
+    <div className='relative z-20 container grid grid-cols-12 px-8'>
       <div className={`hero-content col-span-7 pr-8 ${textAlignment}`}>
         <HeroTitle title={title} titleTag={titleTag as TitleTagOptions} />
         <HeroDescription text={description} />

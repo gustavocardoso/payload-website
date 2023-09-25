@@ -63,6 +63,12 @@ export type HeroBlock = {
     url: string
   }
   background: Background
+  backgroundImage?: {
+    url: string
+  }
+  backgroundOpacity?: string
+  backgroundTextColor?: string
+  anchor?: string
   effects: {
     rotate: boolean
     scale: boolean
