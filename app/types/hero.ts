@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import type { Background } from './background'
+import type { BlockButton } from './blocks'
 
 export type Alignment = 'right' | 'center' | 'left'
 export type HeroType = 'centered' | 'two-columns'
@@ -15,27 +16,48 @@ export type HeroWrapperProps = {
   id?: string
 }
 
-export type Props = {
+export type HeroProps = {
   props: {
-    type: HeroType
+    type: string
     title: string
     titleTag: string
-    description?: string
-    alignment: Alignment
-    media: string
-    mediaAlt: string
-    buttons?: Array<{ text: string; link: string; style: string }>
+    alignment: string
+    description: string
+    buttons: BlockButton[]
+    media: {
+      id: string
+      title: string
+      alt: string
+      filename: string
+      mimeType: string
+      filesize: number
+      width: number
+      height: number
+      sizes: {
+        thumbnail: object
+        card: object
+        featured: object
+        hero: {}
+      }
+      createdAt: string
+      updatedAt: string
+      url: string
+    }
     background: Background
-    backgroundImage?: string
-    backgroundOpacity?: BackgroundOpacity
-    backgroundTextColor?: BackgroundTextColor
+    backgroundImage?: {
+      url: string
+    }
+    backgroundOpacity?: string
+    backgroundTextColor?: string
     anchor?: string
-    effects?: {
+    effects: {
       rotate: boolean
       scale: boolean
       shadow: boolean
       grayscale: boolean
     }
+    id: string
+    blockType: string
   }
 }
 

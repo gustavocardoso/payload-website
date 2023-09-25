@@ -1,11 +1,11 @@
-import type { Alignment, Props, TitleTagOptions } from '~/types/hero'
+import type { Alignment, HeroProps, TitleTagOptions } from '~/types/hero'
 import HeroButtons from '../HeroElements/buttons'
 import HeroDescription from '../HeroElements/description'
 import HeroImage from '../HeroElements/image'
 import HeroTitle from '../HeroElements/title'
 
-const HeroTwoColumns: React.FC<Props> = ({
-  props: { title, titleTag, description, alignment, media, mediaAlt, buttons, effects }
+const HeroTwoColumns: React.FC<HeroProps> = ({
+  props: { title, titleTag, description, alignment, media, buttons, effects }
 }) => {
   let buttonGroupAlignment: Alignment = 'left'
   let textAlignment
@@ -40,7 +40,7 @@ const HeroTwoColumns: React.FC<Props> = ({
       </div>
 
       <div className='hero-media flex items-center col-span-5 pl-8'>
-        <HeroImage media={media} mediaAlt={mediaAlt} effects={effects!} maxSize='full' />
+        <HeroImage media={media.url} mediaAlt={media.alt} effects={effects!} maxSize='full' />
       </div>
     </div>
   )

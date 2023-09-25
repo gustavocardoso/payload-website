@@ -2,8 +2,8 @@ import { json, type LoaderFunction, type V2_MetaFunction } from '@remix-run/node
 import { useLoaderData } from '@remix-run/react'
 import qs from 'qs'
 import Hero from '~/Hero'
-import type { Alignment, BackgroundOpacity, BackgroundTextColor, HeroType } from '~/types/hero'
-import type { Doc, Docs, HeroBlock } from '~/types/homepage'
+import type { HeroBlock } from '~/types/blocks'
+import type { Doc, Docs } from '~/types/homepage'
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: 'Home | Logoipsum' }, { name: 'description', content: 'Welcome to Logoipsum!' }]
@@ -47,24 +47,24 @@ export default function Index() {
         switch (block.blockType) {
           case 'hero-block':
             const blockData = block as HeroBlock
-            const blockProps = {
-              type: blockData.type as HeroType,
-              title: blockData.title,
-              titleTag: blockData.titleTag,
-              description: blockData.description,
-              alignment: blockData.alignment as Alignment,
-              media: blockData.media.url,
-              mediaAlt: blockData.media.alt,
-              background: blockData.background,
-              backgroundImage: blockData.backgroundImage?.url,
-              backgroundOpacity: blockData.backgroundOpacity as BackgroundOpacity,
-              backgroundTextColor: blockData.backgroundTextColor as BackgroundTextColor,
-              buttons: blockData.buttons,
-              effects: blockData.effects,
-              anchor: blockData.anchor
-            }
+            // const blockProps = {
+            //   type: blockData.type as HeroType,
+            //   title: blockData.title,
+            //   titleTag: blockData.titleTag,
+            //   description: blockData.description,
+            //   alignment: blockData.alignment as Alignment,
+            //   media: blockData.media.url,
+            //   mediaAlt: blockData.media.alt,
+            //   background: blockData.background,
+            //   backgroundImage: blockData.backgroundImage?.url,
+            //   backgroundOpacity: blockData.backgroundOpacity as BackgroundOpacity,
+            //   backgroundTextColor: blockData.backgroundTextColor as BackgroundTextColor,
+            //   buttons: blockData.buttons,
+            //   effects: blockData.effects,
+            //   anchor: blockData.anchor
+            // }
 
-            return <Hero key={index} props={blockProps} />
+            return <Hero key={index} props={blockData} />
             break
           case 'ribbon-block':
             return (
