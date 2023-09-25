@@ -1,4 +1,4 @@
-import type { HeroWrapperProps } from '~/types/hero'
+import type { HeroWrapperProps } from '~/types/blocks/hero'
 
 const HeroWrapper: React.FC<HeroWrapperProps> = ({
   children,

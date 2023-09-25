@@ -6,6 +6,14 @@
   @apply bg-dark text-light;
 }
 
+.background-highlight {
+  @apply bg-highlight text-dark;
+}
+
+.background-alert {
+  @apply bg-alert text-white;
+}
+
 .background-primary {
   @apply bg-primary text-light;
 }

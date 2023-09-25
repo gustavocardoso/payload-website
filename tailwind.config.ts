@@ -38,6 +38,10 @@ export default {
         DEFAULT: '#FFE66D',
         hover: '#FFDA1F'
       },
+      alert: {
+        DEFAULT: '#CC2936',
+        hover: '#991E29'
+      },
       white: '#fafafa',
       black: '#111'
     },

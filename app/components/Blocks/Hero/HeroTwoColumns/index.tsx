@@ -1,4 +1,4 @@
-import type { Alignment, HeroProps, TitleTagOptions } from '~/types/hero'
+import type { Alignment, HeroProps, TitleTagOptions } from '~/types/blocks/hero'
 import HeroButtons from '../HeroElements/buttons'
 import HeroDescription from '../HeroElements/description'
 import HeroImage from '../HeroElements/image'
@@ -29,7 +29,7 @@ const HeroTwoColumns: React.FC<HeroProps> = ({
   }
 
   return (
-    <div className='relative z-20 container grid grid-cols-12 px-8'>
+    <div className='relative z-20 container grid grid-cols-12 px-4'>
       <div className={`hero-content col-span-7 pr-8 ${textAlignment}`}>
         <HeroTitle title={title} titleTag={titleTag as TitleTagOptions} />
         <HeroDescription text={description} />

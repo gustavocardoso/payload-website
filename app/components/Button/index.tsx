@@ -1,7 +1,7 @@
 import { Link } from '@remix-run/react'
-import type { Props } from '~/types/buttons'
+import type { ButtonProps } from '~/types/buttons'
 
-const Button: React.FC<Props> = ({
+const Button: React.FC<ButtonProps> = ({
   href,
   color = 'button-light',
   textStyle = 'lowercase',

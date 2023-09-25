@@ -1,8 +1,10 @@
 import { json, type LoaderFunction, type V2_MetaFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import qs from 'qs'
-import Hero from '~/Hero'
-import type { HeroBlock } from '~/types/blocks'
+import Hero from '~/components/Blocks/Hero'
+import Ribbon from '~/components/Blocks/Ribbon'
+import type { HeroBlock } from '~/types/blocks/hero'
+import type { RibbonBlock } from '~/types/blocks/ribbon'
 import type { Doc, Docs } from '~/types/homepage'
 
 export const meta: V2_MetaFunction = () => {
@@ -44,38 +46,21 @@ export default function Index() {
   return (
     <>
       {layout.map((block, index) => {
+        let blockData
+
         switch (block.blockType) {
           case 'hero-block':
-            const blockData = block as HeroBlock
-            // const blockProps = {
-            //   type: blockData.type as HeroType,
-            //   title: blockData.title,
-            //   titleTag: blockData.titleTag,
-            //   description: blockData.description,
-            //   alignment: blockData.alignment as Alignment,
-            //   media: blockData.media.url,
-            //   mediaAlt: blockData.media.alt,
-            //   background: blockData.background,
-            //   backgroundImage: blockData.backgroundImage?.url,
-            //   backgroundOpacity: blockData.backgroundOpacity as BackgroundOpacity,
-            //   backgroundTextColor: blockData.backgroundTextColor as BackgroundTextColor,
-            //   buttons: blockData.buttons,
-            //   effects: blockData.effects,
-            //   anchor: blockData.anchor
-            // }
+            blockData = block as HeroBlock
 
             return <Hero key={index} props={blockData} />
             break
           case 'ribbon-block':
-            return (
-              <div className='container px-4 py-8' key={index}>
-                <h2 className='text-4xl font-semibold'>Ribbon Block</h2>
-              </div>
-            )
+            blockData = block as RibbonBlock
+            return <Ribbon props={blockData} />
             break
           case 'content-block':
             return (
-              <div className='container px-4 py-8' key={index}>
+              <div className='container px-4' key={index}>
                 <h2 className='text-4xl font-semibold'>Content Block</h2>
               </div>
             )

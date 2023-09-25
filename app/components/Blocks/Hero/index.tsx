@@ -1,9 +1,9 @@
-import type { Props } from '~/types/hero'
+import type { BackgroundOpacity, BackgroundTextColor, HeroProps } from '~/types/blocks/hero'
 import HeroTwoCentered from './HeroCentered'
 import HeroTwoColumns from './HeroTwoColumns'
 import HeroWrapper from './HeroWrapper'
 
-const Hero: React.FC<Props> = ({
+const Hero: React.FC<HeroProps> = ({
   props,
   props: {
     type,
@@ -18,8 +18,8 @@ const Hero: React.FC<Props> = ({
     <HeroWrapper
       background={background}
       backgroundImage={backgroundImage}
-      backgroundOpacity={backgroundOpacity}
-      backgroundTextColor={backgroundTextColor}
+      backgroundOpacity={backgroundOpacity as BackgroundOpacity}
+      backgroundTextColor={backgroundTextColor as BackgroundTextColor}
       id={anchor}
     >
       {type === 'centered' && <HeroTwoCentered props={props} />}
