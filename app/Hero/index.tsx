@@ -14,37 +14,18 @@ const Hero: React.FC<Props> = ({
     anchor = undefined
   }
 }) => {
-  switch (type) {
-    case 'centered':
-      return (
-        <HeroWrapper
-          background={background}
-          backgroundImage={backgroundImage}
-          backgroundOpacity={backgroundOpacity}
-          backgroundTextColor={backgroundTextColor}
-          id={anchor}
-        >
-          <HeroTwoCentered props={props} />
-        </HeroWrapper>
-      )
-      break
-    case 'two-columns':
-      return (
-        <HeroWrapper
-          background={background}
-          backgroundImage={backgroundImage}
-          backgroundOpacity={backgroundOpacity}
-          backgroundTextColor={backgroundTextColor}
-          id={anchor}
-        >
-          <HeroTwoColumns props={props} />
-        </HeroWrapper>
-      )
-      break
-
-    default:
-      break
-  }
+  return (
+    <HeroWrapper
+      background={background}
+      backgroundImage={backgroundImage}
+      backgroundOpacity={backgroundOpacity}
+      backgroundTextColor={backgroundTextColor}
+      id={anchor}
+    >
+      {type === 'centered' && <HeroTwoCentered props={props} />}
+      {type === 'two-columns' && <HeroTwoColumns props={props} />}
+    </HeroWrapper>
+  )
 }
 
 export default Hero
