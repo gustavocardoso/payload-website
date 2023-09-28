@@ -4,18 +4,22 @@ import HeroDescription from '../HeroElements/description'
 import HeroImage from '../HeroElements/image'
 import HeroTitle from '../HeroElements/title'
 
-const HeroTwoCentered: React.FC<HeroProps> = ({
+import { slots } from './styles'
+
+const { heroContainer, heroContent, heroMedia } = slots()
+
+const HeroCentered: React.FC<HeroProps> = ({
   props: { title, titleTag, description, media, buttons, effects }
 }) => {
   return (
-    <div className='relative z-20 container grid grid-cols-12 px-4'>
-      <div className='hero-content col-span-10 col-start-2 text-center'>
+    <div className={`hero ${heroContainer()}`}>
+      <div className={`${heroContent()}`}>
         <HeroTitle title={title} titleTag={titleTag as TitleTagOptions} />
         <HeroDescription text={description} />
 
         {buttons && buttons.length > 0 && <HeroButtons buttons={buttons} alignment='center' />}
 
-        <div className='hero-media flex justify-center mt-20'>
+        <div className={`hero-media ${heroMedia()}`}>
           <HeroImage media={media.url} mediaAlt={media.alt} effects={effects!} maxSize='height' />
         </div>
       </div>
@@ -23,4 +27,4 @@ const HeroTwoCentered: React.FC<HeroProps> = ({
   )
 }
 
-export default HeroTwoCentered
+export default HeroCentered

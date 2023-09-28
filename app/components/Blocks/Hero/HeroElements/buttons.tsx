@@ -1,7 +1,7 @@
 import Button from '~/components/Button'
 import ButtonGroup from '~/components/ButtonGroup'
+import type { HeroButtonsProps } from '~/types/blocks/hero'
 import type { ButtonColors } from '~/types/buttons'
-import type { HeroButtonsProps } from '~/types/hero'
 
 const HeroButtons: React.FC<HeroButtonsProps> = ({ buttons, alignment }) => {
   return (

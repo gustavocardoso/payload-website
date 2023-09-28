@@ -1,4 +1,8 @@
-import type { HeroImageProps } from '~/types/hero'
+import type { HeroImageProps } from '~/types/blocks/hero'
+
+import { slots } from './styles'
+
+const { heroImage } = slots()
 
 const HeroImage: React.FC<HeroImageProps> = ({ media, mediaAlt, effects, maxSize }) => {
   const { rotate, scale, shadow, grayscale } = effects!
@@ -23,11 +27,7 @@ const HeroImage: React.FC<HeroImageProps> = ({ media, mediaAlt, effects, maxSize
   }
 
   return (
-    <img
-      className={`${imageEffects} ${imageMaxSize} ease-in-out transition-all duration-500`}
-      src={media}
-      alt={mediaAlt}
-    />
+    <img className={`${imageEffects} ${imageMaxSize} ${heroImage()}`} src={media} alt={mediaAlt} />
   )
 }
 

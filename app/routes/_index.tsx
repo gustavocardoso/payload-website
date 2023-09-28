@@ -1,10 +1,11 @@
 import { json, type LoaderFunction, type V2_MetaFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import qs from 'qs'
+import Content from '~/components/Blocks/Content'
 import Hero from '~/components/Blocks/Hero'
+import type { RibbonProps } from '~/components/Blocks/Ribbon'
 import Ribbon from '~/components/Blocks/Ribbon'
 import type { HeroBlock } from '~/types/blocks/hero'
-import type { RibbonBlock } from '~/types/blocks/ribbon'
 import type { Doc, Docs } from '~/types/homepage'
 
 export const meta: V2_MetaFunction = () => {
@@ -55,15 +56,12 @@ export default function Index() {
             return <Hero key={index} props={blockData} />
             break
           case 'ribbon-block':
-            blockData = block as RibbonBlock
-            return <Ribbon props={blockData} />
+            blockData = block as RibbonProps
+
+            return <Ribbon {...blockData} key={index} />
             break
           case 'content-block':
-            return (
-              <div className='container px-4' key={index}>
-                <h2 className='text-4xl font-semibold'>Content Block</h2>
-              </div>
-            )
+            return <Content key={index} />
             break
 
           default:

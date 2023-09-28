@@ -1,53 +1,62 @@
+import { MegaphoneIcon } from '@heroicons/react/24/outline'
+import type { ButtonProps } from '~/components/Button'
 import Button from '~/components/Button'
-import type { RibbonProps } from '~/types/blocks/ribbon'
-import type { ButtonColors } from '~/types/buttons'
+// import type { RibbonProps } from '~/types/blocks/ribbon'
+
+import type { VariantProps } from 'tailwind-variants'
+import BlockContainer, { BackgroundOpacity, BackgroundTextColor } from '~/components/BlockContainer'
+import ribbonStyles from './styles'
+
+type RibbonVariants = VariantProps<typeof ribbonStyles>
+export interface RibbonProps extends RibbonVariants {
+  title: string
+  text: string
+  link?: string
+  linkText?: string
+  linkStyle?: string
+  buttonStyle?: ButtonProps['color']
+  background?: string
+  id: string
+  blockType: string
+}
+
+const { ribbonContainer, ribbonTitle, ribbonText, ribbonTextLink } = ribbonStyles()
 
 const Ribbon: React.FC<RibbonProps> = ({
-  props: {
-    title,
-    text,
-    link = undefined,
-    linkStyle = 'text',
-    linkText = undefined,
-    buttonStyle = undefined,
-    background = 'light'
-  }
+  title,
+  text,
+  link = undefined,
+  linkStyle = 'text',
+  linkText = undefined,
+  buttonStyle = undefined,
+  background = 'light'
 }) => {
   return (
-    <section className={`hero relative z-0 background-${background} py-8 group relative z-10`}>
-      <div className='container px-4 flex justify-center items-center gap-x-12'>
+    <BlockContainer paddingY='py-8' background={background}>
+      <div className={ribbonContainer()}>
         {title && (
-          <p className='text-2xl'>
+          <p className={ribbonTitle()}>
             <strong>{title}</strong>
           </p>
         )}
 
-        {text && <p className='text-xl'>{text}</p>}
+        {text && <p className={ribbonText()}>{text}</p>}
 
         {link && linkStyle === 'button' && (
-          <Button href={link} color={buttonStyle as ButtonColors}>
-            <div className='flex justify-center items-center gap-x-2'>
-              <svg
-                aria-hidden='true'
-                fill='none'
-                stroke='currentColor'
-                stroke-width='1.5'
-                viewBox='0 0 24 24'
-                xmlns='http://www.w3.org/2000/svg'
-                className='w-8'
-              >
-                <path
-                  d='M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3'
-                  stroke-linecap='round'
-                  stroke-linejoin='round'
-                ></path>
-              </svg>
-              {linkText}
-            </div>
+          <Button href={link} color={buttonStyle}>
+            <MegaphoneIcon className='w-8' />
+            {linkText}
           </Button>
         )}
+
+        {link && linkStyle === 'text' && (
+          <a href={link} className={ribbonTextLink()}>
+            <MegaphoneIcon className='w-8' />
+            {linkText}
+          </a>
+        )}
       </div>
-    </section>
+    </BlockContainer>
   )
 }
 

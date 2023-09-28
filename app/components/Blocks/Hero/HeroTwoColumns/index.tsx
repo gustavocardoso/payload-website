@@ -1,36 +1,22 @@
-import type { Alignment, HeroProps, TitleTagOptions } from '~/types/blocks/hero'
+import type { HeroProps, TitleTagOptions } from '~/types/blocks/hero'
 import HeroButtons from '../HeroElements/buttons'
 import HeroDescription from '../HeroElements/description'
 import HeroImage from '../HeroElements/image'
 import HeroTitle from '../HeroElements/title'
 
+import { setButtonGroupAlignment, setTextAlignment, slots } from './styles'
+
+const { heroContainer, heroContent, heroMedia } = slots()
+
 const HeroTwoColumns: React.FC<HeroProps> = ({
-  props: { title, titleTag, description, alignment, media, buttons, effects }
+  props: { title, titleTag, description, alignment = 'left', media, buttons, effects }
 }) => {
-  let buttonGroupAlignment: Alignment = 'left'
-  let textAlignment
-
-  switch (alignment) {
-    case 'left':
-      textAlignment = 'text-left'
-      buttonGroupAlignment = 'left'
-      break
-    case 'center':
-      textAlignment = 'text-center'
-      buttonGroupAlignment = 'center'
-      break
-    case 'right':
-      textAlignment = 'text-right'
-      buttonGroupAlignment = 'right'
-      break
-
-    default:
-      break
-  }
+  const buttonGroupAlignment = setButtonGroupAlignment(alignment)
+  const textAlignment = setTextAlignment(alignment)
 
   return (
-    <div className='relative z-20 container grid grid-cols-12 px-4'>
-      <div className={`hero-content col-span-7 pr-8 ${textAlignment}`}>
+    <div className={`hero ${heroContainer()}`}>
+      <div className={`${heroContent()} ${textAlignment}`}>
         <HeroTitle title={title} titleTag={titleTag as TitleTagOptions} />
         <HeroDescription text={description} />
 
@@ -39,7 +25,7 @@ const HeroTwoColumns: React.FC<HeroProps> = ({
         )}
       </div>
 
-      <div className='hero-media flex items-center col-span-5 pl-8'>
+      <div className={`hero-media ${heroMedia()}`}>
         <HeroImage media={media.url} mediaAlt={media.alt} effects={effects!} maxSize='full' />
       </div>
     </div>

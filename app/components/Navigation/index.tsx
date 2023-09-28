@@ -15,6 +15,7 @@ const Navigation: React.FC<Props> = ({ menuItems }) => {
               className='table text-light font-medium transition-all hover:text-primary
               after:content-[""] after:block after:h-[3px] after:bg-light after:w-0 after:opacity-0 hover:after:w-full hover:after:opacity-100 after:transition-all after:duration-500'
               to={item.href}
+              prefetch='intent'
             >
               {item.label}
             </Link>

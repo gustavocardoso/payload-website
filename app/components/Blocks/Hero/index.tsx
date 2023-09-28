@@ -1,7 +1,7 @@
+import BlockContainer from '~/components/BlockContainer'
 import type { BackgroundOpacity, BackgroundTextColor, HeroProps } from '~/types/blocks/hero'
-import HeroTwoCentered from './HeroCentered'
+import HeroCentered from './HeroCentered'
 import HeroTwoColumns from './HeroTwoColumns'
-import HeroWrapper from './HeroWrapper'
 
 const Hero: React.FC<HeroProps> = ({
   props,
@@ -14,17 +14,20 @@ const Hero: React.FC<HeroProps> = ({
     anchor = undefined
   }
 }) => {
+  const paddingY = type === 'two-columns' ? 'py-32' : 'py-16'
+
   return (
-    <HeroWrapper
+    <BlockContainer
+      paddingY={paddingY}
       background={background}
       backgroundImage={backgroundImage}
       backgroundOpacity={backgroundOpacity as BackgroundOpacity}
       backgroundTextColor={backgroundTextColor as BackgroundTextColor}
       id={anchor}
     >
-      {type === 'centered' && <HeroTwoCentered props={props} />}
+      {type === 'centered' && <HeroCentered props={props} />}
       {type === 'two-columns' && <HeroTwoColumns props={props} />}
-    </HeroWrapper>
+    </BlockContainer>
   )
 }
 

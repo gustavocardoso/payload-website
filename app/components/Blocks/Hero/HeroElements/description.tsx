@@ -1,7 +1,11 @@
-import type { HeroDescriptionProps } from '~/types/hero'
+import type { HeroDescriptionProps } from '~/types/blocks/hero'
+
+import { slots } from './styles'
+
+const { heroDescription } = slots()
 
 const HeroDescription: React.FC<HeroDescriptionProps> = ({ text }) => {
-  return <p className='text-2xl leading-normal mt-6'>{text}</p>
+  return <p className={heroDescription()}>{text}</p>
 }
 
 export default HeroDescription

@@ -1,22 +1,9 @@
 import type { Background } from '../background'
 
-import type { ReactNode } from 'react'
-
 export type Alignment = 'right' | 'center' | 'left'
 export type HeroType = 'centered' | 'two-columns'
 export type BackgroundOpacity = 'none' | '20' | '30' | '50'
 export type BackgroundTextColor = 'light' | 'dark'
-
-export type HeroWrapperProps = {
-  children: ReactNode
-  background: string
-  backgroundImage?: {
-    url: string
-  }
-  backgroundOpacity?: BackgroundOpacity
-  backgroundTextColor?: BackgroundTextColor
-  id?: string
-}
 
 export type HeroProps = {
   props: HeroBlock
