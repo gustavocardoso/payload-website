@@ -15,3 +15,7 @@ h6 {
 .hero h2 span {
   @apply text-tertiary;
 }
+
+.submenu:hover .submenu-link {
+  @apply text-primary;
+}

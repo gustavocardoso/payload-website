@@ -1,5 +1,5 @@
-import Button from '~/components/Button'
-import ButtonGroup from '~/components/ButtonGroup'
+import Button from '@ui/Button'
+import ButtonGroup from '@ui/ButtonGroup'
 import type { HeroButtonsProps } from '~/types/blocks/hero'
 import type { ButtonColors } from '~/types/buttons'
 

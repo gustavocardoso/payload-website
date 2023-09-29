@@ -1,5 +1,5 @@
-import BlockContainer from '~/components/BlockContainer'
-import type { BackgroundOpacity, BackgroundTextColor, HeroProps } from '~/types/blocks/hero'
+import BlockContainer from '@ui/BlockContainer'
+import type { BackgroundOpacity, HeroProps } from '~/types/blocks/hero'
 import HeroCentered from './HeroCentered'
 import HeroTwoColumns from './HeroTwoColumns'
 
@@ -10,7 +10,6 @@ const Hero: React.FC<HeroProps> = ({
     background,
     backgroundImage = undefined,
     backgroundOpacity = 'none',
-    backgroundTextColor = 'light',
     anchor = undefined
   }
 }) => {
@@ -22,7 +21,6 @@ const Hero: React.FC<HeroProps> = ({
       background={background}
       backgroundImage={backgroundImage}
       backgroundOpacity={backgroundOpacity as BackgroundOpacity}
-      backgroundTextColor={backgroundTextColor as BackgroundTextColor}
       id={anchor}
     >
       {type === 'centered' && <HeroCentered props={props} />}

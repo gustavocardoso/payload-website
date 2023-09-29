@@ -1,10 +1,10 @@
 import { MegaphoneIcon } from '@heroicons/react/24/outline'
-import type { ButtonProps } from '~/components/Button'
-import Button from '~/components/Button'
+import type { ButtonProps } from '@ui/Button'
+import Button from '@ui/Button'
 // import type { RibbonProps } from '~/types/blocks/ribbon'
 
+import BlockContainer, { BackgroundOpacity, BackgroundTextColor } from '@ui/BlockContainer'
 import type { VariantProps } from 'tailwind-variants'
-import BlockContainer, { BackgroundOpacity, BackgroundTextColor } from '~/components/BlockContainer'
 import ribbonStyles from './styles'
 
 type RibbonVariants = VariantProps<typeof ribbonStyles>

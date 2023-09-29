@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { setBgOpacity, setTextColor, slots } from './styles'
+import { setBgOpacity, slots } from './styles'
 
 export type Alignment = 'right' | 'center' | 'left'
 export type HeroType = 'centered' | 'two-columns'
@@ -14,7 +14,6 @@ export type BlockContainerProps = {
     url: string
   }
   backgroundOpacity?: BackgroundOpacity
-  backgroundTextColor?: BackgroundTextColor
   id?: string
 }
 
@@ -26,16 +25,14 @@ const BlockContainer: React.FC<BlockContainerProps> = ({
   background,
   backgroundImage = undefined,
   backgroundOpacity = 'none',
-  backgroundTextColor = 'light',
   id = undefined
 }) => {
   const opacity = setBgOpacity(backgroundOpacity)
-  const textColor = setTextColor(backgroundTextColor)
 
   return (
     <section
       {...(id && { id: id })}
-      className={`block-container ${paddingY} ${blockContainer()} background-${background} ${textColor}`}
+      className={`block-container ${paddingY} ${blockContainer()} background-${background}`}
     >
       {children}
       {background === 'image' && backgroundImage && (

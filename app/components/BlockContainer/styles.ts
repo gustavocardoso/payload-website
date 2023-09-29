@@ -20,13 +20,3 @@ export function setBgOpacity(opacity: string): string {
       return 'opacity-100'
   }
 }
-
-export function setTextColor(color: string): string {
-  switch (color) {
-    case 'light':
-      return 'text-light'
-
-    default:
-      return 'text-dark'
-  }
-}

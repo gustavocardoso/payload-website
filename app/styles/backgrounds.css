@@ -1,3 +1,7 @@
+.background-none {
+  @apply bg-transparent text-dark;
+}
+
 .background-light {
   @apply bg-light;
 }
@@ -18,8 +22,8 @@
   @apply bg-primary text-light;
 }
 
-.background-primary.hero h1 span,
-.background-primary.hero h2 span {
+.background-primary h1 span,
+.background-primary h2 span {
   @apply text-highlight;
 }
 
@@ -27,16 +31,16 @@
   @apply bg-secondary text-dark;
 }
 
-.background-secondary.hero h1 span,
-.background-secondary.hero h2 span {
+.background-secondary h1 span,
+.background-secondary h2 span {
   @apply text-light;
 }
 
 .background-tertiary {
-  @apply bg-tertiary text-dark;
+  @apply bg-tertiary text-light;
 }
 
-.background-tertiary.hero h1 span,
-.background-tertiary.hero h2 span {
-  @apply text-light;
+.background-tertiary h1 span,
+.background-tertiary h2 span {
+  @apply text-highlight;
 }
