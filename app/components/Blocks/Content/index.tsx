@@ -1,10 +1,29 @@
 import BlockContainer from '@ui/BlockContainer'
+import type { ContentBlock } from '~/types/blocks/content'
+import { setContentGrid } from './styles'
 
-const Content = () => {
+const Content: React.FC<ContentBlock> = ({
+  blockWIdth,
+  blockPadding,
+  background,
+  backgroundImage,
+  desktopContainerWidth,
+  desktopContainerAlignment
+}) => {
+  const containerWidth = blockWIdth === 'container' ? 'container' : 'w-full'
+  const contentGrid = setContentGrid(desktopContainerWidth, desktopContainerAlignment)
+
   return (
-    <BlockContainer paddingY='py-32'>
-      <div className='container py-16 px-4'>
-        <h2>Content Block Component</h2>
+    <BlockContainer
+      paddingY={blockPadding}
+      background={background}
+      backgroundImage={backgroundImage}
+    >
+      <div className={`${containerWidth} grid grid-cols-12 border-2 border-alert`}>
+        <div className={`${desktopContainerWidth} ${contentGrid} border-2 border-primary`}>
+          <h2>Content Block Component</h2>
+          <p>{blockWIdth}</p>
+        </div>
       </div>
     </BlockContainer>
   )

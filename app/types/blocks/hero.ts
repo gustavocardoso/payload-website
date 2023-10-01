@@ -1,3 +1,4 @@
+import type { BlockPaddingY } from '~/components/BlockContainer'
 import type { Background } from '../background'
 
 export type Alignment = 'right' | 'center' | 'left'
@@ -5,22 +6,22 @@ export type HeroType = 'centered' | 'two-columns'
 export type BackgroundOpacity = 'none' | '20' | '30' | '50'
 export type BackgroundTextColor = 'light' | 'dark'
 
-export type HeroProps = {
+export interface HeroProps {
   props: HeroBlock
 }
 
 export type TitleTagOptions = 'h1' | 'h2'
 
-export type HeroTitleProps = {
+export interface HeroTitleProps {
   title: string
   titleTag: TitleTagOptions
 }
 
-export type HeroDescriptionProps = {
+export interface HeroDescriptionProps {
   text: string | undefined
 }
 
-export type HeroImageProps = {
+export interface HeroImageProps {
   media: string
   mediaAlt: string
   effects: {
@@ -38,7 +39,7 @@ type Button = {
   style: string
 }
 
-export type HeroButtonsProps = {
+export interface HeroButtonsProps {
   buttons: Button[]
   alignment: Alignment
 }
@@ -50,7 +51,7 @@ export type HeroBlockButton = {
   id: string
 }
 
-export type HeroBlock = {
+export interface HeroBlock {
   type: string
   title: string
   titleTag: string
@@ -82,6 +83,7 @@ export type HeroBlock = {
   }
   backgroundOpacity?: string
   backgroundTextColor?: string
+  padding?: BlockPaddingY
   anchor?: string
   effects: {
     rotate: boolean

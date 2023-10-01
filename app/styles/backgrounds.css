@@ -10,6 +10,10 @@
   @apply bg-dark text-light;
 }
 
+.background-darker {
+  @apply bg-dark-hover text-light;
+}
+
 .background-highlight {
   @apply bg-highlight text-dark;
 }

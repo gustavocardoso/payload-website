@@ -1,1 +1,9 @@
-export type Background = 'none' | 'primary' | 'secondary' | 'tertiary' | 'light' | 'dark' | 'image'
+export type Background =
+  | 'none'
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'light'
+  | 'dark'
+  | 'darker'
+  | 'image'

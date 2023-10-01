@@ -5,6 +5,7 @@ import Hero from '@ui/Blocks/Hero'
 import type { RibbonProps } from '@ui/Blocks/Ribbon'
 import Ribbon from '@ui/Blocks/Ribbon'
 import qs from 'qs'
+import type { ContentBlock } from '~/types/blocks/content'
 import type { HeroBlock } from '~/types/blocks/hero'
 import type { Doc, Docs } from '~/types/homepage'
 
@@ -61,7 +62,9 @@ export default function Index() {
             return <Ribbon {...blockData} key={index} />
             break
           case 'content-block':
-            return <Content key={index} />
+            console.log(block)
+            blockData = block as ContentBlock
+            return <Content {...blockData} key={index} />
             break
 
           default:

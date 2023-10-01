@@ -10,14 +10,13 @@ const Hero: React.FC<HeroProps> = ({
     background,
     backgroundImage = undefined,
     backgroundOpacity = 'none',
+    padding = 'py-16',
     anchor = undefined
   }
 }) => {
-  const paddingY = type === 'two-columns' ? 'py-32' : 'py-16'
-
   return (
     <BlockContainer
-      paddingY={paddingY}
+      paddingY={padding}
       background={background}
       backgroundImage={backgroundImage}
       backgroundOpacity={backgroundOpacity as BackgroundOpacity}
