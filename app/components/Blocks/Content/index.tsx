@@ -19,8 +19,8 @@ const Content: React.FC<ContentBlock> = ({
       background={background}
       backgroundImage={backgroundImage}
     >
-      <div className={`${containerWidth} grid grid-cols-12 border-2 border-alert`}>
-        <div className={`${desktopContainerWidth} ${contentGrid} border-2 border-primary`}>
+      <div className={`${containerWidth} grid grid-cols-12`}>
+        <div className={`${desktopContainerWidth} ${contentGrid}`}>
           <h2>Content Block Component</h2>
           <p>{blockWIdth}</p>
         </div>
