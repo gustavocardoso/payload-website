@@ -1,6 +1,6 @@
 import BlockContainer from '@ui/BlockContainer'
 import type { ContentBlock } from '~/types/blocks/content'
-import { setContentGrid } from './styles'
+import { render, setContentGrid } from './styles'
 
 const Content: React.FC<ContentBlock> = ({
   blockWIdth,
@@ -8,11 +8,16 @@ const Content: React.FC<ContentBlock> = ({
   background,
   backgroundImage,
   desktopContainerWidth,
-  desktopContainerAlignment
+  desktopContainerAlignment,
+  title,
+  titleTag,
+  subtitle,
+  subtitleTag,
+  content
 }) => {
   const containerWidth = blockWIdth === 'container' ? 'container' : 'w-full'
   const contentGrid = setContentGrid(desktopContainerWidth, desktopContainerAlignment)
-
+  console.log(title, subtitle)
   return (
     <BlockContainer
       paddingY={blockPadding}
@@ -21,8 +26,13 @@ const Content: React.FC<ContentBlock> = ({
     >
       <div className={`${containerWidth} grid grid-cols-12`}>
         <div className={`${desktopContainerWidth} ${contentGrid}`}>
-          <h2>Content Block Component</h2>
-          <p>{blockWIdth}</p>
+          {(title || subtitle) && (
+            <div className='content-header'>
+              <h2 className='block'>{title}</h2>
+              <h3 className='block'>{subtitle}</h3>
+              <div className='content'>{render(content)}</div>
+            </div>
+          )}
         </div>
       </div>
     </BlockContainer>
