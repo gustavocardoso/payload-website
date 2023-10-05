@@ -23,7 +23,7 @@ const Navigation: React.FC<Props> = ({ menuItems }) => {
             <ul className='absolute -left-10 flex flex-col bg-dark rounded-lg px-6 py-8 min-w-max opacity-0 group-hover:opacity-100 transition-opacity gap-y-4 pointer-events-none group-hover:pointer-events-auto -translate-y-4 group-hover:translate-y-0 [transition:opacity_.2s_linear,transform_.3s_ease]'>
               <li>
                 <a
-                  href='#'
+                  href='/'
                   className='text-light border-l-4 border-dark px-4 transition-all duration-300 hover:text-primary hover:border-highlight'
                 >
                   Our Apps
@@ -31,7 +31,7 @@ const Navigation: React.FC<Props> = ({ menuItems }) => {
               </li>
               <li>
                 <a
-                  href='#'
+                  href='/'
                   className='text-light border-l-4 border-dark px-4 transition-all duration-300 hover:text-primary hover:border-highlight'
                 >
                   Talk to an Agent
@@ -39,7 +39,7 @@ const Navigation: React.FC<Props> = ({ menuItems }) => {
               </li>
               <li>
                 <a
-                  href='#'
+                  href='/'
                   className='text-light border-l-4 border-dark px-4 transition-all duration-300 hover:text-primary hover:border-highlight'
                 >
                   Read Our Blog
@@ -47,7 +47,7 @@ const Navigation: React.FC<Props> = ({ menuItems }) => {
               </li>
               <li>
                 <a
-                  href='#'
+                  href='/'
                   className='text-light border-l-4 border-dark px-4 transition-all duration-300 hover:text-primary hover:border-highlight'
                 >
                   Costumer Stories
@@ -55,7 +55,7 @@ const Navigation: React.FC<Props> = ({ menuItems }) => {
               </li>
               <li>
                 <a
-                  href='#'
+                  href='/'
                   className='text-light border-l-4 border-dark px-4 transition-all duration-300 hover:text-primary hover:border-highlight'
                 >
                   Resources

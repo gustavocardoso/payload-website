@@ -1,6 +1,7 @@
 import BlockContainer from '@ui/BlockContainer'
 import type { ContentBlock } from '~/types/blocks/content'
-import { render, setContentGrid } from './styles'
+import { setContentGrid } from './styles'
+import ContentSerialize from '~/components/ContentSerialize'
 
 const Content: React.FC<ContentBlock> = ({
   blockWIdth,
@@ -17,7 +18,7 @@ const Content: React.FC<ContentBlock> = ({
 }) => {
   const containerWidth = blockWIdth === 'container' ? 'container' : 'w-full'
   const contentGrid = setContentGrid(desktopContainerWidth, desktopContainerAlignment)
-  console.log(title, subtitle)
+  console.log(content)
   return (
     <BlockContainer
       paddingY={blockPadding}
@@ -30,7 +31,10 @@ const Content: React.FC<ContentBlock> = ({
             <div className='content-header'>
               <h2 className='block'>{title}</h2>
               <h3 className='block'>{subtitle}</h3>
-              <div className='content'>{render(content)}</div>
+
+              <div className='block-content'>
+                <ContentSerialize content={content} />
+              </div>
             </div>
           )}
         </div>
