@@ -62,7 +62,7 @@ export default function Index() {
             return <Ribbon {...blockData} key={index} />
             break
           case 'content-block':
-            console.log(block)
+            // console.log(block)
             blockData = block as ContentBlock
             return <Content {...blockData} key={index} />
             break

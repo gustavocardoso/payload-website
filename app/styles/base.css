@@ -2,15 +2,6 @@ body {
   @apply bg-white text-base text-black font-base;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  @apply font-styled tracking-tight;
-}
-
 .hero h1 span,
 .hero h2 span {
   @apply text-tertiary;
@@ -18,4 +9,14 @@ h6 {
 
 .submenu:hover .submenu-link {
   @apply text-primary;
+}
+
+.column-one {
+  > div {
+    @apply mb-24;
+
+    &:last-child {
+      @apply mb-0;
+    }
+  }
 }
