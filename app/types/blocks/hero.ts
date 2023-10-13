@@ -6,22 +6,22 @@ export type HeroType = 'centered' | 'two-columns'
 export type BackgroundOpacity = 'none' | '20' | '30' | '50'
 export type BackgroundTextColor = 'light' | 'dark'
 
-export interface HeroProps {
+export type HeroProps = {
   props: HeroBlock
 }
 
 export type TitleTagOptions = 'h1' | 'h2'
 
-export interface HeroTitleProps {
+export type HeroTitleProps = {
   title: string
   titleTag: TitleTagOptions
 }
 
-export interface HeroDescriptionProps {
+export type HeroDescriptionProps = {
   text: string | undefined
 }
 
-export interface HeroImageProps {
+export type HeroImageProps = {
   media: string
   mediaAlt: string
   effects: {
@@ -39,7 +39,7 @@ type Button = {
   style: string
 }
 
-export interface HeroButtonsProps {
+export type HeroButtonsProps = {
   buttons: Button[]
   alignment: Alignment
 }
@@ -51,7 +51,7 @@ export type HeroBlockButton = {
   id: string
 }
 
-export interface HeroBlock {
+export type HeroBlock = {
   type: string
   title: string
   titleTag: string

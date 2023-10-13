@@ -3,8 +3,9 @@ import type { ButtonProps } from '@ui/Button'
 import Button from '@ui/Button'
 // import type { RibbonProps } from '~/types/blocks/ribbon'
 
-import BlockContainer, { BackgroundOpacity, BackgroundTextColor } from '@ui/BlockContainer'
+import BlockContainer from '@ui/BlockContainer'
 import type { VariantProps } from 'tailwind-variants'
+import type { Background } from '~/types/background'
 import ribbonStyles from './styles'
 
 type RibbonVariants = VariantProps<typeof ribbonStyles>
@@ -15,7 +16,7 @@ export interface RibbonProps extends RibbonVariants {
   linkText?: string
   linkStyle?: string
   buttonStyle?: ButtonProps['color']
-  background?: string
+  background?: Background
   id: string
   blockType: string
 }

@@ -79,10 +79,9 @@ const Content: React.FC<ContentBlock> = ({
               <div className='column-one'>
                 {columnOne?.layout.map((block, index) => {
                   if (!block) return null
-                  console.log(block)
                   switch (block.blockType) {
                     case 'image-block':
-                      return <ImageBlock key={index} {...block.image} caption={block.caption} />
+                      return <ImageBlock key={index} image={block.image} caption={block.caption} />
                     case 'copy-block':
                       return <CopyBlock copy={block.copy} key={index} />
                       break

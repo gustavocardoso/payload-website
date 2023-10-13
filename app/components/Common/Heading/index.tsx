@@ -6,7 +6,7 @@ type HeadingVariants = VariantProps<typeof headingStyles>
 export type HeadingColors = NonNullable<Pick<HeadingVariants, 'color'>['color']>
 export type HeadingAligment = 'left' | 'center' | 'right'
 
-export interface HeadingProps extends HeadingVariants {
+export type HeadingProps = HeadingVariants & {
   tag: string
   content: string
   alignment?: HeadingAligment

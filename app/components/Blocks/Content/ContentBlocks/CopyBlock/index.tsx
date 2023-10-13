@@ -1,6 +1,6 @@
 import ContentSerialize from '~/components/ContentSerialize'
 
-interface CopyBlockProps {
+type CopyBlockProps = {
   copy: Array<any> // You can define a more specific type for copy items
 }
 

@@ -4,27 +4,45 @@ import type { Background } from '../background'
 
 export type desktopContainerWidth = 'col-span-12' | 'col-span-10' | 'col-span-8' | 'col-span-6'
 
-interface ImageBlock {
-  image: {
-    id: string
-    title: string
-    alt: string
-    filename: string
-    mimeType: string
-    filesize: number
-    width: number
-    height: number
-    sizes: any // You can define a more specific type for sizes
-    createdAt: string
-    updatedAt: string
+export type ImageSizes = {
+  background: {
     url: string
+    mimeType: string
+  }
+  blog: {
+    url: string
+    mimeType: string
+  }
+  hero: {
+    url: string
+    mimeType: string
+  }
+  card: {
+    url: string
+    mimeType: string
+  }
+  thumbnail: {
+    url: string
+    mimeType: string
+  }
+}
+type ImageBlock = {
+  image: {
+    alt: string
+    mimeType: string
+    webp?: {
+      filename: string
+      mimeType: 'image/webp'
+      sizes: ImageSizes
+    }
+    sizes: ImageSizes
   }
   caption: string
   id: string
   blockType: 'image-block'
 }
 
-interface CopyBlock {
+type CopyBlock = {
   copy: Array<any> // You can define a more specific type for copy items
   id: string
   blockType: 'copy-block'
@@ -37,7 +55,7 @@ type HeadingBlock = Pick<HeadingProps, 'tag' | 'content' | 'textStyle' | 'alignm
 
 type Layout = (ImageBlock | CopyBlock | HeadingBlock)[]
 
-export interface ContentBlock {
+export type ContentBlock = {
   blockWIdth: string
   blockPadding: BlockPaddingY
   numberOfColumns: string

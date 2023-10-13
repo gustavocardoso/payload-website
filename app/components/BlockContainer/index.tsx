@@ -47,10 +47,16 @@ const BlockContainer: React.FC<BlockContainerProps> = ({
       <div className='relative z-20'>{children}</div>
       {background === 'image' && backgroundImage && (
         <>
-          <div
+          {/* <div
             className={`${blockBgImage()} ${opacity}`}
             style={{ backgroundImage: `url(${backgroundImage.url})` }}
-          ></div>
+          ></div> */}
+          <img
+            src={backgroundImage.url}
+            className={`${blockBgImage()} ${opacity}`}
+            alt='Hero background'
+            role='presentation'
+          />
           <div className={blockBgOverlay()}></div>
         </>
       )}

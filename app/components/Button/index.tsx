@@ -5,7 +5,7 @@ import buttonStyles, { slots } from './styles'
 
 type ButtonVariants = VariantProps<typeof buttonStyles>
 
-export interface ButtonProps extends ButtonVariants {
+export type ButtonProps = ButtonVariants & {
   href: string
   children: React.ReactNode
 }
