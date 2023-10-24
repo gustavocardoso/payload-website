@@ -34,6 +34,7 @@ type ImageBlock = {
       filename: string
       mimeType: 'image/webp'
       sizes: ImageSizes
+      url: string
     }
     sizes: ImageSizes
   }
@@ -48,12 +49,39 @@ type CopyBlock = {
   blockType: 'copy-block'
 }
 
+type IconsBlock = {
+  style: string
+  iconsPerLine: string
+  textIconAlignment: string
+  linkStyle: string
+  linkColour: string
+  icons: [
+    {
+      iconType: string
+      iconImage: {
+        title: 'BoardBig'
+        alt: 'BoardBig'
+        webp?: {
+          mimeType: 'image/webp'
+          url: string
+        }
+        mimeType: 'image/svg+xml'
+        url: 'http://localhost:3000/media/Growth-Artboard-1.svg'
+      }
+      title: string
+      description: string
+      id: string
+    }
+  ]
+  blockType: 'icons-block'
+}
+
 type HeadingBlock = Pick<HeadingProps, 'tag' | 'content' | 'textStyle' | 'alignment'> & {
   id: string
   blockType: 'heading-block'
 }
 
-type Layout = (ImageBlock | CopyBlock | HeadingBlock)[]
+export type BlockLayout = (ImageBlock | CopyBlock | HeadingBlock | IconsBlock)[]
 
 export type ContentBlock = {
   blockWIdth: string
@@ -74,10 +102,10 @@ export type ContentBlock = {
   contentAlignment?: string
   content: []
   columnOne?: {
-    layout: Layout
+    columnOneLayout: BlockLayout
   }
   columnTwo?: {
-    layout: Layout
+    columnTwoLayout: BlockLayout
   }
   background: Background
   backgroundImage?: {

@@ -23,6 +23,9 @@
     "qs": "^6.11.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "slate": "^0.94.1",
+    "slate-html-serializer": "^0.8.13",
+    "slate-react": "^0.99.0",
     "source-map-support": "^0.5.21",
     "tailwind-variants": "^0.1.14"
   },

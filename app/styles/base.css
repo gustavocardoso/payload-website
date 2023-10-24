@@ -11,9 +11,26 @@ body {
   @apply text-primary;
 }
 
-.column-one {
+.content-column {
+  @apply p-0;
+
+  &:first-child {
+    @apply pr-8;
+  }
+
+  &:last-child {
+    @apply pl-8;
+  }
+
+  &:only-child {
+    @apply p-0;
+  }
+}
+
+.column-one,
+.column-two {
   > div {
-    @apply mb-24;
+    @apply mb-16;
 
     &:last-child {
       @apply mb-0;

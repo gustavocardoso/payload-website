@@ -9,7 +9,7 @@ import { slots } from './styles'
 const { heroContainer, heroContent, heroMedia } = slots()
 
 const HeroCentered: React.FC<HeroProps> = ({
-  props: { title, titleTag, description, media, buttons, effects }
+  props: { title, titleTag, description, media, buttons, grayscale, rotate, scale, shadow }
 }) => {
   return (
     <div className={`hero ${heroContainer()}`}>
@@ -20,7 +20,12 @@ const HeroCentered: React.FC<HeroProps> = ({
         {buttons && buttons.length > 0 && <HeroButtons buttons={buttons} alignment='center' />}
 
         <div className={`hero-media ${heroMedia()}`}>
-          <HeroImage media={media.url} mediaAlt={media.alt} effects={effects!} maxSize='height' />
+          <HeroImage
+            media={media.url}
+            mediaAlt={media.alt}
+            effects={{ grayscale, rotate, scale, shadow }}
+            maxSize='height'
+          />
         </div>
       </div>
     </div>

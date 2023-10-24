@@ -3,7 +3,8 @@ import { tv } from 'tailwind-variants'
 export const slots = tv({
   slots: {
     blockContainer: 'relative z-0 group',
-    blockBgImage: 'bg-image w-full absolute inset-0 bg-cover z-10',
+    blockImageContainer: 'absolute inset-0 z-10',
+    blockBgImage: 'bg-image w-full h-full object-cover object-center',
     blockBgOverlay: 'bg-image bg-black absolute inset-0 z-0'
   }
 })

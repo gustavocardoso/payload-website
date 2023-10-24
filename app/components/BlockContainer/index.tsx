@@ -27,7 +27,7 @@ export type BlockContainerProps = {
   id?: string
 }
 
-const { blockContainer, blockBgImage, blockBgOverlay } = slots()
+const { blockContainer, blockImageContainer, blockBgImage, blockBgOverlay } = slots()
 
 const BlockContainer: React.FC<BlockContainerProps> = ({
   children,
@@ -51,12 +51,14 @@ const BlockContainer: React.FC<BlockContainerProps> = ({
             className={`${blockBgImage()} ${opacity}`}
             style={{ backgroundImage: `url(${backgroundImage.url})` }}
           ></div> */}
-          <img
-            src={backgroundImage.url}
-            className={`${blockBgImage()} ${opacity}`}
-            alt='Hero background'
-            role='presentation'
-          />
+          <div className={blockImageContainer()}>
+            <img
+              src={backgroundImage.url}
+              className={`${blockBgImage()} ${opacity}`}
+              alt='Hero background'
+              role='presentation'
+            />
+          </div>
           <div className={blockBgOverlay()}></div>
         </>
       )}

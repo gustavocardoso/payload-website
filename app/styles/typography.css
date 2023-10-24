@@ -32,5 +32,35 @@ h6 {
 }
 
 p {
-  @apply text-lg mb-8;
+  @apply text-lg mb-6;
+}
+
+.block-container {
+  ul,
+  ol {
+    @apply text-lg mb-6 list-inside list-disc ml-4;
+  }
+
+  &.background-none,
+  &.background-light,
+  &.background-dark,
+  &.background-darker,
+  &.background-undefined {
+    a:not(.button) {
+      @apply text-primary underline hover:text-primary-hover transition-colors;
+    }
+  }
+
+  &.background-primary,
+  &.background-secondary {
+    a:not(.button) {
+      @apply underline hover:text-white transition-colors;
+    }
+  }
+
+  &.background-tertiary {
+    a:not(.button) {
+      @apply underline hover:text-white transition-colors;
+    }
+  }
 }

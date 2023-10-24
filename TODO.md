@@ -1,0 +1,4 @@
+- Revisit "types": change types to component folder? keep them into "types" folder?
+- Check styles and ensure all components are following the same pattern
+- Check slots names
+- Add option to change icons block background color

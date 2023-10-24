@@ -1,7 +1,7 @@
 import { tv } from 'tailwind-variants'
 
 export default tv({
-  base: 'font-medium block border-2 border-transparent transition-colors duration-200 px-5 py-3 rounded-lg',
+  base: 'font-medium inline-block border-2 border-transparent transition-colors duration-200 px-5 py-3 rounded-lg',
   variants: {
     color: {
       'button-light': 'bg-white text-primary hover:bg-primary-hover hover:text-white',

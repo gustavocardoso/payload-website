@@ -4,7 +4,7 @@ import { slots } from './styles'
 
 const { heroTitle } = slots()
 
-const HeroTitle: React.FC<HeroTitleProps> = ({ title, titleTag }) => {
+const HeroTitle: React.FC<HeroTitleProps> = ({ title, titleTag = 'h1' }) => {
   switch (titleTag) {
     case 'h1':
       return <h1 className={heroTitle()} dangerouslySetInnerHTML={{ __html: title }}></h1>

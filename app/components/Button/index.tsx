@@ -8,6 +8,7 @@ type ButtonVariants = VariantProps<typeof buttonStyles>
 export type ButtonProps = ButtonVariants & {
   href: string
   children: React.ReactNode
+  className?: string
 }
 
 const { buttonContainer } = slots()
@@ -16,10 +17,17 @@ const Button: React.FC<ButtonProps> = ({
   href,
   color = 'button-light',
   textStyle = undefined,
-  children
+  children,
+  className
 }) => {
   return (
-    <Link to={href} className={buttonStyles({ color: color, textStyle: textStyle })}>
+    <Link
+      to={href}
+      className={`button ${buttonStyles({
+        color: color,
+        textStyle: textStyle
+      })} ${className}`.trim()}
+    >
       <div className={buttonContainer()}>{children}</div>
     </Link>
   )

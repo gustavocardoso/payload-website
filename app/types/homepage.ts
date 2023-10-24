@@ -6,7 +6,7 @@ export type Layout = {
 export type Doc = {
   id: string
   title: string
-  layout: Layout[]
+  pageLayout: Layout[]
   status: string
   pageMeta: {
     title: string

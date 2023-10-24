@@ -17,7 +17,10 @@ const HeroTwoColumns: React.FC<HeroProps> = ({
     alignment = 'left',
     media,
     buttons,
-    effects,
+    grayscale,
+    rotate,
+    scale,
+    shadow,
     backgroundTextColor = undefined,
     background
   }
@@ -38,7 +41,12 @@ const HeroTwoColumns: React.FC<HeroProps> = ({
       </div>
 
       <div className={`hero-media ${heroMedia()}`}>
-        <HeroImage media={media.url} mediaAlt={media.alt} effects={effects!} maxSize='full' />
+        <HeroImage
+          media={media.url}
+          mediaAlt={media.alt}
+          effects={{ grayscale, rotate, scale, shadow }}
+          maxSize='full'
+        />
       </div>
     </div>
   )

@@ -8,6 +8,18 @@
 
 .background-dark {
   @apply bg-dark text-light;
+
+  .icons-block {
+    .icon {
+      &.cards {
+        @apply bg-primary;
+
+        .icon-image-container {
+          @apply bg-dark-hover;
+        }
+      }
+    }
+  }
 }
 
 .background-darker {
@@ -24,6 +36,16 @@
 
 .background-primary {
   @apply bg-primary text-light;
+
+  .icons-block {
+    .icon {
+      &.cards {
+        .icon-image-container {
+          @apply bg-tertiary;
+        }
+      }
+    }
+  }
 }
 
 .background-primary h1 span,

@@ -13,8 +13,8 @@ const Footer: React.FC<Props> = ({ props: { copyright, logoUrl, logoAltText, men
 
           <ul className='text-base col-span-8 flex justify-center items-center gap-x-10'>
             {menu &&
-              menu.map(item => (
-                <li key={item.href}>
+              menu.map((item, index) => (
+                <li key={index}>
                   <Link
                     className='text-primary transition-colors hover:text-white after:content-[""] after:block after:h-[3px] after:bg-primary after:w-0 after:opacity-0 hover:after:w-full hover:after:opacity-100 after:transition-all after:duration-500'
                     to={item.href}
@@ -26,11 +26,11 @@ const Footer: React.FC<Props> = ({ props: { copyright, logoUrl, logoAltText, men
           </ul>
 
           <div className='col-span-2 flex gap-8 items-center text-light'>
-            <SocialIcon network='facebook' />
-            <SocialIcon network='instagram' />
-            <SocialIcon network='linkedin' />
-            <SocialIcon network='twitter' />
-            <SocialIcon network='youtube' />
+            <SocialIcon key='1' network='facebook' />
+            <SocialIcon key='2' network='instagram' />
+            <SocialIcon key='3' network='linkedin' />
+            <SocialIcon key='4' network='twitter' />
+            <SocialIcon key='5' network='youtube' />
           </div>
         </div>
 

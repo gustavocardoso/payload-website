@@ -1,10 +1,7 @@
 import BlockContainer from '@ui/BlockContainer'
-import type { HeadingAligment } from '~/components/Common/Heading'
-import Heading from '~/components/Common/Heading'
-import ContentSerialize from '~/components/ContentSerialize'
 import type { ContentBlock } from '~/types/blocks/content'
-import CopyBlock from './ContentBlocks/CopyBlock'
-import ImageBlock from './ContentBlocks/ImageBlock'
+import ColumnBlock from './ColumnBlock'
+import ContentHeader from './Header'
 import { setContentAlignment, setContentGrid } from './styles'
 
 const Content: React.FC<ContentBlock> = ({
@@ -14,6 +11,7 @@ const Content: React.FC<ContentBlock> = ({
   backgroundImage,
   desktopContainerWidth,
   desktopContainerAlignment,
+  desktopContentAlignment,
   headerBlockSize,
   headerBlockAlignment,
   title,
@@ -31,9 +29,18 @@ const Content: React.FC<ContentBlock> = ({
   const containerWidth = blockWIdth === 'container' ? 'container' : 'w-full'
   const contentGrid = setContentGrid(desktopContainerWidth, desktopContainerAlignment)
   const headerContentGrid = setContentGrid(headerBlockSize, headerBlockAlignment)
-  const titlePosition = subtitlePosition === 'below' ? 'order-1' : 'order-2'
-  const subTitlePosition = subtitlePosition === 'below' ? 'order-2' : 'order-1'
   const alignment = setContentAlignment(contentAlignment!)
+  const contentAligment = desktopContentAlignment === 'top' ? 'justify-start' : 'justify-center'
+  let columnGrid = 'col-span-12'
+
+  if (
+    columnOne &&
+    columnOne?.columnOneLayout?.length > 0 &&
+    columnTwo &&
+    columnTwo?.columnTwoLayout?.length
+  ) {
+    columnGrid = 'col-span-6'
+  }
 
   return (
     <BlockContainer
@@ -41,67 +48,36 @@ const Content: React.FC<ContentBlock> = ({
       background={background}
       backgroundImage={backgroundImage}
     >
-      <div className={`${containerWidth} grid grid-cols-12`.trim()}>
-        <div className={`${contentGrid} grid grid-cols-12 mb-32`.trim()}>
+      <div className={`${containerWidth} grid grid-cols-12 px-4`.trim()}>
+        <div className={`${contentGrid} grid grid-cols-12`.trim()}>
           {(title || subtitle) && (
-            <div
-              className={`content-header flex flex-col ${alignment} ${headerContentGrid}`.trim()}
-            >
-              {title !== undefined && (
-                <Heading
-                  tag={titleTag!}
-                  content={title}
-                  color={titleColor}
-                  alignment={alignment as HeadingAligment}
-                  className={`${titlePosition}`.trim()}
-                />
-              )}
-
-              {subtitle !== undefined && (
-                <Heading
-                  tag={subtitleTag!}
-                  content={subtitle}
-                  color={subtitleColor}
-                  alignment={alignment as HeadingAligment}
-                  textStyle='uppercase'
-                  className={`${subTitlePosition}`.trim()}
-                />
-              )}
-
-              <div className='block-content order-3 mt-4'>
-                <ContentSerialize content={content} />
-              </div>
-            </div>
+            <ContentHeader
+              alignment={alignment}
+              grid={headerContentGrid}
+              subtitlePosition={subtitlePosition}
+              title={{ title, titleTag, titleColor }}
+              subtitle={{ subtitle, subtitleTag, subtitleColor }}
+              content={content}
+            />
           )}
 
-          <div className='col-span-12'>
-            {(columnOne?.layout?.length ?? 0) > 0 && (
-              <div className='column-one'>
-                {columnOne?.layout.map((block, index) => {
-                  if (!block) return null
-                  switch (block.blockType) {
-                    case 'image-block':
-                      return <ImageBlock key={index} image={block.image} caption={block.caption} />
-                    case 'copy-block':
-                      return <CopyBlock copy={block.copy} key={index} />
-                      break
-                    case 'heading-block':
-                      return (
-                        <Heading
-                          tag={block.tag}
-                          content={block.content}
-                          textStyle={block.textStyle}
-                          alignment={block.alignment}
-                          key={index}
-                        />
-                      )
-                      break
-                    default:
-                      break
-                  }
-                  return null
-                })}
-              </div>
+          <div className='columns-container col-span-12 grid grid-cols-12'>
+            {columnOne && (columnOne?.columnOneLayout?.length ?? 0) > 0 && (
+              <ColumnBlock
+                layout={columnOne?.columnOneLayout}
+                grid={columnGrid}
+                columnName={`content-column`}
+                className={`flex flex-col ${contentAligment}`}
+              />
+            )}
+
+            {columnTwo && (columnTwo?.columnTwoLayout?.length ?? 0) > 0 && (
+              <ColumnBlock
+                layout={columnTwo?.columnTwoLayout}
+                grid={columnGrid}
+                columnName='content-column'
+                className={`flex flex-col ${contentAligment}`}
+              />
             )}
           </div>
         </div>

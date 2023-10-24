@@ -43,11 +43,11 @@ export const loader: LoaderFunction = async () => {
 }
 
 export default function Index() {
-  const { layout } = useLoaderData() as Loaderdata
+  const { pageLayout } = useLoaderData() as Loaderdata
 
   return (
     <>
-      {layout.map((block, index) => {
+      {pageLayout.map((block, index) => {
         let blockData
 
         switch (block.blockType) {
@@ -62,7 +62,6 @@ export default function Index() {
             return <Ribbon {...blockData} key={index} />
             break
           case 'content-block':
-            // console.log(block)
             blockData = block as ContentBlock
             return <Content {...blockData} key={index} />
             break

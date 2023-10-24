@@ -4,8 +4,12 @@ import { slots } from './styles'
 
 const { heroImage } = slots()
 
-const HeroImage: React.FC<HeroImageProps> = ({ media, mediaAlt, effects, maxSize }) => {
-  const { rotate, scale, shadow, grayscale } = effects!
+const HeroImage: React.FC<HeroImageProps> = ({
+  media,
+  mediaAlt,
+  effects: { grayscale, rotate, scale, shadow },
+  maxSize
+}) => {
   const rotateEffect = rotate ? 'group-hover:rotate-2' : null
   const scaleEffect = scale ? 'group-hover:scale-105' : null
   const shadowEffect = shadow ? 'group-hover:shadow-2xl' : null

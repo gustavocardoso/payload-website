@@ -9,8 +9,8 @@ const Navigation: React.FC<Props> = ({ menuItems }) => {
   return (
     <ul className='col-span-8 items-center flex justify-center gap-x-16 text-lg'>
       {menuItems &&
-        menuItems.map(item => (
-          <li key={item.href} className='relative group submenu'>
+        menuItems.map((item, index) => (
+          <li key={index} className='relative group submenu'>
             <Link
               className='submenu-link relative table text-light font-medium transition-all hover:text-primary
               after:content-[""] after:block after:h-[3px] after:bg-light after:w-0 after:opacity-0 hover:after:w-full hover:after:opacity-100 after:transition-all after:duration-500'
