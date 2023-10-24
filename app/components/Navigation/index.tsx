@@ -1,4 +1,4 @@
-import { Link } from '@remix-run/react'
+import { NavLink } from '@remix-run/react'
 import type { MenuItems } from '~/types/menu'
 
 type Props = {
@@ -11,14 +11,14 @@ const Navigation: React.FC<Props> = ({ menuItems }) => {
       {menuItems &&
         menuItems.map((item, index) => (
           <li key={index} className='relative group submenu'>
-            <Link
+            <NavLink
               className='submenu-link relative table text-light font-medium transition-all hover:text-primary
               after:content-[""] after:block after:h-[3px] after:bg-light after:w-0 after:opacity-0 hover:after:w-full hover:after:opacity-100 after:transition-all after:duration-500'
               to={item.href}
               prefetch='intent'
             >
               {item.label}
-            </Link>
+            </NavLink>
 
             <ul className='absolute -left-10 flex flex-col bg-dark rounded-lg px-6 py-8 min-w-max opacity-0 group-hover:opacity-100 transition-opacity gap-y-4 pointer-events-none group-hover:pointer-events-auto -translate-y-4 group-hover:translate-y-0 [transition:opacity_.2s_linear,transform_.3s_ease]'>
               <li>

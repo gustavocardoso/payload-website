@@ -2,3 +2,5 @@
 - Check styles and ensure all components are following the same pattern
 - Check slots names
 - Add option to change icons block background color
+- Ensure all links are being set using Link component
+- Ensure all images are being set using Image component

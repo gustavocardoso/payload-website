@@ -1,6 +1,6 @@
-import { Link } from '@remix-run/react'
 import type { VariantProps } from 'tailwind-variants'
 // import type { ButtonProps } from '~/types/buttons'
+import { Link } from '@remix-run/react'
 import buttonStyles, { slots } from './styles'
 
 type ButtonVariants = VariantProps<typeof buttonStyles>
