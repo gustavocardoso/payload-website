@@ -81,7 +81,19 @@ type HeadingBlock = Pick<HeadingProps, 'tag' | 'content' | 'textStyle' | 'alignm
   blockType: 'heading-block'
 }
 
-export type BlockLayout = (ImageBlock | CopyBlock | HeadingBlock | IconsBlock)[]
+type QuoteBlock = {
+  testimonial: {
+    title: string
+    text: string
+    author: string
+    authorTitle: string
+    company: string
+  }
+  id: string
+  blockType: 'quote-block'
+}
+
+export type BlockLayout = (ImageBlock | CopyBlock | HeadingBlock | IconsBlock | QuoteBlock)[]
 
 export type ContentBlock = {
   blockWIdth: string

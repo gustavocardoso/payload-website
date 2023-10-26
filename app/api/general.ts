@@ -15,6 +15,7 @@ export const getNavigation = async (): Promise<MenuItems[]> => {
     const label = item.label
     const href =
       item.type === 'page' ? addSlashIfMissing(item.page.slug) : addSlashIfMissing(item.url)
+
     return { label, href }
   })
 

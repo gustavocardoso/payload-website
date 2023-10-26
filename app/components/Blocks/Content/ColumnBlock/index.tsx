@@ -3,6 +3,7 @@ import ImageBlock from '@ui/Blocks/Content/ContentBlocks/ImageBlock'
 import Heading from '@ui/Common/Heading'
 import type { BlockLayout } from '~/types/blocks/content'
 import IconsBlock from '../ContentBlocks/IconsBlock'
+import QuoteBlock from '../ContentBlocks/QuoteBlock'
 
 type ColumnBlockProps = {
   layout: BlockLayout
@@ -16,7 +17,7 @@ const ColumnBlock: React.FC<ColumnBlockProps> = ({ layout, grid, columnName, cla
     <div className={`${columnName} ${grid} ${className}`.trim()}>
       {layout.map((block, index) => {
         if (!block) return null
-
+        console.log(block)
         switch (block.blockType) {
           case 'copy-block':
             return <CopyBlock copy={block.copy} key={index} />
@@ -40,6 +41,10 @@ const ColumnBlock: React.FC<ColumnBlockProps> = ({ layout, grid, columnName, cla
 
           case 'icons-block':
             return <IconsBlock key={index} {...block} />
+            break
+
+          case 'quote-block':
+            return <QuoteBlock key={index} {...block} />
             break
 
           default:

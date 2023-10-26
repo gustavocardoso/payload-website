@@ -6,7 +6,7 @@ export default tv({
     iconContainer: '',
     iconImage: '',
     contentContainer: '',
-    imageContainer: 'w-16 rounded-lg mb-4 bg-primary',
+    imageContainer: 'w-16 h-16 rounded-lg mb-4 bg-primary flex justify-center items-center',
     image: 'w-16 invert',
     title: 'text-xl font-semibold mb-4'
   },

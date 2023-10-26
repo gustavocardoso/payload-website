@@ -31,7 +31,6 @@ const TitleBelowIcon: React.FC<IconsProps> = ({
     contentContainer,
     title
   } = iconStyles({ style, titleIconAlignment })
-  console.log(titleIconAlignment)
   const itemSize = setItemSize(iconsPerLine)
   const alignment = setTextIconaligment(textIconAlignment)
 
