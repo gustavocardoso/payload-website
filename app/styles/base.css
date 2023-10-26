@@ -37,3 +37,9 @@ body {
     }
   }
 }
+
+.video-container {
+  iframe {
+    @apply !w-full !h-full;
+  }
+}

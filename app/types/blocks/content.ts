@@ -93,7 +93,21 @@ type QuoteBlock = {
   blockType: 'quote-block'
 }
 
-export type BlockLayout = (ImageBlock | CopyBlock | HeadingBlock | IconsBlock | QuoteBlock)[]
+type VideoBlock = {
+  videoEmbed: string
+  caption: string
+  id: string
+  blockType: 'video-block'
+}
+
+export type BlockLayout = (
+  | ImageBlock
+  | CopyBlock
+  | HeadingBlock
+  | IconsBlock
+  | QuoteBlock
+  | VideoBlock
+)[]
 
 export type ContentBlock = {
   blockWIdth: string
