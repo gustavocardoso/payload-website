@@ -19,7 +19,7 @@ const ColumnBlock: React.FC<ColumnBlockProps> = ({ layout, grid, columnName, cla
       {layout.map((block, index) => {
         if (!block) return null
 
-        console.log(block)
+        // console.log(block)
 
         switch (block.blockType) {
           case 'copy-block':

@@ -33,20 +33,28 @@ export type HeroImageProps = {
   maxSize: 'full' | 'height'
 }
 
-type Button = {
-  text: string
-  link: string
-  style: string
-}
+// type Button = {
+//   text: string
+//   link: string
+//   style: string
+// }
 
 export type HeroButtonsProps = {
-  buttons: Button[]
+  buttons: HeroBlockButton[]
   alignment: Alignment
 }
 
 export type HeroBlockButton = {
-  text: string
-  link: string
+  link: {
+    type: 'custom' | 'page'
+    label?: string
+    url?: string
+    page?: {
+      title: string
+      slug: string
+      status: string
+    }
+  }
   style: string
   id: string
 }

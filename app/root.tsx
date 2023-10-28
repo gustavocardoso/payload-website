@@ -1,5 +1,6 @@
 import { cssBundleHref } from '@remix-run/css-bundle'
-import { json, type LinksFunction, type LoaderFunction } from '@remix-run/node'
+import type { LinksFunction, LoaderFunction, MetaFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
 import {
   Links,
   LiveReload,
@@ -29,6 +30,14 @@ export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : [])
 ]
 
+export const meta: MetaFunction = () => {
+  return [
+    { title: 'Logoipsum.com' },
+    { name: 'description', content: 'Website description' },
+    { name: 'keywords', content: 'logoipsum' }
+  ]
+}
+
 type LoaderData = {
   menuItems: MenuItems[]
   footerProps: FooterProps
@@ -45,14 +54,14 @@ export default function App() {
   const { menuItems, footerProps } = useLoaderData() as LoaderData
 
   return (
-    <html lang='en'>
+    <html lang='en' className='min-h-screen'>
       <head>
         <meta charSet='utf-8' />
         <meta name='viewport' content='width=device-width,initial-scale=1' />
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className='min-h-screen'>
         <ShowAfterFirstRender>
           <Header menuItems={menuItems} />
         </ShowAfterFirstRender>

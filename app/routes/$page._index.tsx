@@ -1,8 +1,9 @@
 // import type { LoaderFunction } from '@remix-run/node'
 import { json, type LoaderFunction } from '@remix-run/node'
 import type { MetaFunction } from '@remix-run/react'
-import { useLoaderData } from '@remix-run/react'
+import { useLoaderData, useRouteError } from '@remix-run/react'
 import { getPage } from '~/api/pages'
+import ErrorMessage from '~/components/Common/Error'
 import RenderPage from '~/components/RenderPage'
 import type { Doc, Docs } from '~/types/homepage'
 
@@ -33,7 +34,14 @@ export const loader: LoaderFunction = async ({ params }) => {
     docs: [page]
   } = (await getPage(query)) as Docs
 
-  return page !== undefined ? json<Loaderdata>(page) : []
+  if (page === undefined) {
+    throw new Response(null, {
+      status: 404,
+      statusText: 'Page not found!'
+    })
+  }
+
+  return json<Loaderdata>(page)
 }
 
 const Page = () => {
@@ -43,3 +51,15 @@ const Page = () => {
 }
 
 export default Page
+
+export function ErrorBoundary() {
+  const error = useRouteError()
+  console.error(error)
+  return (
+    <div className='container px-4 py-32 min-h-[calc(100vh-372px)] flex justify-center items-center'>
+      <div className='flex justify-center items-center h-full w-full'>
+        <ErrorMessage error={error} />
+      </div>
+    </div>
+  )
+}
