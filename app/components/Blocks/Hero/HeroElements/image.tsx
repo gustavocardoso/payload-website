@@ -10,8 +10,8 @@ const HeroImage: React.FC<HeroImageProps> = ({
   effects: { grayscale, rotate, scale, shadow },
   maxSize
 }) => {
-  const rotateEffect = rotate ? 'group-hover:rotate-2' : null
-  const scaleEffect = scale ? 'group-hover:scale-105' : null
+  const rotateEffect = rotate ? 'group-hover:rotate-3' : null
+  const scaleEffect = scale ? 'group-hover:scale-110' : null
   const shadowEffect = shadow ? 'group-hover:shadow-2xl' : null
   const grayscaleEffect = grayscale ? 'grayscale group-hover:grayscale-0' : null
 
@@ -31,7 +31,11 @@ const HeroImage: React.FC<HeroImageProps> = ({
   }
 
   return (
-    <img className={`${imageEffects} ${imageMaxSize} ${heroImage()}`} src={media} alt={mediaAlt} />
+    <img
+      className={`${imageEffects} ${imageMaxSize} ${heroImage()} duration-700 ease-in-out`}
+      src={media}
+      alt={mediaAlt}
+    />
   )
 }
 

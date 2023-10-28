@@ -42,19 +42,15 @@ const BlockContainer: React.FC<BlockContainerProps> = ({
   return (
     <section
       {...(id && { id: id })}
-      className={`block-container ${paddingY} ${blockContainer()} background-${background}`}
+      className={`block-container ${paddingY} ${blockContainer()} background-${background} group`}
     >
       <div className='relative z-20'>{children}</div>
       {background === 'image' && backgroundImage && (
         <>
-          {/* <div
-            className={`${blockBgImage()} ${opacity}`}
-            style={{ backgroundImage: `url(${backgroundImage.url})` }}
-          ></div> */}
           <div className={blockImageContainer()}>
             <img
               src={backgroundImage.url}
-              className={`${blockBgImage()} ${opacity}`}
+              className={`${blockBgImage()} ${opacity} group-hover:scale-125 transition-transform duration-1000 ease-in-out delay-75`}
               alt='Hero background'
               role='presentation'
             />
