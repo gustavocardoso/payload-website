@@ -22,8 +22,8 @@ export const getNavigation = async (): Promise<MenuItems[]> => {
   return menuItems
 }
 
-export const getFooterNavigation = async () => {
-  const footerResponse = await fetch('http://localhost:3000/api/globals/site-options?locale=en', {
+export const getFooterOptions = async () => {
+  const footerResponse = await fetch(`${process.env.API_URL}/globals/site-options?locale=en`, {
     headers: {
       Authorization: `users API-Key ${process.env.API_KEY}`
     }

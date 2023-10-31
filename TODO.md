@@ -4,3 +4,5 @@
 - Add option to change icons block background color
 - Ensure all links are being set using Link component
 - Ensure all images are being set using Image component
+- Implement social icons - footer
+- Implement logo in the header

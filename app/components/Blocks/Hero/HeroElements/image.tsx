@@ -20,7 +20,7 @@ const HeroImage: React.FC<HeroImageProps> = ({
 
   switch (maxSize) {
     case 'height':
-      imageMaxSize = 'h-96'
+      imageMaxSize = 'h-80'
       break
     case 'full':
       imageMaxSize = 'w-full'

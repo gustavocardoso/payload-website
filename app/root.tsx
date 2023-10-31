@@ -12,7 +12,7 @@ import {
 } from '@remix-run/react'
 
 import stylesheet from '~/styles/root.css'
-import { getFooterNavigation, getNavigation } from './api/general'
+import { getFooterOptions, getNavigation } from './api/general'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import { ShowAfterFirstRender } from './components/ShowAfterFirstRender'
@@ -45,7 +45,7 @@ type LoaderData = {
 
 export const loader: LoaderFunction = async () => {
   const menuItems = await getNavigation()
-  const footerProps = await getFooterNavigation()
+  const footerProps = await getFooterOptions()
 
   return json<LoaderData>({ menuItems, footerProps })
 }
