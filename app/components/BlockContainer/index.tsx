@@ -50,7 +50,7 @@ const BlockContainer: React.FC<BlockContainerProps> = ({
           <div className={blockImageContainer()}>
             <img
               src={backgroundImage.url}
-              className={`${blockBgImage()} ${opacity} group-hover:scale-125 transition-transform duration-1000 ease-in-out delay-75`}
+              className={`${blockBgImage()} ${opacity} group-hover:scale-125 transition-transform duration-[2000ms] ease-in-out`}
               alt='Hero background'
               role='presentation'
             />

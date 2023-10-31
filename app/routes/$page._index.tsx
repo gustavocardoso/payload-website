@@ -55,6 +55,7 @@ export default Page
 export function ErrorBoundary() {
   const error = useRouteError()
   console.error(error)
+
   return (
     <div className='container px-4 py-32 min-h-[calc(100vh-372px)] flex justify-center items-center'>
       <div className='flex justify-center items-center h-full w-full'>

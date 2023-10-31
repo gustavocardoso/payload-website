@@ -32,7 +32,7 @@ const HeroImage: React.FC<HeroImageProps> = ({
 
   return (
     <img
-      className={`${imageEffects} ${imageMaxSize} ${heroImage()} duration-700 ease-in-out`}
+      className={`${imageEffects} ${imageMaxSize} ${heroImage()} duration-1000 ease-in-out`}
       src={media}
       alt={mediaAlt}
     />
