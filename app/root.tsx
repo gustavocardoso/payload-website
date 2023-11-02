@@ -11,13 +11,16 @@ import {
   useLoaderData
 } from '@remix-run/react'
 
+import React from 'react'
 import stylesheet from '~/styles/root.css'
-import { getFooterOptions, getNavigation } from './api/general'
+import { getNavigation, getSiteOptions } from './api/general'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import { ShowAfterFirstRender } from './components/ShowAfterFirstRender'
 import type { FooterProps } from './types/footer'
 import type { MenuItems } from './types/menu'
+import type { siteOptionsProps } from './types/site-options'
+import { DynamicLinks } from './utils/dinamycLinks'
 
 export const links: LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -30,6 +33,20 @@ export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : [])
 ]
 
+const dynamicLinks = ({ data }: any) => {
+  // console.log(data)
+  return [
+    {
+      rel: 'canonical',
+      href: 'http://teste.com'
+    }
+  ]
+}
+
+export const handle = {
+  dynamicLinks
+}
+
 export const meta: MetaFunction = () => {
   return [
     { title: 'Logoipsum.com' },
@@ -41,17 +58,18 @@ export const meta: MetaFunction = () => {
 type LoaderData = {
   menuItems: MenuItems[]
   footerProps: FooterProps
+  siteOptions: siteOptionsProps
 }
 
 export const loader: LoaderFunction = async () => {
   const menuItems = await getNavigation()
-  const footerProps = await getFooterOptions()
+  const { footerProps, siteOptions } = await getSiteOptions()
 
-  return json<LoaderData>({ menuItems, footerProps })
+  return json<LoaderData>({ menuItems, footerProps, siteOptions })
 }
 
 export default function App() {
-  const { menuItems, footerProps } = useLoaderData() as LoaderData
+  const { menuItems, footerProps, siteOptions } = useLoaderData() as LoaderData
 
   return (
     <html lang='en' className='min-h-screen'>
@@ -60,6 +78,7 @@ export default function App() {
         <meta name='viewport' content='width=device-width,initial-scale=1' />
         <Meta />
         <Links />
+        <DynamicLinks />
       </head>
       <body className='min-h-screen'>
         <ShowAfterFirstRender>

@@ -15,23 +15,3 @@ export type FooterProps = {
   logoAltText: string
   menu: MenuItems[]
 }
-
-export type FooterData = {
-  Footer: {
-    copyright: string
-    footerLogo: {
-      id: string
-      title: string
-      alt: string
-      filename: string
-      mimeType: string
-      filesize: number
-      width: number
-      height: number
-      createdAt: string
-      updatedAt: string
-      sizes: { thumbnail: {} }
-      url: string
-    }
-  }
-}
