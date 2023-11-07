@@ -10,6 +10,7 @@ export type siteOptionsProps = {
   }
   fontAwesome: boolean
   fontAwesomeLink: string
+  fontAwesomeOverride: string
 }
 
 export type SiteOptionsData = {
@@ -38,7 +39,9 @@ export type SiteOptionsData = {
     }
     fontAwesome: string
     fontAwesomeLink: string
+    fontAwesomeOverride: string
   }
+
   Contact: {
     email: string
     phone: string
@@ -46,9 +49,7 @@ export type SiteOptionsData = {
     city: string
     country: string
   }
-  globalType: 'site-options'
-  createdAt: string
-  updatedAt: string
+
   Footer: {
     copyright: string
     footerLogo: {
@@ -66,5 +67,9 @@ export type SiteOptionsData = {
       url: string
     }
   }
+
   id: string
+  globalType: 'site-options'
+  createdAt: string
+  updatedAt: string
 }

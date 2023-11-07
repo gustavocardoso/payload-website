@@ -41,7 +41,8 @@ export const getSiteOptions = async () => {
       title: options.logo.title
     },
     fontAwesome: options.fontAwesome === 'enable',
-    fontAwesomeLink: options.fontAwesomeLink
+    fontAwesomeLink: options.fontAwesomeLink,
+    fontAwesomeOverride: options.fontAwesomeOverride
   }
 
   const footerProps = {

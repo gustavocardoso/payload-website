@@ -43,7 +43,16 @@ const TitleBelowIcon: React.FC<IconsProps> = ({
             <div className={`icon ${style} ${iconContainer()} ${alignment}`}>
               <div className={`icon-image ${iconImage()}`}>
                 <div className={`icon-image-container ${imageContainer()}`}>
-                  <Image src={icon.iconImage.url} alt={icon.iconImage.alt} className={image()} />
+                  {icon.iconType === 'image' && (
+                    <Image src={icon.iconImage.url} alt={icon.iconImage.alt} className={image()} />
+                  )}
+
+                  {icon.iconType === 'icon' && (
+                    <span
+                      className='text-3xl font-light text-white'
+                      dangerouslySetInnerHTML={{ __html: icon.iconString! }}
+                    ></span>
+                  )}
                 </div>
               </div>
 

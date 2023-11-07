@@ -17,7 +17,7 @@ import { getNavigation, getSiteOptions } from './api/general'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import { ShowAfterFirstRender } from './components/ShowAfterFirstRender'
-import type { FooterProps } from './types/footer'
+import type { FooterProps, socialTypes } from './types/footer'
 import type { MenuItems } from './types/menu'
 import type { siteOptionsProps } from './types/site-options'
 import { DynamicLinks } from './utils/dinamycLinks'
@@ -34,13 +34,21 @@ export const links: LinksFunction = () => [
 ]
 
 const dynamicLinks = ({ data }: any) => {
-  // console.log(data)
-  return [
-    {
-      rel: 'canonical',
-      href: 'http://teste.com'
-    }
-  ]
+  const faLink =
+    data.siteOptions.fontAwesome && data.siteOptions.fontAwesomeOverride !== ''
+      ? data.siteOptions.fontAwesomeOverride
+      : data.siteOptions.fontAwesomeLink
+
+  if (data.siteOptions.fontAwesome) {
+    return [
+      {
+        rel: 'stylesheet',
+        href: faLink
+      }
+    ]
+  }
+
+  return []
 }
 
 export const handle = {
@@ -70,6 +78,8 @@ export const loader: LoaderFunction = async () => {
 
 export default function App() {
   const { menuItems, footerProps, siteOptions } = useLoaderData() as LoaderData
+  const socialType: socialTypes = siteOptions.fontAwesome ? 'fa' : 'regular'
+  console.log(socialType)
 
   return (
     <html lang='en' className='min-h-screen'>
@@ -87,7 +97,7 @@ export default function App() {
 
         <Outlet />
 
-        <Footer props={footerProps} />
+        <Footer props={footerProps} socialType={socialType} />
 
         <ScrollRestoration />
         <Scripts />

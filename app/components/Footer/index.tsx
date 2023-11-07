@@ -3,7 +3,10 @@ import type { Props } from '~/types/footer'
 import Image from '../Common/Image'
 import SocialIcon from '../SocialIcon'
 
-const Footer: React.FC<Props> = ({ props: { copyright, logoUrl, logoAltText, menu } }) => {
+const Footer: React.FC<Props> = ({
+  props: { copyright, logoUrl, logoAltText, menu },
+  socialType
+}) => {
   return (
     <footer className='bg-dark text-light py-16'>
       <div className='container px-4 flex flex-col gap-y-12'>
@@ -27,11 +30,11 @@ const Footer: React.FC<Props> = ({ props: { copyright, logoUrl, logoAltText, men
           </ul>
 
           <div className='col-span-2 flex gap-8 items-center text-light'>
-            <SocialIcon key='1' network='facebook' />
-            <SocialIcon key='2' network='instagram' />
-            <SocialIcon key='3' network='linkedin' />
-            <SocialIcon key='4' network='twitter' />
-            <SocialIcon key='5' network='youtube' />
+            <SocialIcon key='1' type={socialType} network='facebook' />
+            <SocialIcon key='2' type={socialType} network='instagram' />
+            <SocialIcon key='3' type={socialType} network='linkedin' />
+            <SocialIcon key='4' type={socialType} network='twitter' />
+            <SocialIcon key='5' type={socialType} network='youtube' />
           </div>
         </div>
 

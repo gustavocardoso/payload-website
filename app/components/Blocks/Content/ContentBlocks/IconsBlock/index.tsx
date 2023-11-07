@@ -2,6 +2,7 @@ import Icons from './Icons'
 
 export type Icon = {
   iconType: string
+  iconString?: string
   iconImage: {
     title: 'BoardBig'
     alt: 'BoardBig'

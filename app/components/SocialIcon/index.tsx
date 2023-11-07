@@ -5,25 +5,25 @@ import LinkedinIcon from './linkedin'
 import TwitterkIcon from './twitter'
 import YouTubeIcon from './youtube'
 
-const SocialIcon: React.FC<Props> = ({ network, size = 'regular' }) => {
+const SocialIcon: React.FC<Props> = ({ network, size = 'regular', type = 'regular' }) => {
   switch (network) {
     case 'facebook':
-      return <FacebookIcon size={size} />
+      return <FacebookIcon size={size} type={type} />
       break
 
     case 'instagram':
-      return <InstagramIcon size={size} />
+      return <InstagramIcon size={size} type={type} />
       break
 
     case 'linkedin':
-      return <LinkedinIcon size={size} />
+      return <LinkedinIcon size={size} type={type} />
       break
 
     case 'twitter':
-      return <TwitterkIcon size={size} />
+      return <TwitterkIcon size={size} type={type} />
       break
     case 'youtube':
-      return <YouTubeIcon size={size} />
+      return <YouTubeIcon size={size} type={type} />
       break
     default:
       break
