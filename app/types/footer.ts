@@ -1,4 +1,5 @@
 import type { MenuItems } from './menu'
+import type { SocialLink } from './social-icons'
 
 export type socialTypes = 'fa' | 'regular'
 
@@ -10,6 +11,7 @@ export type Props = {
     menu: MenuItems[]
   }
   socialType: socialTypes
+  socialLinks: SocialLink[]
 }
 
 export type FooterProps = {

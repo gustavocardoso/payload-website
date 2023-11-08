@@ -8,37 +8,37 @@ h6 {
 }
 
 h1 {
-  @apply text-6xl font-semibold mb-4;
+  @apply font-semibold mb-4 text-h1 leading-tight;
 }
 
 h2 {
-  @apply text-5xl font-semibold mb-4;
+  @apply font-semibold mb-4 text-h2 leading-tight;
 }
 
 h3 {
-  @apply text-4xl font-normal;
+  @apply font-normal text-h3 leading-tight;
 }
 
 h4 {
-  @apply text-3xl font-normal;
+  @apply font-normal text-h4 leading-tight;
 }
 
 h5 {
-  @apply text-2xl font-normal;
+  @apply font-normal text-h5 leading-tight;
 }
 
 h6 {
-  @apply text-xl font-normal;
+  @apply text-lg font-normal leading-tight;
 }
 
 p {
-  @apply text-lg mb-6;
+  @apply mb-6 leading-normal text-paragraph;
 }
 
 .block-container {
   ul,
   ol {
-    @apply text-lg mb-6 list-inside list-disc ml-4;
+    @apply text-paragraph mb-6 list-inside list-disc ml-4;
   }
 
   &.background-none,

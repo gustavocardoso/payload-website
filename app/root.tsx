@@ -13,13 +13,14 @@ import {
 
 import React from 'react'
 import stylesheet from '~/styles/root.css'
-import { getNavigation, getSiteOptions } from './api/general'
+import { getNavigation, getSiteOptions, getSocialLinks } from './api/general'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import { ShowAfterFirstRender } from './components/ShowAfterFirstRender'
 import type { FooterProps, socialTypes } from './types/footer'
 import type { MenuItems } from './types/menu'
 import type { siteOptionsProps } from './types/site-options'
+import type { SocialLink } from './types/social-icons'
 import { DynamicLinks } from './utils/dinamycLinks'
 
 export const links: LinksFunction = () => [
@@ -65,6 +66,7 @@ export const meta: MetaFunction = () => {
 
 type LoaderData = {
   menuItems: MenuItems[]
+  socialLinks: SocialLink[]
   footerProps: FooterProps
   siteOptions: siteOptionsProps
 }
@@ -72,14 +74,14 @@ type LoaderData = {
 export const loader: LoaderFunction = async () => {
   const menuItems = await getNavigation()
   const { footerProps, siteOptions } = await getSiteOptions()
+  const socialLinks = await getSocialLinks()
 
-  return json<LoaderData>({ menuItems, footerProps, siteOptions })
+  return json<LoaderData>({ menuItems, footerProps, siteOptions, socialLinks })
 }
 
 export default function App() {
-  const { menuItems, footerProps, siteOptions } = useLoaderData() as LoaderData
+  const { menuItems, footerProps, siteOptions, socialLinks } = useLoaderData() as LoaderData
   const socialType: socialTypes = siteOptions.fontAwesome ? 'fa' : 'regular'
-  console.log(socialType)
 
   return (
     <html lang='en' className='min-h-screen'>
@@ -97,7 +99,7 @@ export default function App() {
 
         <Outlet />
 
-        <Footer props={footerProps} socialType={socialType} />
+        <Footer props={footerProps} socialType={socialType} socialLinks={socialLinks} />
 
         <ScrollRestoration />
         <Scripts />

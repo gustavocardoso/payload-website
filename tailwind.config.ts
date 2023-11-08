@@ -49,7 +49,18 @@ export default {
       styled: '"Poppins", sans-serif',
       base: '"Roboto", sans-serif'
     },
-    extend: {}
+    extend: {
+      fontSize: {
+        paragraph: 'clamp(1.125rem, 1.1rem + 0.125vw, 1.25rem)',
+        h1: 'clamp(2rem, 1.65rem + 1.7500000000000002vw, 3.75rem)',
+        h2: 'clamp(2rem, 1.8rem + 1vw, 3rem)',
+        h3: 'clamp(1.5rem, 1.35rem + 0.75vw, 2.25rem)',
+        h4: 'clamp(1.25rem, 1.125rem + 0.625vw, 1.875rem)',
+        h5: 'clamp(1.25rem, 1.2rem + 0.25vw, 1.5rem)',
+        h6: 'clamp(1.125rem, 1.1rem + 0.125vw, 1.25rem)',
+        'hero-text': 'clamp(1.125rem, 1.05rem + 0.375vw, 1.5rem)'
+      }
+    }
   },
   plugins: []
 } satisfies Config

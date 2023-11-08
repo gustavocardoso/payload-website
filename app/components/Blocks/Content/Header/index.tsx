@@ -54,7 +54,7 @@ const ContentHeader: React.FC<ContentHeaderProps> = ({
         />
       )}
 
-      <div className='block-content order-3 mt-4'>
+      <div className='block-content order-3 mt-6'>
         <ContentSerialize content={content} />
       </div>
     </div>

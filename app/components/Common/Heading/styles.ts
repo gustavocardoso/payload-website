@@ -1,7 +1,7 @@
 import { tv } from 'tailwind-variants'
 
 export default tv({
-  base: 'mb-6',
+  base: 'mb-4',
   variants: {
     color: {
       primary: 'text-primary',

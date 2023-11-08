@@ -5,7 +5,8 @@ import SocialIcon from '../SocialIcon'
 
 const Footer: React.FC<Props> = ({
   props: { copyright, logoUrl, logoAltText, menu },
-  socialType
+  socialType,
+  socialLinks
 }) => {
   return (
     <footer className='bg-dark text-light py-16'>
@@ -30,11 +31,9 @@ const Footer: React.FC<Props> = ({
           </ul>
 
           <div className='col-span-2 flex gap-8 items-center text-light'>
-            <SocialIcon key='1' type={socialType} network='facebook' />
-            <SocialIcon key='2' type={socialType} network='instagram' />
-            <SocialIcon key='3' type={socialType} network='linkedin' />
-            <SocialIcon key='4' type={socialType} network='twitter' />
-            <SocialIcon key='5' type={socialType} network='youtube' />
+            {socialLinks.map((link, index) => (
+              <SocialIcon key={index} type={socialType} network={link.network} url={link.url} />
+            ))}
           </div>
         </div>
 

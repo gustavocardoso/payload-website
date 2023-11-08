@@ -1,5 +1,6 @@
 import type { MenuItem, MenuItems } from '~/types/menu'
 import type { SiteOptionsData } from '~/types/site-options'
+import type { SocialLink } from '~/types/social-icons'
 import { addSlashIfMissing } from '~/utils/strings'
 
 export const getNavigation = async (): Promise<MenuItems[]> => {
@@ -53,4 +54,23 @@ export const getSiteOptions = async () => {
   }
 
   return { footerProps, siteOptions }
+}
+
+export const getSocialLinks = async (): Promise<SocialLink[]> => {
+  const socialLinksResponse = await fetch(
+    `${process.env.API_URL}/globals/social-links?locale=undefined&draft=false&depth=1`,
+    {
+      headers: {
+        Authorization: `users API-Key ${process.env.API_KEY}`
+      }
+    }
+  )
+
+  const { social } = await socialLinksResponse.json()
+
+  const socialLinks: SocialLink[] = social.map((item: SocialLink) => {
+    return { network: item.network, url: item.url }
+  })
+
+  return socialLinks
 }
