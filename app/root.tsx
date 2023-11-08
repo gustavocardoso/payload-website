@@ -94,7 +94,10 @@ export default function App() {
       </head>
       <body className='min-h-screen'>
         <ShowAfterFirstRender>
-          <Header menuItems={menuItems} />
+          <Header
+            menuItems={menuItems}
+            logo={{ url: siteOptions.logo.url, alt: siteOptions.logo.alt }}
+          />
         </ShowAfterFirstRender>
 
         <Outlet />
