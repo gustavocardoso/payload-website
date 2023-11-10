@@ -100,6 +100,22 @@ type VideoBlock = {
   blockType: 'video-block'
 }
 
+type ButtonBlock = {
+  link: {
+    type: 'custom' | 'page'
+    label?: string
+    url?: string
+    page?: {
+      title: string
+      slug: string
+      status: string
+    }
+  }
+  style: string
+  id: string
+  blockType: 'button-block'
+}
+
 export type BlockLayout = (
   | ImageBlock
   | CopyBlock
@@ -107,6 +123,7 @@ export type BlockLayout = (
   | IconsBlock
   | QuoteBlock
   | VideoBlock
+  | ButtonBlock
 )[]
 
 export type ContentBlock = {

@@ -1,5 +1,6 @@
 import type { BlockPaddingY } from '~/components/BlockContainer'
 import type { Background } from '../background'
+import type { ButtonColors } from '../buttons'
 
 export type Alignment = 'right' | 'center' | 'left'
 export type HeroType = 'centered' | 'two-columns'
@@ -55,7 +56,7 @@ export type HeroBlockButton = {
       status: string
     }
   }
-  style: string
+  style: ButtonColors
   id: string
 }
 

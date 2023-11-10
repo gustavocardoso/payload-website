@@ -27,8 +27,7 @@ body {
   }
 }
 
-.column-one,
-.column-two {
+.content-column {
   > div {
     @apply mb-16;
 

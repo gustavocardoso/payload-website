@@ -2,9 +2,11 @@ import CopyBlock from '@ui/Blocks/Content/ContentBlocks/CopyBlock'
 import ImageBlock from '@ui/Blocks/Content/ContentBlocks/ImageBlock'
 import Heading from '@ui/Common/Heading'
 import type { BlockLayout } from '~/types/blocks/content'
+import ButtonBlock from '../ContentBlocks/ButtonBlock'
 import IconsBlock from '../ContentBlocks/IconsBlock'
 import QuoteBlock from '../ContentBlocks/QuoteBlock'
 import VideoBlock from '../ContentBlocks/VideoBlock'
+import { ButtonColors } from '~/types/buttons'
 
 type ColumnBlockProps = {
   layout: BlockLayout
@@ -52,6 +54,10 @@ const ColumnBlock: React.FC<ColumnBlockProps> = ({ layout, grid, columnName, cla
 
           case 'video-block':
             return <VideoBlock key={index} videoEmbed={block.videoEmbed} caption={block.caption} />
+            break
+
+          case 'button-block':
+            return <ButtonBlock key={index} link={block.link} style={block.style as ButtonColors} />
             break
 
           default:

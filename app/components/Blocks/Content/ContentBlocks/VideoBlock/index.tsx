@@ -1,3 +1,7 @@
+import videoBlockStyles from './styles'
+
+const { videoContainer, videoCaption } = videoBlockStyles()
+
 type VideoBlockProps = {
   videoEmbed: string
   caption: string
@@ -5,10 +9,12 @@ type VideoBlockProps = {
 
 const VideoBlock: React.FC<VideoBlockProps> = ({ videoEmbed, caption }) => {
   return (
-    <div
-      className='video-container aspect-video w-full m-auto'
-      dangerouslySetInnerHTML={{ __html: videoEmbed }}
-    ></div>
+    <>
+      <div>
+        <div className={videoContainer()} dangerouslySetInnerHTML={{ __html: videoEmbed }}></div>
+        {caption && <span className={videoCaption()}>{caption}</span>}
+      </div>
+    </>
   )
 }
 export default VideoBlock

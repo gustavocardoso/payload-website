@@ -6,7 +6,7 @@ import buttonStyles, { slots } from './styles'
 type ButtonVariants = VariantProps<typeof buttonStyles>
 
 export type ButtonProps = ButtonVariants & {
-  href: string
+  href: string | undefined
   children: React.ReactNode
   className?: string
 }
@@ -22,7 +22,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <Link
-      to={href}
+      to={href!}
       className={`button ${buttonStyles({
         color: color,
         textStyle: textStyle

@@ -18,7 +18,7 @@ const Header: React.FC<Props> = ({ menuItems, logo }) => {
       <nav className='bg-dark'>
         <div className='container px-4 py-8 gap-x-16 grid grid-cols-12'>
           <Link to='/' className='col-span-2 flex items-center' unstable_viewTransition>
-            <Image src={logo.url} alt={logo.alt} className='w-44' />
+            <Image src={logo.url} alt={logo.alt} className='w-44 h-auto' width='176' />
           </Link>
 
           <Navigation menuItems={menuItems} />

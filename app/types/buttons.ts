@@ -23,3 +23,21 @@ export type ButtonGroupProps = {
   children: React.ReactNode
   alignment?: 'right' | 'center' | 'left'
 }
+
+export type ButtonParameters = {
+  type: string
+  label: string
+  page?: {
+    title: string
+    slug: string
+    status: string
+  }
+  url: string
+  style: ButtonColors
+}
+
+export type Button = {
+  href: string | undefined
+  text: string | undefined
+  buttonStyle: ButtonColors
+} | null

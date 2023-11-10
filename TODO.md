@@ -5,4 +5,6 @@
 - Ensure all links are being set using Link component
 - Ensure all images are being set using Image component
   [done] Implement social icons - footer - if fontawesome is enable, use its icon instead.
-- Implement logo in the header
+  [done] Implement logo in the header
+- Create a "latest posts" block
+- Make it mobile friendly
