@@ -5,6 +5,7 @@ export default tv({
   variants: {
     color: {
       'button-light': 'bg-white text-primary hover:bg-primary-hover hover:text-white',
+      'button-light-dark': 'bg-white text-dark hover:bg-primary-hover hover:text-white',
       'button-dark': 'bg-dark text-light hover:bg-dark-hover hover:text-white',
       'button-highlight': 'bg-highlight text-dark hover:bg-highlight-hover hover:text-dark-hover',
       'button-primary': 'bg-primary text-light hover:bg-primary-hover hover:text-white',

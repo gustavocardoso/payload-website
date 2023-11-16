@@ -1,6 +1,6 @@
 export type Layout = {
   id: string
-  blockType: string
+  blockType: 'hero-block' | 'ribbon-block' | 'content-block' | 'cta-block'
 }
 
 export type Doc = {

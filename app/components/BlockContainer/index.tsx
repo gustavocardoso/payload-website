@@ -3,8 +3,7 @@ import type { Background } from '~/types/background'
 import { setBgOpacity, slots } from './styles'
 
 export type Alignment = 'right' | 'center' | 'left'
-export type HeroType = 'centered' | 'two-columns'
-export type BackgroundOpacity = 'none' | '20' | '30' | '50'
+export type BackgroundOpacity = 'none' | '20' | '30' | '50' | '70' | '90'
 export type BackgroundTextColor = 'light' | 'dark' | undefined
 export type BlockPaddingY =
   | 'py-8'
@@ -50,7 +49,7 @@ const BlockContainer: React.FC<BlockContainerProps> = ({
           <div className={blockImageContainer()}>
             <img
               src={backgroundImage.url}
-              className={`${blockBgImage()} ${opacity} group-hover:scale-125 transition-transform duration-[2000ms] ease-in-out`}
+              className={`${blockBgImage()} ${opacity} group-hover:scale-105 transition-transform duration-[2000ms] ease-in-out`}
               alt='Hero background'
               role='presentation'
             />

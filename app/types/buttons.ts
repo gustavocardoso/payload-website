@@ -19,9 +19,12 @@ export type ButtonProps = {
   children: React.ReactNode
 }
 
+export type ButtonGroupAlignment = 'right' | 'center' | 'left'
+
 export type ButtonGroupProps = {
   children: React.ReactNode
-  alignment?: 'right' | 'center' | 'left'
+  alignment?: ButtonGroupAlignment
+  className?: string
 }
 
 export type ButtonParameters = {
@@ -32,7 +35,7 @@ export type ButtonParameters = {
     slug: string
     status: string
   }
-  url: string
+  url?: string
   style: ButtonColors
 }
 

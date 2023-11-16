@@ -1,10 +1,12 @@
 import Content from '@ui/Blocks/Content'
 import Hero from '@ui/Blocks/Hero'
-import type { RibbonProps } from '@ui/Blocks/Ribbon'
+import type { RibbonProps as RibbonBlock } from '@ui/Blocks/Ribbon'
 import Ribbon from '@ui/Blocks/Ribbon'
 import type { ContentBlock } from '~/types/blocks/content'
+import type { CtaBlock } from '~/types/blocks/cta'
 import type { HeroBlock } from '~/types/blocks/hero'
 import type { Layout } from '~/types/homepage'
+import Cta from '../Blocks/Cta'
 
 type RenderLayoutProps = {
   layout?: Layout[]
@@ -23,14 +25,23 @@ const RenderPage: React.FC<RenderLayoutProps> = ({ layout }) => {
 
               return <Hero key={index} props={blockData} />
               break
+
             case 'ribbon-block':
-              blockData = block as RibbonProps
+              blockData = block as RibbonBlock
 
               return <Ribbon {...blockData} key={index} />
               break
+
             case 'content-block':
               blockData = block as ContentBlock
               return <Content {...blockData} key={index} />
+              break
+
+            case 'cta-block':
+              blockData = block as CtaBlock
+              console.log(blockData)
+
+              return <Cta {...blockData} key={index} />
               break
 
             default:

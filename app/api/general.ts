@@ -58,7 +58,7 @@ export const getSiteOptions = async () => {
 
 export const getSocialLinks = async (): Promise<SocialLink[]> => {
   const socialLinksResponse = await fetch(
-    `${process.env.API_URL}/globals/social-links?locale=undefined&draft=false&depth=1`,
+    `${process.env.API_URL}/globals/social-links?locale=undefined&draft=false&depth=2`,
     {
       headers: {
         Authorization: `users API-Key ${process.env.API_KEY}`

@@ -2,7 +2,7 @@ import escapeHTML from 'escape-html'
 import React, { Fragment } from 'react'
 import { Text } from 'slate'
 
-type Node = {
+export type Node = {
   type: string
   value?: {
     url: string
@@ -18,10 +18,24 @@ type SerializeProps = {
   content?: Node[]
 }
 
-const serialize = (children: Node[]) =>
-  children.map((node: Node, i: number) => {
+// Helper function to check if a value is an empty string
+const isEmptyString = (value: string | any[]): boolean => {
+  return typeof value === 'string' && value.trim() === ''
+}
+
+const serialize = (children: Node[]) => {
+  if (!children || children.length === 0) {
+    return null
+  }
+
+  return children.map((node: Node, i: number) => {
     if (Text.isText(node)) {
-      let text = <span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} />
+      const nodetext = node.text.replace('\n', '<br>')
+
+      if (nodetext === '') return null
+
+      // let text = <span dangerouslySetInnerHTML={{ __html: escapeHTML(nodetext) }} />
+      let text = <p dangerouslySetInnerHTML={{ __html: nodetext }} />
 
       if (node.bold) {
         text = <strong key={i}>{text}</strong>
@@ -66,9 +80,14 @@ const serialize = (children: Node[]) =>
         )
 
       default:
-        return <p key={i}>{serialize(node.children)}</p>
+        if (node.children && node.children.length > 0 && !isEmptyString(node.children)) {
+          return <Fragment key={i}>{serialize(node.children)}</Fragment>
+        }
     }
+
+    return null
   })
+}
 
 const ContentSerialize: React.FC<SerializeProps> = ({ content }) => {
   const html = serialize(content!)

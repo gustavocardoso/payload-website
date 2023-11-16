@@ -9,7 +9,8 @@ import type { Background } from '~/types/background'
 import ribbonStyles from './styles'
 
 type RibbonVariants = VariantProps<typeof ribbonStyles>
-export interface RibbonProps extends RibbonVariants {
+
+export type RibbonProps = {
   title: string
   text: string
   link?: string
@@ -19,7 +20,7 @@ export interface RibbonProps extends RibbonVariants {
   background?: Background
   id: string
   blockType: string
-}
+} & RibbonVariants
 
 const { ribbonContainer, ribbonTitle, ribbonText, ribbonTextLink } = ribbonStyles()
 
