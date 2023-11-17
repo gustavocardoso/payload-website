@@ -1,13 +1,14 @@
 import type { VariantProps } from 'tailwind-variants'
 // import type { ButtonProps } from '~/types/buttons'
 import { Link } from '@remix-run/react'
+import React from 'react'
 import buttonStyles, { slots } from './styles'
 
 type ButtonVariants = VariantProps<typeof buttonStyles>
 
 export type ButtonProps = ButtonVariants & {
   href: string | undefined
-  children: React.ReactNode
+  children: React.ReactNode | React.ReactNode[]
   className?: string
 }
 
@@ -20,6 +21,24 @@ const Button: React.FC<ButtonProps> = ({
   children,
   className
 }) => {
+  const renderContent = () => {
+    if (Array.isArray(children)) {
+      return children.map((child, index) => renderChild(child, index))
+    } else {
+      return renderChild(children, 0)
+    }
+  }
+
+  const renderChild = (child: React.ReactNode, index: number) => {
+    if (typeof child === 'object' && React.isValidElement(child)) {
+      return React.cloneElement(child, { key: index })
+    } else if (typeof child === 'string') {
+      return <span key={index} dangerouslySetInnerHTML={{ __html: child }} />
+    } else {
+      return null // Or handle other cases if necessary
+    }
+  }
+
   return (
     <Link
       to={href!}
@@ -28,7 +47,11 @@ const Button: React.FC<ButtonProps> = ({
         textStyle: textStyle
       })} ${className}`.trim()}
     >
-      <div className={buttonContainer()}>{children}</div>
+      <div className={buttonContainer()}>{renderContent()}</div>
+      {/* <div
+        className={buttonContainer()}
+        dangerouslySetInnerHTML={{ __html: renderContent()! }}
+      ></div> */}
     </Link>
   )
 }

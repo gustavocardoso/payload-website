@@ -1,19 +1,23 @@
 import { Link } from '@remix-run/react'
-import type { Props } from '~/types/footer'
+import type { Props, socialTypes } from '~/types/footer'
 import Image from '../Common/Image'
 import SocialIcon from '../SocialIcon'
 
 const Footer: React.FC<Props> = ({
   props: { copyright, logoUrl, logoAltText, menu },
-  socialType,
-  socialLinks
+  socialLinks,
+  siteOptions
 }) => {
+  const socialType: socialTypes = siteOptions.fontAwesome ? 'fa' : 'regular'
+
   return (
     <footer className='bg-dark text-light py-16'>
       <div className='container px-4 flex flex-col gap-y-12'>
         <div className='grid grid-cols-12'>
           <div className='col-span-2'>
-            {logoUrl && <Image className='h-8' src={logoUrl} alt={logoAltText} />}
+            <Link to='/'>
+              {logoUrl ? <Image className='h-8' src={logoUrl} alt={logoAltText} /> : 'Logoipsum'}
+            </Link>
           </div>
 
           <ul className='text-base col-span-8 flex justify-center items-center gap-x-10'>

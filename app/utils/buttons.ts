@@ -5,8 +5,6 @@ export const createButton = ({ type, label, page, url, style }: ButtonParameters
   let href
   let buttonStyle
 
-  // console.log({ type, label, page, url, style })
-
   switch (type) {
     case 'page':
       if (page?.status === 'published') {

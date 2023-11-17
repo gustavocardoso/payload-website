@@ -1,4 +1,5 @@
 import type { MenuItems } from './menu'
+import type { siteOptionsProps } from './site-options'
 import type { SocialLink } from './social-icons'
 
 export type socialTypes = 'fa' | 'regular'
@@ -10,7 +11,7 @@ export type Props = {
     logoAltText: string
     menu: MenuItems[]
   }
-  socialType: socialTypes
+  siteOptions: siteOptionsProps
   socialLinks: SocialLink[]
 }
 

@@ -1,5 +1,7 @@
+import { ArrowLongRightIcon } from '@heroicons/react/24/outline'
 import { Link } from '@remix-run/react'
 import type { MenuItems } from '~/types/menu'
+import type { siteOptionsProps } from '~/types/site-options'
 import Button from '../Button'
 import Image from '../Common/Image'
 import Navigation from '../Navigation'
@@ -10,9 +12,12 @@ type Props = {
     url: string
     alt: string
   }
+  siteOptions: siteOptionsProps
 }
 
-const Header: React.FC<Props> = ({ menuItems, logo }) => {
+const Header: React.FC<Props> = ({ menuItems, logo, siteOptions }) => {
+  console.log(siteOptions)
+
   return (
     <header className='relative z-20'>
       <nav className='bg-dark'>
@@ -26,6 +31,8 @@ const Header: React.FC<Props> = ({ menuItems, logo }) => {
           <div className='col-span-2 flex items-center'>
             <Button href='/demo' color='button-highlight' textStyle='uppercase'>
               Get a Demo
+              {siteOptions.fontAwesome && <i className='fa-solid fa-arrow-right-long'></i>}
+              {!siteOptions.fontAwesome && <ArrowLongRightIcon className='w-6' />}
             </Button>
           </div>
         </div>

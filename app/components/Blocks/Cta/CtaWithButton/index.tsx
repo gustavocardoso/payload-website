@@ -1,8 +1,11 @@
+import { ArrowLongRightIcon } from '@heroicons/react/24/outline'
+import { useOutletContext } from '@remix-run/react'
 import Button from '~/components/Button'
 import ButtonGroup from '~/components/ButtonGroup'
 import type { Node } from '~/components/ContentSerialize'
 import ContentSerialize from '~/components/ContentSerialize'
 import type { ButtonColors, ButtonGroupAlignment, Button as ButtonProps } from '~/types/buttons'
+import type { siteOptionsProps } from '~/types/site-options'
 import { ctaStyles } from '../styles'
 
 type CtaWithButtonProps = {
@@ -24,6 +27,7 @@ const CtaWithButton: React.FC<CtaWithButtonProps> = ({
   title,
   contentPosition
 }) => {
+  const siteOptions = useOutletContext<siteOptionsProps>()
   const button = contentPosition === 'right' ? 'order-1' : 'order-2'
   const contentOrder = contentPosition === 'right' ? 'order-2' : 'order-1'
 
@@ -54,6 +58,8 @@ const CtaWithButton: React.FC<CtaWithButtonProps> = ({
                 textStyle='uppercase'
               >
                 {button?.text}
+                {siteOptions.fontAwesome && <i className='fa-solid fa-arrow-right-long'></i>}
+                {!siteOptions.fontAwesome && <ArrowLongRightIcon className='w-6' />}
               </Button>
             ))}
         </ButtonGroup>

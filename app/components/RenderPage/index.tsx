@@ -39,7 +39,6 @@ const RenderPage: React.FC<RenderLayoutProps> = ({ layout }) => {
 
             case 'cta-block':
               blockData = block as CtaBlock
-              console.log(blockData)
 
               return <Cta {...blockData} key={index} />
               break

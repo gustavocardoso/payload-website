@@ -2,11 +2,11 @@ import CopyBlock from '@ui/Blocks/Content/ContentBlocks/CopyBlock'
 import ImageBlock from '@ui/Blocks/Content/ContentBlocks/ImageBlock'
 import Heading from '@ui/Common/Heading'
 import type { BlockLayout } from '~/types/blocks/content'
+import type { ButtonColors } from '~/types/buttons'
 import ButtonBlock from '../ContentBlocks/ButtonBlock'
 import IconsBlock from '../ContentBlocks/IconsBlock'
 import QuoteBlock from '../ContentBlocks/QuoteBlock'
 import VideoBlock from '../ContentBlocks/VideoBlock'
-import { ButtonColors } from '~/types/buttons'
 
 type ColumnBlockProps = {
   layout: BlockLayout
@@ -20,8 +20,6 @@ const ColumnBlock: React.FC<ColumnBlockProps> = ({ layout, grid, columnName, cla
     <div className={`${columnName} ${grid} ${className}`.trim()}>
       {layout.map((block, index) => {
         if (!block) return null
-
-        // console.log(block)
 
         switch (block.blockType) {
           case 'copy-block':

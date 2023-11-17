@@ -17,7 +17,7 @@ import { getNavigation, getSiteOptions, getSocialLinks } from './api/general'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import { ShowAfterFirstRender } from './components/ShowAfterFirstRender'
-import type { FooterProps, socialTypes } from './types/footer'
+import type { FooterProps } from './types/footer'
 import type { MenuItems } from './types/menu'
 import type { siteOptionsProps } from './types/site-options'
 import type { SocialLink } from './types/social-icons'
@@ -81,7 +81,6 @@ export const loader: LoaderFunction = async () => {
 
 export default function App() {
   const { menuItems, footerProps, siteOptions, socialLinks } = useLoaderData() as LoaderData
-  const socialType: socialTypes = siteOptions.fontAwesome ? 'fa' : 'regular'
 
   return (
     <html lang='en' className='min-h-screen'>
@@ -97,12 +96,13 @@ export default function App() {
           <Header
             menuItems={menuItems}
             logo={{ url: siteOptions.logo.url, alt: siteOptions.logo.alt }}
+            siteOptions={siteOptions}
           />
         </ShowAfterFirstRender>
 
-        <Outlet />
+        <Outlet context={siteOptions satisfies siteOptionsProps} />
 
-        <Footer props={footerProps} socialType={socialType} socialLinks={socialLinks} />
+        <Footer props={footerProps} siteOptions={siteOptions} socialLinks={socialLinks} />
 
         <ScrollRestoration />
         <Scripts />
