@@ -14,7 +14,7 @@ const Footer: React.FC<Props> = ({
     <footer className='bg-dark text-light py-16'>
       <div className='container px-4 flex flex-col gap-y-12'>
         <div className='grid grid-cols-12'>
-          <div className='col-span-2'>
+          <div className='col-span-2 text-left flex justify-start'>
             <Link to='/'>
               {logoUrl ? <Image className='h-8' src={logoUrl} alt={logoAltText} /> : 'Logoipsum'}
             </Link>

@@ -5,7 +5,7 @@ import Ribbon from '@ui/Blocks/Ribbon'
 import type { ContentBlock } from '~/types/blocks/content'
 import type { CtaBlock } from '~/types/blocks/cta'
 import type { HeroBlock } from '~/types/blocks/hero'
-import type { Layout } from '~/types/homepage'
+import type { Layout } from '~/types/page'
 import Cta from '../Blocks/Cta'
 
 type RenderLayoutProps = {

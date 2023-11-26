@@ -55,6 +55,24 @@ const ErrorMessage: React.FC<ErrorProps> = error => {
         <Image src={errorImage!} alt={errorImageAlt!} className='w-2/4 ml-4' />
       </div>
     )
+  } else {
+    console.error(error.error)
+    return (
+      <p className={`flex flex-col items-center justify-center ${errorText()}`}>
+        <Image src={image500} alt='Error' className='w-full mb-8' />
+        <span className='block font-bold text-dark text-4xl mb-2'>
+          Oh no! An error just occurred!
+        </span>{' '}
+        <span className='mb-4'>Open the console for more information.</span>
+        <span className={errorText()}>
+          Let me help you find{' '}
+          <a href='/' className='text-primary hover:text-primary-hover transition-colors'>
+            a way out
+          </a>
+          .
+        </span>
+      </p>
+    )
   }
 
   return null

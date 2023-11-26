@@ -3,8 +3,8 @@ import { json, type LoaderFunction, type MetaFunction } from '@remix-run/node'
 import { useLoaderData, useRouteError } from '@remix-run/react'
 import { getPage } from '~/api/pages'
 import RenderPage from '~/components/RenderPage'
-import type { Doc, Docs } from '~/types/homepage'
 import type { MetaProps } from '~/types/meta'
+import type { Doc, Docs } from '~/types/page'
 
 export const meta: MetaFunction = ({ data = {} }) => {
   const metaData = data as MetaProps

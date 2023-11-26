@@ -16,8 +16,6 @@ type Props = {
 }
 
 const Header: React.FC<Props> = ({ menuItems, logo, siteOptions }) => {
-  console.log(siteOptions)
-
   return (
     <header className='relative z-20'>
       <nav className='bg-dark'>

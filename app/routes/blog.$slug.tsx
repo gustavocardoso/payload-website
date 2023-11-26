@@ -7,23 +7,21 @@ import ErrorMessage from '~/components/Common/Error'
 import RenderPage from '~/components/RenderPage'
 import type { Doc, Docs } from '~/types/page'
 
-import type { MetaProps } from '~/types/meta'
-
 export const meta: MetaFunction = ({ data }) => {
-  const metaData = data as MetaProps
   return [
-    { title: metaData?.meta?.title },
-    { name: 'description', content: metaData?.meta?.description },
-    { name: 'keywords', content: metaData?.meta?.keywords }
+    { title: 'Blog | Logoipsum' },
+    { name: 'description', content: 'Our awesome blog posts' },
+    { name: 'keywords', content: 'blog, post' }
   ]
 }
 
 type Loaderdata = Doc
 
 export const loader: LoaderFunction = async ({ params }) => {
+  console.log(params)
   const query = {
     slug: {
-      equals: params.page
+      equals: 'blog'
     },
     status: {
       equals: 'published'
@@ -44,13 +42,19 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json<Loaderdata>(page)
 }
 
-const Page = () => {
+const Blog = () => {
   const { pageLayout } = useLoaderData() as Loaderdata
 
-  return <RenderPage layout={pageLayout} />
+  return (
+    <>
+      <RenderPage layout={pageLayout} />
+
+      <h2>Blog Slug</h2>
+    </>
+  )
 }
 
-export default Page
+export default Blog
 
 export function ErrorBoundary() {
   const error = useRouteError()
