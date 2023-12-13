@@ -4,7 +4,7 @@ import type { Alignment } from '~/types/blocks/hero'
 export const slots = tv({
   slots: {
     heroContainer: 'relative z-20 container grid grid-cols-12 px-4',
-    heroContent: 'col-span-7 pr-8',
+    heroContent: 'col-span-7 pr-8 flex flex-col justify-center',
     heroMedia: 'flex items-center col-span-5 pl-8'
   }
 })

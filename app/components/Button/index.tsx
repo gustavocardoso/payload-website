@@ -42,6 +42,8 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <Link
       to={href!}
+      prefetch='intent'
+      unstable_viewTransition
       className={`button ${buttonStyles({
         color: color,
         textStyle: textStyle

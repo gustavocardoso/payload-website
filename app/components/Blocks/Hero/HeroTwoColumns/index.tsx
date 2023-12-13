@@ -17,10 +17,10 @@ const HeroTwoColumns: React.FC<HeroProps> = ({
     alignment = 'left',
     media,
     buttons,
-    grayscale,
-    rotate,
-    scale,
-    shadow,
+    grayscale = false,
+    rotate = false,
+    scale = false,
+    shadow = false,
     backgroundTextColor = undefined,
     background
   }

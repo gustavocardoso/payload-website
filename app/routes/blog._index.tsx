@@ -4,7 +4,7 @@ import type { MetaFunction } from '@remix-run/react'
 import { useLoaderData, useRouteError } from '@remix-run/react'
 import type { z } from 'zod'
 import { getPage } from '~/api/pages'
-import type { postSchema } from '~/api/posts'
+import type { postsSchema } from '~/api/posts'
 import { getPosts } from '~/api/posts'
 import PostCard from '~/components/Cards/Post'
 import ErrorMessage from '~/components/Common/Error'
@@ -21,7 +21,7 @@ export const meta: MetaFunction = ({ data }) => {
 
 type Loaderdata = {
   page: Doc
-  posts: z.infer<typeof postSchema>
+  posts: z.infer<typeof postsSchema>
 }
 
 export const loader: LoaderFunction = async ({ params }) => {

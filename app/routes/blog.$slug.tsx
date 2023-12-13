@@ -1,11 +1,16 @@
-// import type { LoaderFunction } from '@remix-run/node'
 import { json, type LoaderFunction } from '@remix-run/node'
 import type { MetaFunction } from '@remix-run/react'
-import { useLoaderData, useRouteError } from '@remix-run/react'
-import { getPage } from '~/api/pages'
+import { useLoaderData, useOutletContext, useRouteError } from '@remix-run/react'
+import { useEffect, useState } from 'react'
+import type { z } from 'zod'
+import type { postSchema } from '~/api/posts'
+import { getPost } from '~/api/posts'
+import Hero from '~/components/Blocks/Hero'
 import ErrorMessage from '~/components/Common/Error'
-import RenderPage from '~/components/RenderPage'
-import type { Doc, Docs } from '~/types/page'
+import PostAside from '~/components/Post/Aside'
+import PostContent from '~/components/Post/Content'
+import type { siteOptionsProps } from '~/types/site-options'
+import { countWordsInPostContent, estimateReadingTime } from '~/utils/strings'
 
 export const meta: MetaFunction = ({ data }) => {
   return [
@@ -15,41 +20,86 @@ export const meta: MetaFunction = ({ data }) => {
   ]
 }
 
-type Loaderdata = Doc
+type Loaderdata = z.infer<typeof postSchema>
 
 export const loader: LoaderFunction = async ({ params }) => {
-  console.log(params)
   const query = {
     slug: {
-      equals: 'blog'
+      equals: params.slug
     },
     status: {
       equals: 'published'
     }
   }
 
-  const {
-    docs: [page]
-  } = (await getPage(query)) as Docs
+  const post = await getPost(query)
 
-  if (page === undefined) {
+  if (post === undefined) {
     throw new Response(null, {
       status: 404,
       statusText: 'Page not found!'
     })
   }
 
-  return json<Loaderdata>(page)
+  return json<Loaderdata>(post)
 }
 
 const Blog = () => {
-  const { pageLayout } = useLoaderData() as Loaderdata
+  const {
+    docs: [post]
+  } = useLoaderData() as Loaderdata
+  const [readingTime, setreadingTime] = useState(0)
+  const siteOptions = useOutletContext<siteOptionsProps>()
+  const categories = post.category.map(cat => cat.title)
+
+  let image
+
+  if (post.postImage?.webp?.sizes?.blog?.url) {
+    image = post.postImage.webp.sizes?.blog?.url
+  } else if (!post.postImage?.webp?.sizes?.blog?.url && post.postImage?.url) {
+    image = post.postImage.sizes?.blog?.url
+  }
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const postContent = document.querySelector('.post-content')
+      const words = countWordsInPostContent(postContent!)
+      setreadingTime(estimateReadingTime(words!))
+    }
+  }, [])
 
   return (
     <>
-      <RenderPage layout={pageLayout} />
+      <Hero
+        props={{
+          type: 'page',
+          alignment: 'center',
+          background: 'light',
+          title: post.title,
+          titleTag: 'h1',
+          page: 'Blog',
+          pageUrl: '/blog'
+        }}
+      />
 
-      <h2>Blog Slug</h2>
+      <div className='container px-4 py-28'>
+        <article className='grid grid-cols-12'>
+          <PostContent
+            image={image}
+            imageAlt={post.postImage?.alt}
+            layout={post.layout}
+            className='order-2 col-span-9 pl-4'
+          />
+
+          <PostAside
+            publishedDate={post.publishedDate}
+            siteOptions={siteOptions}
+            categories={categories as []}
+            readingTime={readingTime}
+            className='order-1 col-span-3 pr-4'
+          />
+        </article>
+      </div>
     </>
   )
 }
@@ -58,7 +108,6 @@ export default Blog
 
 export function ErrorBoundary() {
   const error = useRouteError()
-  console.error(error)
 
   return (
     <div className='container px-4 py-32 min-h-[calc(100vh-372px)] flex justify-center items-center'>

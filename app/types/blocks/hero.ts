@@ -3,7 +3,7 @@ import type { Background } from '../background'
 import type { ButtonColors } from '../buttons'
 
 export type Alignment = 'right' | 'center' | 'left'
-export type HeroType = 'centered' | 'two-columns'
+export type HeroType = 'centered' | 'two-columns' | 'page'
 export type BackgroundOpacity = 'none' | '20' | '30' | '50'
 export type BackgroundTextColor = 'light' | 'dark'
 
@@ -61,13 +61,13 @@ export type HeroBlockButton = {
 }
 
 export type HeroBlock = {
-  type: string
+  type: HeroType
   title: string
   titleTag: string
   alignment: string
-  description: string
-  buttons: HeroBlockButton[]
-  media: {
+  description?: string
+  buttons?: HeroBlockButton[]
+  media?: {
     id: string
     title: string
     alt: string
@@ -86,10 +86,10 @@ export type HeroBlock = {
     updatedAt: string
     url: string
   }
-  rotate: boolean
-  scale: boolean
-  shadow: boolean
-  grayscale: boolean
+  rotate?: boolean
+  scale?: boolean
+  shadow?: boolean
+  grayscale?: boolean
   background: Background
   backgroundImage?: {
     url: string
@@ -97,13 +97,9 @@ export type HeroBlock = {
   backgroundOpacity?: string
   backgroundTextColor?: string
   padding?: BlockPaddingY
+  page?: string
+  pageUrl?: string
   anchor?: string
-  effects: {
-    rotate: boolean
-    scale: boolean
-    shadow: boolean
-    grayscale: boolean
-  }
-  id: string
-  blockType: string
+  id?: string
+  blockType?: string
 }

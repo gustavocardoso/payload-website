@@ -1,5 +1,5 @@
 import { ArrowLongRightIcon } from '@heroicons/react/24/outline'
-import { useOutletContext } from '@remix-run/react'
+import { Link, useOutletContext } from '@remix-run/react'
 import type { Post } from '~/types/posts'
 import type { siteOptionsProps } from '~/types/site-options'
 
@@ -7,39 +7,48 @@ type PostCardProps = {
   post: Post
 }
 
-const blogImage =
-  'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dGVjaG5vbG9neSUyMGJ1c2luZXNzfGVufDB8fDB8fHww'
-
-const PostCard: React.FC<PostCardProps> = ({ post: { title } }) => {
+const PostCard: React.FC<PostCardProps> = ({ post: { title, category, postImage, slug } }) => {
   const siteOptions = useOutletContext<siteOptionsProps>()
-  console.log(title)
+  const categories = category.map(cat => cat.title)
+  let image
+
+  if (postImage?.webp?.url) {
+    image = postImage.webp.sizes?.card?.url
+  } else if (!postImage?.webp?.url && postImage?.url) {
+    image = postImage.sizes?.card?.url
+  }
 
   return (
     <div className='post-card col-span-4 bg-light rounded-lg overflow-hidden group hover:bg-dark transition-all duration-500'>
       <div className='post-image aspect-video overflow-hidden'>
-        <a href='/blog-slug'>
+        <Link to={`/blog/${slug}`} prefetch='intent' unstable_viewTransition>
           <img
-            src={blogImage}
+            src={image}
             alt=''
-            className='w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500'
+            className='w-full h-full grayscale group-hover:grayscale-0 object-cover object-center group-hover:scale-110 group-hover:-rotate-3 transition-all duration-[1500ms] ease-in-out'
           />
-        </a>
+        </Link>
       </div>
 
       <div className='post-info p-8'>
-        <span className='post-category font-medium text-primary'>Business</span>
+        <span className='post-categories font-medium text-primary'>{categories.join(', ')}</span>
+
         <h2 className='text-2xl font-semibold group-hover:text-white transition-all duration-500'>
-          <a href='/blog-slug'>{title}</a>
+          <Link to={`/blog/${slug}`} prefetch='intent' unstable_viewTransition>
+            {title}
+          </Link>
         </h2>
 
-        <a
-          href='/blog/slug'
+        <Link
+          to={`/blog/${slug}`}
+          prefetch='intent'
+          unstable_viewTransition
           className='inline-flex gap-x-2 items-center text-tertiary hover:text-tertiary-hover group-hover:text-highlight group-hover:hover:text-highlight-hover transition-all duration-500'
         >
           Read Post
           {siteOptions.fontAwesome && <i className='fa-solid fa-arrow-right-long'></i>}
           {!siteOptions.fontAwesome && <ArrowLongRightIcon className='w-6' />}
-        </a>
+        </Link>
       </div>
     </div>
   )

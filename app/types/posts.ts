@@ -1,5 +1,5 @@
 import type { z } from 'zod'
-import type { postSchema } from '~/api/posts'
+import type { postsSchema } from '~/api/posts'
 
 // type Category = {
 //   id: string
@@ -31,6 +31,6 @@ import type { postSchema } from '~/api/posts'
 //   title?: string
 // }
 
-export type PostType = z.infer<typeof postSchema>
+export type PostType = z.infer<typeof postsSchema>
 
 export type Post = PostType['docs'][0]

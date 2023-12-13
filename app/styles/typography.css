@@ -38,7 +38,11 @@ p {
 .block-container {
   ul,
   ol {
-    @apply text-paragraph mb-6 list-inside list-disc ml-4;
+    @apply mb-6 list-inside list-disc ml-4;
+  }
+
+  li {
+    @apply leading-normal text-paragraph;
   }
 
   &.background-none,

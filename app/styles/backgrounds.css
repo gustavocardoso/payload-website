@@ -4,6 +4,14 @@
 
 .background-light {
   @apply bg-light;
+
+  .hero-page-title {
+    @apply text-primary;
+
+    a {
+      @apply text-primary hover:!text-primary-hover;
+    }
+  }
 }
 
 .background-dark {
@@ -20,10 +28,26 @@
       }
     }
   }
+
+  .hero-page-title {
+    @apply text-primary;
+
+    a {
+      @apply text-primary hover:!text-primary-hover;
+    }
+  }
 }
 
 .background-darker {
   @apply bg-dark-hover text-light;
+
+  .hero-page-title {
+    @apply text-primary;
+
+    a {
+      @apply text-primary hover:!text-primary-hover;
+    }
+  }
 }
 
 .background-highlight {
@@ -50,6 +74,14 @@
   .testimonial-company {
     @apply text-highlight;
   }
+
+  .hero-page-title {
+    @apply text-highlight;
+
+    a {
+      @apply text-highlight hover:!text-highlight-hover;
+    }
+  }
 }
 
 .background-primary h1 span,
@@ -59,6 +91,14 @@
 
 .background-secondary {
   @apply bg-secondary text-dark;
+
+  .hero-page-title {
+    @apply text-white;
+
+    a {
+      @apply text-light hover:!text-white;
+    }
+  }
 }
 
 .background-secondary h1 span,
@@ -71,6 +111,14 @@
 
   .testimonial-company {
     @apply text-highlight;
+  }
+
+  .hero-page-title {
+    @apply text-highlight;
+
+    a {
+      @apply text-highlight hover:!text-highlight-hover;
+    }
   }
 }
 

@@ -1,3 +1,7 @@
+/* html {
+  @apply scroll-smooth;
+} */
+
 body {
   @apply bg-white text-base text-black font-base;
 }
@@ -35,6 +39,10 @@ body {
       @apply mb-0;
     }
   }
+
+  li {
+    @apply mb-6;
+  }
 }
 
 .video-container {
@@ -50,6 +58,14 @@ body {
       &:last-child {
         @apply mb-0;
       }
+    }
+  }
+}
+
+.table-of-contents-items {
+  a {
+    &.active {
+      @apply text-primary;
     }
   }
 }

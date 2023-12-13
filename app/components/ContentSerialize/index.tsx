@@ -34,8 +34,8 @@ const serialize = (children: Node[]) => {
 
       if (nodetext === '') return null
 
-      // let text = <span dangerouslySetInnerHTML={{ __html: escapeHTML(nodetext) }} />
-      let text = <p dangerouslySetInnerHTML={{ __html: nodetext }} />
+      let text = <span dangerouslySetInnerHTML={{ __html: escapeHTML(nodetext) }} />
+      // let text = <p dangerouslySetInnerHTML={{ __html: nodetext }} />
 
       if (node.bold) {
         text = <strong key={i}>{text}</strong>
@@ -49,6 +49,22 @@ const serialize = (children: Node[]) => {
         text = <em key={i}>{text}</em>
       }
 
+      if (node.underline) {
+        text = (
+          <span style={{ textDecoration: 'underline' }} key={i}>
+            {text}
+          </span>
+        )
+      }
+
+      if (node.strikethrough) {
+        text = (
+          <span style={{ textDecoration: 'line-through' }} key={i}>
+            {text}
+          </span>
+        )
+      }
+
       // Handle other leaf types here...
 
       return <Fragment key={i}>{text}</Fragment>
@@ -59,6 +75,8 @@ const serialize = (children: Node[]) => {
     }
 
     switch (node.type) {
+      case 'br':
+        return <br key={i} />
       case 'h1':
         return <h1 key={i}>{serialize(node.children)}</h1>
       // Iterate through all headings here...
@@ -78,10 +96,11 @@ const serialize = (children: Node[]) => {
             {serialize(node.children)}
           </a>
         )
-
+      // default:
+      //   return <p key={i}>{serialize(node.children)}</p>
       default:
         if (node.children && node.children.length > 0 && !isEmptyString(node.children)) {
-          return <Fragment key={i}>{serialize(node.children)}</Fragment>
+          return <p key={i}>{serialize(node.children)}</p>
         }
     }
 

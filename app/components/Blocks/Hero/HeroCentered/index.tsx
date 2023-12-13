@@ -18,20 +18,24 @@ const HeroCentered: React.FC<HeroProps> = ({
     buttons,
     background,
     backgroundTextColor,
-    grayscale,
-    rotate,
-    scale,
-    shadow
+    grayscale = false,
+    rotate = false,
+    scale = false,
+    shadow = false
   }
 }) => {
   const textColor = background === 'image' ? setTextColor(backgroundTextColor) : ''
   return (
     <div className={`hero ${heroContainer()}`}>
       <div className={`${heroContent()} ${textColor}`.trim()}>
-        <HeroTitle title={title} titleTag={titleTag as TitleTagOptions} />
-        <HeroDescription text={description} />
+        {title && <HeroTitle title={title} titleTag={titleTag as TitleTagOptions} />}
+        {description && <HeroDescription text={description} />}
 
-        {buttons && buttons.length > 0 && <HeroButtons buttons={buttons} alignment='center' />}
+        {buttons && buttons.length > 0 && (
+          <div className='mb-20'>
+            <HeroButtons buttons={buttons} alignment='center' />
+          </div>
+        )}
 
         {media && (
           <div className={`hero-media ${heroMedia()}`}>
