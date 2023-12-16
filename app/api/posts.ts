@@ -67,33 +67,27 @@ export const postSchema = z.object({
         firstName: z.string(),
         lastName: z.string()
       }),
-      publishedDate: z
-        .string()
-        .transform(date =>
-          new Date(date).toLocaleDateString('en-CA', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })
-        ),
-      createdAt: z
-        .string()
-        .transform(date =>
-          new Date(date).toLocaleDateString('en-CA', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })
-        ),
-      updatedAt: z
-        .string()
-        .transform(date =>
-          new Date(date).toLocaleDateString('en-CA', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })
-        ),
+      publishedDate: z.string().transform(date =>
+        new Date(date).toLocaleDateString('en-CA', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })
+      ),
+      createdAt: z.string().transform(date =>
+        new Date(date).toLocaleDateString('en-CA', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })
+      ),
+      updatedAt: z.string().transform(date =>
+        new Date(date).toLocaleDateString('en-CA', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })
+      ),
       meta: z.object({
         title: z.string().optional(),
         description: z.string().optional(),
@@ -180,6 +174,15 @@ export const postsSchema = z.object({
   )
 })
 
+export const categoriesSchema = z.object({
+  docs: z.array(
+    z.object({
+      title: z.string(),
+      slug: z.string()
+    })
+  )
+})
+
 const fetcher = createZodFetcher()
 
 export const getPosts = async (query: unknown) => {
@@ -202,6 +205,27 @@ export const getPosts = async (query: unknown) => {
   )
 
   return posts
+}
+
+export const getCategories = async () => {
+  const stringifiedQuery = qs.stringify(
+    {
+      sort: 'title'
+    },
+    { addQueryPrefix: true }
+  )
+
+  const categories = await fetcher(
+    categoriesSchema,
+    `${process.env.API_URL}/categories/${stringifiedQuery}`,
+    {
+      headers: {
+        Authorization: `users API-Key ${process.env.API_KEY}`
+      }
+    }
+  )
+
+  return categories
 }
 
 export const getPost = async (query: unknown) => {

@@ -29,7 +29,7 @@ const PostAside: React.FC<PostAsideProps> = ({
         </p>
       )}
 
-      {readingTime && (
+      {readingTime > 0 && (
         <p className='flex items-center gap-x-3 mb-4'>
           <span className='w-7'>
             {siteOptions.fontAwesome && <i className='text-2xl fa-regular fa-clock'></i>}

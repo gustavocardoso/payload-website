@@ -1,4 +1,3 @@
-import type { LinksFunction } from '@remix-run/node'
 import { useEffect, useState } from 'react'
 import type Heading from '~/components/Common/Heading'
 
@@ -6,14 +5,6 @@ type Heading = {
   id: string
   text: string
 }
-
-export const links: LinksFunction = () => [
-  {
-    rel: 'prefetch',
-    as: 'script',
-    href: 'https://cdn.jsdelivr.net/npm/smooth-scroll@17/dist/smooth-scroll.min.js'
-  }
-]
 
 const TableOfContents: React.FC = () => {
   const [headings, setHeadings] = useState<Heading[]>([])
@@ -24,7 +15,7 @@ const TableOfContents: React.FC = () => {
     setTimeout(() => {
       const yOffset = -100
       const element = document.getElementById(id)
-      console.log(element) // log the element
+
       if (element) {
         const y = element.getBoundingClientRect().top + window.scrollY + yOffset
 
@@ -90,20 +81,21 @@ const TableOfContents: React.FC = () => {
 
   return (
     <div className='sticky flex-col flex gap-3 mt-8 table-of-contents top-40'>
-      <h4>Table of Contents</h4>
-
       {headings && headings.length > 0 && (
-        <div id='toc' className='table-of-contents-items flex flex-col gap-y-2'>
-          {headings.map(heading => (
-            <a
-              href={`#${heading.id}`}
-              key={heading.id}
-              onClick={event => handleClick(event, heading.id)}
-            >
-              {heading.text}
-            </a>
-          ))}
-        </div>
+        <>
+          <h4>Table of Contents</h4>
+          <div id='toc' className='table-of-contents-items flex flex-col gap-y-2'>
+            {headings.map(heading => (
+              <a
+                href={`#${heading.id}`}
+                key={heading.id}
+                onClick={event => handleClick(event, heading.id)}
+              >
+                {heading.text}
+              </a>
+            ))}
+          </div>
+        </>
       )}
     </div>
   )

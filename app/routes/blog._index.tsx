@@ -1,12 +1,13 @@
 // import type { LoaderFunction } from '@remix-run/node'
-import { json, type LoaderFunction } from '@remix-run/node'
+import { json, type LoaderFunction, type LoaderFunctionArgs } from '@remix-run/node'
 import type { MetaFunction } from '@remix-run/react'
 import { useLoaderData, useRouteError } from '@remix-run/react'
 import type { z } from 'zod'
 import { getPage } from '~/api/pages'
-import type { postsSchema } from '~/api/posts'
-import { getPosts } from '~/api/posts'
+import type { categoriesSchema, postsSchema } from '~/api/posts'
+import { getCategories, getPosts } from '~/api/posts'
 import PostCard from '~/components/Cards/Post'
+import CategoriesList from '~/components/CategoriesList'
 import ErrorMessage from '~/components/Common/Error'
 import RenderPage from '~/components/RenderPage'
 import type { Doc, Docs } from '~/types/page'
@@ -22,10 +23,24 @@ export const meta: MetaFunction = ({ data }) => {
 type Loaderdata = {
   page: Doc
   posts: z.infer<typeof postsSchema>
+  categories: z.infer<typeof categoriesSchema>
+  selectedCategory: string[] | undefined
 }
 
-export const loader: LoaderFunction = async ({ params }) => {
-  const query = {
+type Query = {
+  status: {
+    equals: string
+  }
+  'category.slug'?: {
+    in: string[]
+  }
+}
+
+export const loader: LoaderFunction = async ({ request }: LoaderFunctionArgs) => {
+  const searchCategories = new URL(request.url).searchParams.get('category')
+  const searchCategoriesArray = searchCategories?.split(',').filter(category => category !== '')
+
+  const pageQuery = {
     slug: {
       equals: 'blog'
     },
@@ -36,7 +51,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 
   const {
     docs: [page]
-  } = (await getPage(query)) as Docs
+  } = (await getPage(pageQuery)) as Docs
 
   if (page === undefined) {
     throw new Response(null, {
@@ -45,21 +60,30 @@ export const loader: LoaderFunction = async ({ params }) => {
     })
   }
 
-  const postsQuery = {
+  let postsQuery: Query = {
     status: {
       equals: 'published'
     }
   }
 
-  const posts = await getPosts(postsQuery)
+  if (searchCategoriesArray?.length) {
+    postsQuery['category.slug'] = {
+      in: searchCategoriesArray
+    }
+  }
 
-  return json<Loaderdata>({ page, posts })
+  const posts = await getPosts(postsQuery)
+  const categories = await getCategories()
+
+  return json<Loaderdata>({ page, posts, categories, selectedCategory: searchCategoriesArray })
 }
 
 const Blog = () => {
   const {
     page: { pageLayout },
-    posts: { docs: posts }
+    posts: { docs: posts },
+    categories: { docs: categories },
+    selectedCategory
   } = useLoaderData() as Loaderdata
 
   return (
@@ -67,12 +91,12 @@ const Blog = () => {
       <RenderPage layout={pageLayout} />
 
       <div className='container px-4 py-28'>
-        <div className='container px-4 py-28'>
-          <div className='blog-list-wrapper grid grid-cols-12 gap-16'>
-            {posts.map((post, index) => (
-              <PostCard key={index} post={post} />
-            ))}
-          </div>
+        <CategoriesList categories={categories} selectedCategory={selectedCategory} />
+
+        <div className='blog-list-wrapper grid grid-cols-12 gap-16'>
+          {posts.map((post, index) => (
+            <PostCard key={index} post={post} />
+          ))}
         </div>
       </div>
     </>
