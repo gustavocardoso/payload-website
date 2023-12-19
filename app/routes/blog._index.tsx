@@ -34,9 +34,13 @@ type Query = {
   'category.slug'?: {
     in: string[]
   }
+  title?: {
+    contains: string
+  }
 }
 
 export const loader: LoaderFunction = async ({ request }: LoaderFunctionArgs) => {
+  const search = new URL(request.url).searchParams.get('search')
   const searchCategories = new URL(request.url).searchParams.get('category')
   const searchCategoriesArray = searchCategories?.split(',').filter(category => category !== '')
 
@@ -69,6 +73,12 @@ export const loader: LoaderFunction = async ({ request }: LoaderFunctionArgs) =>
   if (searchCategoriesArray?.length) {
     postsQuery['category.slug'] = {
       in: searchCategoriesArray
+    }
+  }
+
+  if (search !== '') {
+    postsQuery['title'] = {
+      contains: search!
     }
   }
 
