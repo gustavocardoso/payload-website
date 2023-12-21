@@ -69,3 +69,7 @@ body {
     }
   }
 }
+
+label {
+  @apply cursor-pointer;
+}

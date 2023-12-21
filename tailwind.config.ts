@@ -62,5 +62,19 @@ export default {
       }
     }
   },
-  plugins: []
+  plugins: [
+    function ({ matchVariant }: { matchVariant: any }) {
+      matchVariant(
+        'has',
+        (value: string) => {
+          return `&:has(${value})`
+        },
+        {
+          values: {
+            checked: 'input:checked'
+          }
+        }
+      )
+    }
+  ]
 } satisfies Config

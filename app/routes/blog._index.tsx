@@ -1,5 +1,10 @@
-// import type { LoaderFunction } from '@remix-run/node'
-import { json, type LoaderFunction, type LoaderFunctionArgs } from '@remix-run/node'
+import {
+  json,
+  redirect,
+  type ActionFunction,
+  type LoaderFunction,
+  type LoaderFunctionArgs
+} from '@remix-run/node'
 import type { MetaFunction } from '@remix-run/react'
 import { useLoaderData, useRouteError } from '@remix-run/react'
 import type { z } from 'zod'
@@ -7,9 +12,9 @@ import { getPage } from '~/api/pages'
 import type { categoriesSchema, postsSchema } from '~/api/posts'
 import { getCategories, getPosts } from '~/api/posts'
 import PostCard from '~/components/Cards/Post'
-import CategoriesList from '~/components/CategoriesList'
 import ErrorMessage from '~/components/Common/Error'
 import RenderPage from '~/components/RenderPage'
+import Search from '~/components/Search'
 import type { Doc, Docs } from '~/types/page'
 
 export const meta: MetaFunction = ({ data }) => {
@@ -37,6 +42,24 @@ type Query = {
   title?: {
     contains: string
   }
+}
+
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData()
+  const categories = formData.getAll('category')
+  const search = String(formData.get('search'))
+
+  let urlParams = ''
+
+  if (categories.length > 0) {
+    urlParams += `category=${categories.join(',')}`
+  }
+
+  if (search) {
+    urlParams += `${urlParams ? '&' : ''}search=${search}`
+  }
+
+  return redirect(urlParams ? `/blog?${urlParams}` : '/blog')
 }
 
 export const loader: LoaderFunction = async ({ request }: LoaderFunctionArgs) => {
@@ -101,7 +124,9 @@ const Blog = () => {
       <RenderPage layout={pageLayout} />
 
       <div className='container px-4 py-28'>
-        <CategoriesList categories={categories} selectedCategory={selectedCategory} />
+        <div className='mb-24'>
+          <Search categories={categories} selectedCategory={selectedCategory} />
+        </div>
 
         <div className='blog-list-wrapper grid grid-cols-12 gap-16'>
           {posts.map((post, index) => (
