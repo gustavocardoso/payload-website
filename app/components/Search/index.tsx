@@ -2,6 +2,10 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { Form, useLocation, useSearchParams } from '@remix-run/react'
 import { useEffect, useRef } from 'react'
 
+import { slots } from './styles'
+
+const { label } = slots()
+
 type SearchProps = {
   categories: {
     slug: string
@@ -22,12 +26,7 @@ const Search = ({ categories, selectedCategory }: SearchProps) => {
 
   return (
     <div className='search'>
-      <Form
-        ref={formRef}
-        method='post'
-        action='/blog'
-        className='relative flex items-center justify-between'
-      >
+      <Form ref={formRef} method='post' className='relative flex items-center justify-between'>
         <div className='flex gap-x-6 items-center'>
           <p className='mb-0'>
             <strong>Filter:</strong>{' '}
@@ -41,10 +40,12 @@ const Search = ({ categories, selectedCategory }: SearchProps) => {
                 id={category.slug}
                 value={category.slug}
                 defaultChecked={selectedCategory?.includes(category.slug) || false}
-                className='accent-highlight-hover w-6 h-6 rounded-lg mr-2 peer cursor-pointer'
-                onChange={() => formRef.current?.submit()}
+                className='transition-all appearance-none bg-white w-5 h-5 border-gray text-highlight-hover rounded accent-highlight focus:ring-primary mr-2 peer cursor-pointer'
+                onInput={() => formRef.current?.submit()}
               />
-              <label htmlFor={category.slug}>{category.title}</label>
+              <label htmlFor={category.slug} className={label()}>
+                {category.title}
+              </label>
             </div>
           ))}
         </div>
@@ -55,7 +56,7 @@ const Search = ({ categories, selectedCategory }: SearchProps) => {
             name='search'
             defaultValue={searchValue}
             placeholder='Search blog'
-            className='border-none rounded-lg py-3 px-4 w-96 outline outline-transparent outline-1 focus:border-highlight focus:outline-highlight focus:outline-2 relative'
+            className='rounded-lg py-3 px-4 w-96 relative focus:outline-none focus:border-primary focus:ring-primary focus:ring-1 border-gray bg-white transition-all'
           />
           <button type='submit' className='absolute right-4'>
             <MagnifyingGlassIcon className='w-6' />

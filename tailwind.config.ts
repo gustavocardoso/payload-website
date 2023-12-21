@@ -62,19 +62,5 @@ export default {
       }
     }
   },
-  plugins: [
-    function ({ matchVariant }: { matchVariant: any }) {
-      matchVariant(
-        'has',
-        (value: string) => {
-          return `&:has(${value})`
-        },
-        {
-          values: {
-            checked: 'input:checked'
-          }
-        }
-      )
-    }
-  ]
+  plugins: [require('@tailwindcss/forms')]
 } satisfies Config
