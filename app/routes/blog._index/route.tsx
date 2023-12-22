@@ -19,6 +19,10 @@ import type { Doc, Docs } from '~/types/page'
 import { pageQuery, postsQuery } from './queries'
 import { setSearchUrl } from './search'
 
+import { slots } from './styles'
+
+const { blogListContainer, blogList } = slots()
+
 export const meta: MetaFunction = ({ data }) => {
   return [
     { title: 'Blog | Logoipsum' },
@@ -77,12 +81,12 @@ const Blog = () => {
     <>
       <RenderPage layout={pageLayout} />
 
-      <div className='container px-4 py-28'>
+      <div className={blogListContainer()}>
         <div className='mb-24'>
           <Search categories={categories} selectedCategories={selectedCategories} />
         </div>
 
-        <div className='blog-list-wrapper grid grid-cols-12 gap-16'>
+        <div className={blogList()}>
           {posts.map((post, index) => (
             <PostCard key={index} post={post} />
           ))}

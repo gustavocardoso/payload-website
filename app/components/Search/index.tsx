@@ -1,10 +1,11 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
-import { Form, useLocation, useSearchParams } from '@remix-run/react'
+import { Form, useLocation, useOutletContext, useSearchParams } from '@remix-run/react'
 import { useEffect, useRef } from 'react'
-
+import type { siteOptionsProps } from '~/types/site-options'
 import { slots } from './styles'
 
-const { label } = slots()
+const { label, searchForm, filterWrapper, checkBoxWrapper, checkbox, searchField, submitButton } =
+  slots()
 
 type SearchProps = {
   categories: {
@@ -15,6 +16,7 @@ type SearchProps = {
 }
 
 const Search = ({ categories, selectedCategories }: SearchProps) => {
+  const siteOptions = useOutletContext<siteOptionsProps>()
   const formRef = useRef<HTMLFormElement>(null)
   const location = useLocation()
   const [searchParams] = useSearchParams()
@@ -26,21 +28,21 @@ const Search = ({ categories, selectedCategories }: SearchProps) => {
 
   return (
     <div className='search'>
-      <Form ref={formRef} method='post' className='relative flex items-center justify-between'>
-        <div className='flex gap-x-6 items-center'>
+      <Form ref={formRef} method='post' className={searchForm()}>
+        <div className={filterWrapper()}>
           <p className='mb-0'>
             <strong>Filter:</strong>{' '}
           </p>
 
           {categories.map((category, index) => (
-            <div key={index} className='flex items-center'>
+            <div key={index} className={checkBoxWrapper()}>
               <input
                 type='checkbox'
                 name='category'
                 id={category.slug}
                 value={category.slug}
                 defaultChecked={selectedCategories?.includes(category.slug) || false}
-                className='transition-all appearance-none bg-white w-5 h-5 border-gray text-highlight-hover rounded accent-highlight focus:ring-primary mr-2 peer cursor-pointer'
+                className={checkbox()}
                 onInput={() => formRef.current?.submit()}
               />
               <label htmlFor={category.slug} className={label()}>
@@ -56,10 +58,13 @@ const Search = ({ categories, selectedCategories }: SearchProps) => {
             name='search'
             defaultValue={searchValue}
             placeholder='Search blog'
-            className='rounded-lg py-3 px-4 w-96 relative focus:outline-none focus:border-primary focus:ring-primary focus:ring-1 border-gray bg-white transition-all'
+            className={searchField()}
           />
-          <button type='submit' className='absolute right-4'>
-            <MagnifyingGlassIcon className='w-6' />
+          <button type='submit' className={submitButton()}>
+            {siteOptions.fontAwesome && (
+              <i className='text-xl mt-1 fa-solid fa-magnifying-glass'></i>
+            )}
+            {!siteOptions.fontAwesome && <MagnifyingGlassIcon className='w-6' />}
           </button>
         </div>
       </Form>
