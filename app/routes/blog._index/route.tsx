@@ -16,6 +16,8 @@ import ErrorMessage from '~/components/Common/Error'
 import RenderPage from '~/components/RenderPage'
 import Search from '~/components/Search'
 import type { Doc, Docs } from '~/types/page'
+import { pageQuery, postsQuery } from './queries'
+import { setSearchUrl } from './search'
 
 export const meta: MetaFunction = ({ data }) => {
   return [
@@ -29,37 +31,16 @@ type Loaderdata = {
   page: Doc
   posts: z.infer<typeof postsSchema>
   categories: z.infer<typeof categoriesSchema>
-  selectedCategory: string[] | undefined
-}
-
-type Query = {
-  status: {
-    equals: string
-  }
-  'category.slug'?: {
-    in: string[]
-  }
-  title?: {
-    contains: string
-  }
+  selectedCategories: string[] | undefined
 }
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
-  const categories = formData.getAll('category')
   const search = String(formData.get('search'))
+  const categories = formData.getAll('category')
+  const searchUrl = setSearchUrl(search, categories)
 
-  let urlParams = ''
-
-  if (categories.length > 0) {
-    urlParams += `category=${categories.join(',')}`
-  }
-
-  if (search) {
-    urlParams += `${urlParams ? '&' : ''}search=${search}`
-  }
-
-  return redirect(urlParams ? `/blog?${urlParams}` : '/blog')
+  return redirect(searchUrl)
 }
 
 export const loader: LoaderFunction = async ({ request }: LoaderFunctionArgs) => {
@@ -67,18 +48,9 @@ export const loader: LoaderFunction = async ({ request }: LoaderFunctionArgs) =>
   const searchCategories = new URL(request.url).searchParams.get('category')
   const searchCategoriesArray = searchCategories?.split(',').filter(category => category !== '')
 
-  const pageQuery = {
-    slug: {
-      equals: 'blog'
-    },
-    status: {
-      equals: 'published'
-    }
-  }
-
   const {
     docs: [page]
-  } = (await getPage(pageQuery)) as Docs
+  } = (await getPage(pageQuery())) as Docs
 
   if (page === undefined) {
     throw new Response(null, {
@@ -87,28 +59,10 @@ export const loader: LoaderFunction = async ({ request }: LoaderFunctionArgs) =>
     })
   }
 
-  let postsQuery: Query = {
-    status: {
-      equals: 'published'
-    }
-  }
-
-  if (searchCategoriesArray?.length) {
-    postsQuery['category.slug'] = {
-      in: searchCategoriesArray
-    }
-  }
-
-  if (search !== '') {
-    postsQuery['title'] = {
-      contains: search!
-    }
-  }
-
-  const posts = await getPosts(postsQuery)
+  const posts = await getPosts(postsQuery(search!, searchCategoriesArray!))
   const categories = await getCategories()
 
-  return json<Loaderdata>({ page, posts, categories, selectedCategory: searchCategoriesArray })
+  return json<Loaderdata>({ page, posts, categories, selectedCategories: searchCategoriesArray })
 }
 
 const Blog = () => {
@@ -116,7 +70,7 @@ const Blog = () => {
     page: { pageLayout },
     posts: { docs: posts },
     categories: { docs: categories },
-    selectedCategory
+    selectedCategories
   } = useLoaderData() as Loaderdata
 
   return (
@@ -125,7 +79,7 @@ const Blog = () => {
 
       <div className='container px-4 py-28'>
         <div className='mb-24'>
-          <Search categories={categories} selectedCategory={selectedCategory} />
+          <Search categories={categories} selectedCategories={selectedCategories} />
         </div>
 
         <div className='blog-list-wrapper grid grid-cols-12 gap-16'>

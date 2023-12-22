@@ -11,10 +11,10 @@ type SearchProps = {
     slug: string
     title: string
   }[]
-  selectedCategory?: string[]
+  selectedCategories?: string[]
 }
 
-const Search = ({ categories, selectedCategory }: SearchProps) => {
+const Search = ({ categories, selectedCategories }: SearchProps) => {
   const formRef = useRef<HTMLFormElement>(null)
   const location = useLocation()
   const [searchParams] = useSearchParams()
@@ -39,7 +39,7 @@ const Search = ({ categories, selectedCategory }: SearchProps) => {
                 name='category'
                 id={category.slug}
                 value={category.slug}
-                defaultChecked={selectedCategory?.includes(category.slug) || false}
+                defaultChecked={selectedCategories?.includes(category.slug) || false}
                 className='transition-all appearance-none bg-white w-5 h-5 border-gray text-highlight-hover rounded accent-highlight focus:ring-primary mr-2 peer cursor-pointer'
                 onInput={() => formRef.current?.submit()}
               />
