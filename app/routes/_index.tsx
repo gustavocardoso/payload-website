@@ -5,6 +5,7 @@ import { getPage } from '~/api/pages'
 import RenderPage from '~/components/RenderPage'
 import type { MetaProps } from '~/types/meta'
 import type { Doc, Docs } from '~/types/page'
+import { pageQuery } from './$page._index/queries'
 
 export const meta: MetaFunction = ({ data = {} }) => {
   const metaData = data as MetaProps
@@ -23,18 +24,9 @@ export const meta: MetaFunction = ({ data = {} }) => {
 type Loaderdata = Doc
 
 export const loader: LoaderFunction = async () => {
-  const query = {
-    slug: {
-      equals: 'home'
-    },
-    status: {
-      equals: 'published'
-    }
-  }
-
   const {
     docs: [page]
-  } = (await getPage(query)) as Docs
+  } = (await getPage(pageQuery('home'))) as Docs
 
   return page !== undefined ? json<Loaderdata>(page) : []
 }

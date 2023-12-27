@@ -16,9 +16,10 @@ import ErrorMessage from '~/components/Common/Error'
 import RenderPage from '~/components/RenderPage'
 import Search from '~/components/Search'
 import type { Doc, Docs } from '~/types/page'
-import { pageQuery, postsQuery } from './queries'
+import { postsQuery } from './queries'
 import { setSearchUrl } from './search'
 
+import { pageQuery } from '../$page._index/queries'
 import { slots } from './styles'
 
 const { blogListContainer, blogList } = slots()
@@ -54,7 +55,7 @@ export const loader: LoaderFunction = async ({ request }: LoaderFunctionArgs) =>
 
   const {
     docs: [page]
-  } = (await getPage(pageQuery())) as Docs
+  } = (await getPage(pageQuery('blog'))) as Docs
 
   if (page === undefined) {
     throw new Response(null, {

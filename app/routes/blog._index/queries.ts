@@ -10,15 +10,6 @@ type PostsQuery = {
   }
 }
 
-type PageQuery = {
-  slug: {
-    equals: string
-  }
-  status: {
-    equals: string
-  }
-}
-
 export const postsQuery = (search: string, searchCategoriesArray: string[]): PostsQuery => {
   let postsQuery: PostsQuery = {
     status: {
@@ -40,12 +31,3 @@ export const postsQuery = (search: string, searchCategoriesArray: string[]): Pos
 
   return postsQuery
 }
-
-export const pageQuery = (): PageQuery => ({
-  slug: {
-    equals: 'blog'
-  },
-  status: {
-    equals: 'published'
-  }
-})
