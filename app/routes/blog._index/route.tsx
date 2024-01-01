@@ -1,10 +1,4 @@
-import {
-  json,
-  redirect,
-  type ActionFunction,
-  type LoaderFunction,
-  type LoaderFunctionArgs
-} from '@remix-run/node'
+import { json, redirect, type ActionFunction, type LoaderFunctionArgs } from '@remix-run/node'
 import type { MetaFunction } from '@remix-run/react'
 import { useLoaderData, useRouteError } from '@remix-run/react'
 import type { z } from 'zod'
@@ -20,6 +14,7 @@ import { postsQuery } from './queries'
 import { setSearchUrl } from './search'
 
 import { pageQuery } from '../$page._index/queries'
+import { requireAuthCookie } from '../login._index/auth'
 import { slots } from './styles'
 
 const { blogListContainer, blogList } = slots()
@@ -48,7 +43,8 @@ export const action: ActionFunction = async ({ request }) => {
   return redirect(searchUrl)
 }
 
-export const loader: LoaderFunction = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  await requireAuthCookie(request)
   const search = new URL(request.url).searchParams.get('search')
   const searchCategories = new URL(request.url).searchParams.get('category')
   const searchCategoriesArray = searchCategories?.split(',').filter(category => category !== '')

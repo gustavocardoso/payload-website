@@ -1,9 +1,5 @@
-import {
-  json,
-  // type ActionFunction,
-  type LoaderFunction,
-  type LoaderFunctionArgs
-} from '@remix-run/node'
+import type { ActionFunctionArgs, LoaderFunction, LoaderFunctionArgs } from '@remix-run/node'
+import { json } from '@remix-run/node'
 import type { MetaFunction } from '@remix-run/react'
 import { useLoaderData, useRouteError } from '@remix-run/react'
 import { getPage } from '~/api/pages'
@@ -24,9 +20,15 @@ type Loaderdata = {
   page: Doc
 }
 
-// export const action: ActionFunction = async ({ request }) => {
-
-// }
+export const action = async ({ request }: ActionFunctionArgs) => {
+  // const formData = await request.formData()
+  // const email = String(formData.get('email'))
+  // const password = String(formData.get('password'))
+  // const errors = validate(email, password)
+  // if (errors) {
+  //   return json({ errors }, 400)
+  // }
+}
 
 export const loader: LoaderFunction = async ({ request }: LoaderFunctionArgs) => {
   const {
@@ -43,7 +45,7 @@ export const loader: LoaderFunction = async ({ request }: LoaderFunctionArgs) =>
   return json<Loaderdata>({ page })
 }
 
-const Blog = () => {
+const Contact = () => {
   const {
     page: { pageLayout }
   } = useLoaderData() as Loaderdata
@@ -51,13 +53,11 @@ const Blog = () => {
   return (
     <>
       <RenderPage layout={pageLayout} />
-
-      <div></div>
     </>
   )
 }
 
-export default Blog
+export default Contact
 
 export function ErrorBoundary() {
   const error = useRouteError()

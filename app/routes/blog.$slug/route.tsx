@@ -11,6 +11,7 @@ import PostAside from '~/components/Post/Aside'
 import PostContent from '~/components/Post/Content'
 import type { siteOptionsProps } from '~/types/site-options'
 import { countWordsInPostContent, estimateReadingTime } from '~/utils/strings'
+import { requireAuthCookie } from '../login._index/auth'
 
 export const meta: MetaFunction = ({ data }) => {
   return [
@@ -22,7 +23,9 @@ export const meta: MetaFunction = ({ data }) => {
 
 type Loaderdata = z.infer<typeof postSchema>
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ request, params }) => {
+  await requireAuthCookie(request)
+
   const query = {
     slug: {
       equals: params.slug
