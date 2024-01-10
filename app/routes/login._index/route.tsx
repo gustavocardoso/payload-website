@@ -3,8 +3,11 @@ import { json, redirect } from '@remix-run/node'
 import type { MetaFunction } from '@remix-run/react'
 import { Form, useActionData, useLoaderData, useRouteError } from '@remix-run/react'
 import validator from 'validator'
+import type { z } from 'zod'
+import type { userSchema } from '~/api/user'
+import { getUser } from '~/api/user'
 import ErrorMessage from '~/components/Common/Error'
-import { authCookie, createAccount } from '../login._index/auth'
+import { authCookie, userLogin } from '../login._index/auth'
 import { validate } from '../login._index/validate'
 
 export const meta: MetaFunction = ({ data }) => {
@@ -12,7 +15,7 @@ export const meta: MetaFunction = ({ data }) => {
 }
 
 type Loaderdata = {
-  userId: string | null
+  user?: z.infer<typeof userSchema>
 }
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -29,37 +32,45 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     return json({ errors }, 400)
   }
 
-  const user = await createAccount(email, password)
+  const login = await userLogin(email, password)
 
-  return redirect('/login', {
-    headers: {
-      'Set-Cookie': await authCookie.serialize(user.id)
-    }
-  })
+  if (login.errors && login.errors.length > 0) {
+    return json({ loginErrors: login.errors }, 400)
+  }
+
+  if (login.user) {
+    return redirect('/', {
+      headers: {
+        'Set-Cookie': await authCookie.serialize(login.user.id)
+      }
+    })
+  }
+
+  return json({ errors: ['Unexpected error during login'] }, 500)
 }
 
 export const loader: LoaderFunction = async ({ request }: LoaderFunctionArgs) => {
-  // const cookieString = request.headers.get('Cookie')
-  // let userId = await authCookie.parse(cookieString)
-  let userId = null
+  const cookieString = request.headers.get('Cookie')
+  let user = await getUser(await authCookie.parse(cookieString))
 
-  return json<Loaderdata>({ userId })
+  return json<Loaderdata>({ user })
 }
 
 const Login = () => {
-  const { userId } = useLoaderData() as Loaderdata
+  const { user } = useLoaderData() as Loaderdata
 
   let actiondata = useActionData<typeof action>()
-  let emailError = actiondata?.errors?.email
-  let passwordError = actiondata?.errors?.password
+  let emailError = (actiondata as { errors?: { email?: string } })?.errors?.email
+  let passwordError = (actiondata as { errors?: { password?: string } })?.errors?.password
+  let loginErrors = (actiondata as { loginErrors?: string[] })?.loginErrors
 
   return (
     <>
       <div className='bg-primary'>
         <div className='container py-28 text-center'>
-          {userId ? (
+          {user ? (
             <div>
-              <h1 className='text-3xl font-bold mb-4'>Welcome back, {userId}</h1>
+              <h1 className='text-3xl font-bold mb-4'>Welcome back, {user.firstName}</h1>
               <form action='/logout' method='post'>
                 <button
                   type='submit'
@@ -77,6 +88,14 @@ const Login = () => {
                 className='w-[500px] m-auto bg-white rounded-lg p-8'
               >
                 <h2 className='text-dark text-3xl'>User Login</h2>
+
+                {loginErrors &&
+                  loginErrors.map((error, index) => (
+                    <span key={index} className='text-alert text-sm ml-2'>
+                      {error}
+                    </span>
+                  ))}
+
                 <div className='flex flex-col mb-8'>
                   <label
                     className='text-lg mb-2 text-gray-dark font-normal flex items-center peer-checked:text-dark-hover'

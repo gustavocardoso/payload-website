@@ -1,4 +1,24 @@
 import { createCookie, redirect } from '@remix-run/node'
+import { login } from '~/api/auth'
+
+export type User = {
+  id: string
+  email: string
+  firstName: string
+  lastName: string
+  role: string
+  thumbnail: {
+    url: string
+    alt: string
+    title: string
+  }
+}
+
+type LoginResponse = {
+  user?: User
+  token?: string
+  errors?: string[]
+}
 
 let secret = process.env.COOKIE_SECRET || 'default'
 
@@ -16,10 +36,37 @@ export let authCookie = createCookie('auth', {
   maxAge: 60 * 60 * 24 * 30 // 30 days
 })
 
-export const createAccount = async (email: string, password: string) => {
-  return {
-    id: 1
+export const userLogin = async (
+  email: string,
+  password: string
+): Promise<{ user?: User; token?: string; errors?: string[] }> => {
+  const loginResponse: LoginResponse = await login(email, password)
+
+  if (loginResponse.errors && Array.isArray(loginResponse.errors)) {
+    return {
+      errors: loginResponse.errors
+    }
   }
+
+  const { user, token } = loginResponse
+
+  if (user && token) {
+    const { id, email, firstName, lastName, role, thumbnail } = user
+
+    return {
+      user: {
+        id,
+        email,
+        firstName,
+        lastName,
+        role,
+        thumbnail
+      },
+      token
+    }
+  }
+
+  throw new Error('Unexpected response from login')
 }
 
 export const requireAuthCookie = async (request: Request) => {

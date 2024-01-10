@@ -12,11 +12,16 @@ import {
 } from '@remix-run/react'
 
 import React from 'react'
+import type { z } from 'zod'
 import stylesheet from '~/styles/root.css'
 import { getNavigation, getSiteOptions, getSocialLinks } from './api/general'
+import type { userSchema } from './api/user'
+import { getUser } from './api/user'
+import AdminBar from './components/AdminBar'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import { ShowAfterFirstRender } from './components/ShowAfterFirstRender'
+import { authCookie } from './routes/login._index/auth'
 import type { FooterProps } from './types/footer'
 import type { MenuItems } from './types/menu'
 import type { siteOptionsProps } from './types/site-options'
@@ -69,18 +74,30 @@ type LoaderData = {
   socialLinks: SocialLink[]
   footerProps: FooterProps
   siteOptions: siteOptionsProps
+  user?: z.infer<typeof userSchema>
 }
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ request }) => {
+  const cookieString = request.headers.get('Cookie')
+  const userId = await authCookie.parse(cookieString)
+  console.log(userId)
   const menuItems = await getNavigation()
   const { footerProps, siteOptions } = await getSiteOptions()
   const socialLinks = await getSocialLinks()
 
-  return json<LoaderData>({ menuItems, footerProps, siteOptions, socialLinks })
+  const user = await getUser(userId)
+
+  return json<LoaderData>({
+    menuItems,
+    footerProps,
+    siteOptions,
+    socialLinks,
+    ...(user && { user })
+  })
 }
 
 export default function App() {
-  const { menuItems, footerProps, siteOptions, socialLinks } = useLoaderData() as LoaderData
+  const { menuItems, footerProps, siteOptions, socialLinks, user } = useLoaderData() as LoaderData
 
   return (
     <html lang='en' className='min-h-screen'>
@@ -92,6 +109,8 @@ export default function App() {
         <DynamicLinks />
       </head>
       <body className='min-h-screen'>
+        {user && <AdminBar user={user} />}
+
         <ShowAfterFirstRender>
           <Header
             menuItems={menuItems}

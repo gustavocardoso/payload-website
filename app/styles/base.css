@@ -73,3 +73,8 @@ body {
 label {
   @apply cursor-pointer;
 }
+
+.graphic-account {
+  overflow: visible;
+  position: relative;
+}
