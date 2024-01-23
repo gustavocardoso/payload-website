@@ -41,7 +41,7 @@ const BlockContainer: React.FC<BlockContainerProps> = ({
   return (
     <section
       {...(id && { id: id })}
-      className={`block-container ${paddingY} ${blockContainer()} background-${background} group`}
+      className={`block-container ${paddingY} ${blockContainer()} background-${background} group overflow-hidden origin-center`}
     >
       <div className='relative z-20'>{children}</div>
       {background === 'image' && backgroundImage && (

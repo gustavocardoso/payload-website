@@ -14,7 +14,7 @@ import { postsQuery } from './queries'
 import { setSearchUrl } from './search'
 
 import { pageQuery } from '../$page._index/queries'
-import { requireAuthCookie } from '../login._index/auth'
+// import { requireAuthCookie } from '../login._index/auth'
 import { slots } from './styles'
 
 const { blogListContainer, blogList } = slots()
@@ -44,7 +44,7 @@ export const action: ActionFunction = async ({ request }) => {
 }
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  await requireAuthCookie(request)
+  // await requireAuthCookie(request)
   const search = new URL(request.url).searchParams.get('search')
   const searchCategories = new URL(request.url).searchParams.get('category')
   const searchCategoriesArray = searchCategories?.split(',').filter(category => category !== '')
