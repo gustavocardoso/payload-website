@@ -73,7 +73,14 @@ export const loader: LoaderFunction = async ({ request }: LoaderFunctionArgs) =>
     })
   }
 
-  return json<Loaderdata>({ page })
+  return json<Loaderdata>(
+    { page },
+    {
+      headers: {
+        'Cache-Control': 'public, max-age=3600'
+      }
+    }
+  )
 }
 
 const Contact = () => {

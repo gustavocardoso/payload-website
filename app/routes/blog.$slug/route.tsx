@@ -44,7 +44,11 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     })
   }
 
-  return json<Loaderdata>(post)
+  return json<Loaderdata>(post, {
+    headers: {
+      'Cache-Control': 'public, max-age=3600'
+    }
+  })
 }
 
 const Blog = () => {

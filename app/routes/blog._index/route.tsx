@@ -63,7 +63,14 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const posts = await getPosts(postsQuery(search!, searchCategoriesArray!))
   const categories = await getCategories()
 
-  return json<Loaderdata>({ page, posts, categories, selectedCategories: searchCategoriesArray })
+  return json<Loaderdata>(
+    { page, posts, categories, selectedCategories: searchCategoriesArray },
+    {
+      headers: {
+        'Cache-Control': 'public, max-age=3600'
+      }
+    }
+  )
 }
 
 const Blog = () => {
