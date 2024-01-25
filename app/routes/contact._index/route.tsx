@@ -1,56 +1,32 @@
 import type { ActionFunctionArgs, LoaderFunction, LoaderFunctionArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import type { MetaFunction } from '@remix-run/react'
-import { Form, useActionData, useLoaderData, useNavigation, useRouteError } from '@remix-run/react'
+import { useActionData, useLoaderData, useNavigation, useRouteError } from '@remix-run/react'
 import { useEffect, useRef } from 'react'
-import MaskedInput from 'react-text-mask'
-import { z } from 'zod'
 import { createContact } from '~/api/contact'
 import { getPage } from '~/api/pages'
 import ErrorMessage from '~/components/Common/Error'
 import RenderPage from '~/components/RenderPage'
+import type { MetaProps } from '~/types/meta'
 import type { Doc, Docs } from '~/types/page'
 import { pageQuery } from '../$page._index/queries'
-import { phoneMask } from '../../utils/input-masks'
-import inputStyles, { slots } from './styles'
+
+import ContactForm from '~/components/Forms/Contact/Contact'
+import { contactFormSchema } from './schema'
 import { validateForm } from './validate'
 
-const { label, submitButtonIdle, submitButtonSubmitting } = slots()
-
 export const meta: MetaFunction = ({ data }) => {
+  const metaData = data as MetaProps
   return [
-    { title: 'Contact | Logoipsum' },
-    {
-      name: 'description',
-      content:
-        'Contact LogoIpsum today! We are an approachable team of upgrade genies ready to make your NAV to Business Central transition seamless.'
-    },
-    { name: 'keywords', content: 'blog, post' }
+    { title: metaData?.page?.meta?.title ? metaData?.page?.meta?.title : metaData?.title },
+    { name: 'description', content: metaData?.page?.meta?.description || '' },
+    { name: 'keywords', content: metaData?.page?.meta?.keywords || '' }
   ]
 }
 
 type Loaderdata = {
   page: Doc
 }
-
-const schema = z.object({
-  firstName: z
-    .string({ required_error: 'First name is required' })
-    .min(2, 'First name must be at least 2 characters long'),
-  lastName: z
-    .string({ required_error: 'Last name is required' })
-    .min(2, 'Last name must be at least 2 characters long'),
-  email: z.string({ required_error: 'Email is required' }).email('Email is invalid'),
-  phoneNumber: z
-    .string({ required_error: 'Phone number is required' })
-    .refine(value => /^\(\d{3}\) \d{3}-\d{4}$/.test(value), {
-      message: 'Phone number must be in format (999) 999-9999'
-    }),
-  company: z
-    .string({ required_error: 'Company name is required' })
-    .min(2, 'Company name is invalid'),
-  message: z.string({ required_error: 'Message is required' }).min(2, 'Message is invalid')
-})
 
 type actionData = {
   success?: boolean
@@ -68,7 +44,7 @@ export const action = async ({ request }: ActionFunctionArgs): Promise<actionDat
     phoneNumber: string
     company: string
     message: string
-  }>({ request, schema })
+  }>({ request, schema: contactFormSchema })
 
   if (errors) {
     return { success: false, errors }
@@ -107,13 +83,6 @@ const Contact = () => {
 
   const navigation = useNavigation()
   const actionData = useActionData<typeof action>()
-  const apiError = actionData?.apiError
-  const firstNameError = actionData?.errors?.firstName
-  const lastNameError = actionData?.errors?.lastName
-  const emailError = actionData?.errors?.email
-  const phoneNumberError = actionData?.errors?.phoneNumber
-  const companyError = actionData?.errors?.company
-  const messageError = actionData?.errors?.message
   const isSubmitting = navigation.state === 'submitting'
   const success = actionData?.success
   const formRef = useRef<HTMLFormElement>(null)
@@ -149,158 +118,7 @@ const Contact = () => {
               </p>
             </div>
 
-            <div className='w-4/5 m-auto py-10 px-4'>
-              {apiError && (
-                <p className='text-alert text-base mb-2 font-medium'>
-                  * Something went wrong, please try again.
-                </p>
-              )}
-
-              {firstNameError && (
-                <p className='text-alert text-base mb-2 font-medium'>* {firstNameError}</p>
-              )}
-
-              {lastNameError && (
-                <p className='text-alert text-base mb-2 font-medium'>* {lastNameError}</p>
-              )}
-
-              {emailError && (
-                <p className='text-alert text-base mb-2 font-medium'>* {emailError}</p>
-              )}
-
-              {phoneNumberError && (
-                <p className='text-alert text-base mb-2 font-medium'>* {phoneNumberError}</p>
-              )}
-
-              {companyError && (
-                <p className='text-alert text-base mb-2 font-medium'>* {companyError}</p>
-              )}
-
-              {messageError && (
-                <p className='text-alert text-base mb-2 font-medium'>* {messageError}</p>
-              )}
-            </div>
-
-            <div className='flex justify-center items-center'>
-              <Form method='post' action='/contact' className='w-4/5' ref={formRef}>
-                <input type='hidden' name='intent' value='createContact' />
-                <div className='flex gap-4 mb-6'>
-                  <div className='flex-1'>
-                    <label htmlFor='lastName' className={label()}>
-                      First Name <span className='text-alert inline-block ml-1'>*</span>
-                    </label>
-                    <input
-                      type='text'
-                      name='firstName'
-                      className={inputStyles({ error: !!firstNameError })}
-                      tabIndex={1}
-                      required
-                    />
-                  </div>
-
-                  <div className='flex-1'>
-                    <label htmlFor='lastName' className={label()}>
-                      Last Name <span className='text-alert inline-block ml-1'>*</span>
-                    </label>
-                    <input
-                      type='text'
-                      name='lastName'
-                      className={inputStyles({ error: !!lastNameError })}
-                      tabIndex={2}
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className='flex gap-4 mb-6'>
-                  <div className='flex-1'>
-                    <label htmlFor='email' className={label()}>
-                      Business Email <span className='text-alert inline-block ml-1'>*</span>
-                    </label>
-                    <input
-                      type='email'
-                      name='email'
-                      className={inputStyles({ error: !!emailError })}
-                      tabIndex={3}
-                      required
-                    />
-                  </div>
-
-                  <div className='flex-1'>
-                    <label htmlFor='phoneNumber' className={label()}>
-                      Phone Number <span className='text-alert inline-block ml-1'>*</span>
-                    </label>
-                    <MaskedInput
-                      mask={phoneMask()}
-                      guide={false}
-                      type='tel'
-                      name='phoneNumber'
-                      className={inputStyles({ error: !!phoneNumberError })}
-                      placeholder='(999) 999-9999'
-                      tabIndex={4}
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className='w-full mb-6'>
-                  <label htmlFor='company' className={label()}>
-                    Company Name <span className='text-alert inline-block ml-1'>*</span>
-                  </label>
-                  <input
-                    type='text'
-                    name='company'
-                    className={`${inputStyles({ error: !!companyError })} w-full`}
-                    tabIndex={5}
-                  />
-                </div>
-
-                <div className='w-full mb-6'>
-                  <label htmlFor='message' className={label()}>
-                    Message <span className='text-alert inline-block ml-1'>*</span>
-                  </label>
-                  <textarea
-                    name='message'
-                    className={`${inputStyles({ error: !!messageError })} w-full`}
-                    tabIndex={6}
-                  ></textarea>
-                </div>
-
-                <div className='flex items-center'>
-                  <button
-                    type='submit'
-                    className={`${isSubmitting ? submitButtonSubmitting() : submitButtonIdle()}`}
-                    tabIndex={6}
-                    disabled={isSubmitting}
-                  >
-                    Submit
-                  </button>
-
-                  {isSubmitting && (
-                    <svg
-                      className='animate-spin ml-4 h-7 w-7 text-dark'
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                    >
-                      <circle
-                        className='opacity-25'
-                        cx='12'
-                        cy='12'
-                        r='10'
-                        stroke='currentColor'
-                        strokeWidth='4'
-                      ></circle>
-                      <path
-                        className='opacity-75'
-                        fill='currentColor'
-                        d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
-                      ></path>
-                    </svg>
-                  )}
-                </div>
-              </Form>
-            </div>
+            <ContactForm formRef={formRef} isSubmitting={isSubmitting} actionData={actionData!} />
           </div>
         )}
       </div>

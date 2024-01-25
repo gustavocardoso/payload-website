@@ -81,14 +81,21 @@ export const loader: LoaderFunction = async ({ request }) => {
   const { footerProps, siteOptions } = await getSiteOptions()
   const socialLinks = await getSocialLinks()
 
-  return json<LoaderData>({
-    menuItems,
-    footerProps,
-    siteOptions,
-    cmsURL: process.env.CMS_URL as string,
-    apiURL: process.env.API_URL as string,
-    socialLinks
-  })
+  return json<LoaderData>(
+    {
+      menuItems,
+      footerProps,
+      siteOptions,
+      cmsURL: process.env.CMS_URL as string,
+      apiURL: process.env.API_URL as string,
+      socialLinks
+    },
+    {
+      headers: {
+        'Cache-Control': 'public, max-age=60'
+      }
+    }
+  )
 }
 
 export default function App() {

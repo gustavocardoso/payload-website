@@ -1,4 +1,3 @@
-// import type { LoaderFunction } from '@remix-run/node'
 import { json, type LoaderFunction } from '@remix-run/node'
 import type { MetaFunction } from '@remix-run/react'
 import { useLoaderData, useRouteError } from '@remix-run/react'
@@ -12,11 +11,10 @@ import { pageQuery } from './queries'
 
 export const meta: MetaFunction = ({ data }) => {
   const metaData = data as MetaProps
-
   return [
-    { title: metaData?.meta?.title ? metaData?.meta?.title : metaData?.title },
-    { name: 'description', content: metaData?.meta?.description || '' },
-    { name: 'keywords', content: metaData?.meta?.keywords || '' }
+    { title: metaData?.page?.meta?.title ? metaData?.page?.meta?.title : metaData?.title },
+    { name: 'description', content: metaData?.page?.meta?.description || '' },
+    { name: 'keywords', content: metaData?.page?.meta?.keywords || '' }
   ]
 }
 
@@ -34,7 +32,11 @@ export const loader: LoaderFunction = async ({ params }) => {
     })
   }
 
-  return json<Loaderdata>(page)
+  return json<Loaderdata>(page, {
+    headers: {
+      'Cache-Control': 'public, max-age=60'
+    }
+  })
 }
 
 const Page = () => {

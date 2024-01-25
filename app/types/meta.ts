@@ -1,8 +1,10 @@
 export type MetaProps = {
   title?: string
-  meta: {
-    title: string
-    description: string
-    keywords: string
+  page: {
+    meta: {
+      title: string
+      description: string
+      keywords: string
+    }
   }
 }
