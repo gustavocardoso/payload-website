@@ -1,7 +1,7 @@
 import { Form } from '@remix-run/react'
-import type { RefObject } from 'react'
-import MaskedInput from 'react-text-mask'
-import { phoneMask } from '../../../../utils/input-masks'
+import { phoneMask } from '@utils/input-masks'
+import { useEffect, useState, type RefObject } from 'react'
+import InputMask from 'react-input-mask'
 import inputStyles, { slots } from './styles'
 const { label, submitButtonIdle, submitButtonSubmitting } = slots()
 
@@ -25,6 +25,11 @@ const ContactForm = ({ formRef, isSubmitting, actionData }: ContactFormProps) =>
   const phoneNumberError = actionData?.errors?.phoneNumber
   const companyError = actionData?.errors?.company
   const messageError = actionData?.errors?.message
+
+  const [showMask, setShowMask] = useState(false)
+  useEffect(() => {
+    setShowMask(true)
+  }, [])
 
   return (
     <>
@@ -102,16 +107,26 @@ const ContactForm = ({ formRef, isSubmitting, actionData }: ContactFormProps) =>
               <label htmlFor='phoneNumber' className={label()}>
                 Phone Number <span className='text-alert inline-block ml-1'>*</span>
               </label>
-              <MaskedInput
-                mask={phoneMask()}
-                guide={false}
-                type='tel'
-                name='phoneNumber'
-                className={inputStyles({ error: !!phoneNumberError })}
-                placeholder='(999) 999-9999'
-                tabIndex={4}
-                required
-              />
+              {showMask ? (
+                <InputMask
+                  mask={phoneMask()}
+                  type='tel'
+                  name='phoneNumber'
+                  className={inputStyles({ error: !!phoneNumberError })}
+                  placeholder='(999) 999-9999'
+                  tabIndex={4}
+                  required
+                />
+              ) : (
+                <input
+                  type='tel'
+                  name='phoneNumber'
+                  className={inputStyles({ error: !!phoneNumberError })}
+                  placeholder='(999) 999-9999'
+                  tabIndex={4}
+                  required
+                />
+              )}
             </div>
           </div>
 
