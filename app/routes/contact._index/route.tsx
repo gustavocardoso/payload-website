@@ -2,7 +2,7 @@ import type { ActionFunctionArgs, LoaderFunction, LoaderFunctionArgs } from '@re
 import { json } from '@remix-run/node'
 import type { MetaFunction } from '@remix-run/react'
 import { useActionData, useLoaderData, useNavigation, useRouteError } from '@remix-run/react'
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { createContact } from '~/api/contact'
 import { getPage } from '~/api/pages'
 import ErrorMessage from '~/components/Common/Error'

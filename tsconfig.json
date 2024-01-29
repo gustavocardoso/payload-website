@@ -6,8 +6,7 @@
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "moduleResolution": "Bundler",
-    "module": "ES2022",
-    "noErrorTruncation": true,
+    "module": "ESNext",
     "resolveJsonModule": true,
     "target": "ES2022",
     "strict": true,
@@ -17,6 +16,7 @@
     "paths": {
       "~/*": ["./app/*"],
       "@ui/*": ["./app/components/*"],
+      "@utils/*": ["./app/utils/*"],
       "@images/*": ["./public/images/*"]
     },
 
