@@ -4,7 +4,10 @@
 - Add option to change icons block background color
 - Ensure all links are being set using Link component
 - Ensure all images are being set using Image component
-  [done] Implement social icons - footer - if fontawesome is enable, use its icon instead.
-  [done] Implement logo in the header
 - Create a "latest posts" block
 - Make it mobile friendly
+- Blogs: check Zod and make images not required
+- Blogs: add placeholder image when blog has no featured image
+- Make sure all images have alt text
+- Make sure all links have title
+- Implement SEO
