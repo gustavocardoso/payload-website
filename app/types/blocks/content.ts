@@ -1,6 +1,7 @@
 import type { BlockPaddingY } from '~/components/BlockContainer'
 import type { HeadingColors, HeadingProps } from '~/components/Common/Heading'
 import type { Background } from '../background'
+import { Media } from '../media'
 
 export type desktopContainerWidth = 'col-span-12' | 'col-span-10' | 'col-span-8' | 'col-span-6'
 
@@ -27,18 +28,11 @@ export type ImageSizes = {
   }
 }
 type ImageBlock = {
-  image: {
-    alt: string
-    mimeType: string
-    webp?: {
-      filename: string
-      mimeType: 'image/webp'
-      sizes: ImageSizes
-      url: string
-    }
-    sizes: ImageSizes
-  }
+  image: Media
   caption: string
+  settings: string
+  verticalImage?: boolean
+  fillContain?: boolean
   id: string
   blockType: 'image-block'
 }
@@ -151,9 +145,7 @@ export type ContentBlock = {
     columnTwoLayout: BlockLayout
   }
   background: Background
-  backgroundImage?: {
-    url: string
-  }
+  backgroundImage?: Media
   anchor?: string
   cssClasses?: string
   id: string

@@ -39,7 +39,16 @@ const ColumnBlock: React.FC<ColumnBlockProps> = ({ layout, grid, columnName, cla
             break
 
           case 'image-block':
-            return <ImageBlock key={index} image={block.image} caption={block.caption} />
+            return (
+              <ImageBlock
+                key={index}
+                image={block.image}
+                caption={block.caption}
+                settings={block.settings}
+                verticalImage={block.verticalImage}
+                fillContain={block.fillContain}
+              />
+            )
             break
 
           case 'icons-block':

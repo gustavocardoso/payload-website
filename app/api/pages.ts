@@ -9,7 +9,7 @@ export const getPage = async (query: unknown) => {
   )
 
   return await (
-    await fetch(`${process.env.API_URL}/pages/${stringifiedQuery}`, {
+    await fetch(`${process.env.API_URL}/pages/${stringifiedQuery}&depth=2`, {
       headers: {
         Authorization: `users API-Key ${process.env.API_KEY}`
       }

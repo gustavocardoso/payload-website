@@ -1,5 +1,6 @@
 import { ArrowLongRightIcon } from '@heroicons/react/24/outline'
 import { Link, useOutletContext } from '@remix-run/react'
+import Image from '~/components/Common/Image'
 import type { Post } from '~/types/posts'
 import type { siteOptionsProps } from '~/types/site-options'
 
@@ -22,8 +23,8 @@ const PostCard: React.FC<PostCardProps> = ({ post: { title, category, postImage,
     <div className='post-card col-span-4 bg-light rounded-lg overflow-hidden group hover:bg-dark transition-all duration-500'>
       <div className='post-image aspect-video overflow-hidden'>
         <Link to={`/blog/${slug}`} prefetch='intent' unstable_viewTransition>
-          <img
-            src={image}
+          <Image
+            src={image!}
             alt=''
             className='w-full h-full grayscale group-hover:grayscale-0 object-cover object-center group-hover:scale-110 group-hover:-rotate-3 transition-all duration-[1500ms] ease-in-out'
           />

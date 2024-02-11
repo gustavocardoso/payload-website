@@ -1,32 +1,49 @@
 import Image from '~/components/Common/Image'
-import type { ImageSizes } from '~/types/blocks/content'
+import { useMediaSizes } from '~/hooks/useMediaSizes'
+import { Media } from '~/types/media'
+import ImageFill from './ImageFill'
+import ImageInset from './ImageInset'
 import imageBlockStyles from './styles'
 
 const { imageContainer, imageElement, imageCaption } = imageBlockStyles()
 
 type ImageBlockProps = {
-  image: {
-    webp?: {
-      filename: string
-      mimeType: 'image/webp'
-      sizes: ImageSizes
-      url: string
-    }
-    mimeType: string
-    sizes: ImageSizes
-    alt: string
-  }
+  image: Media
   caption: string
+  settings: string
+  verticalImage?: boolean
+  fillContain?: boolean
 }
 
-const ImageBlock: React.FC<ImageBlockProps> = ({ image, caption }) => {
-  const imageURL = image.webp?.filename ? image.webp.url : image.sizes.card.url
+const ImageBlock: React.FC<ImageBlockProps> = ({
+  image,
+  caption,
+  settings = 'inset',
+  verticalImage = false,
+  fillContain = false
+}) => {
+  const fillClass = settings === 'fill' && fillContain ? 'bg-contain' : 'bg-cover'
+  const { media, mediaType } = useMediaSizes<
+    'vertical' | 'verticalMedium' | 'verticalSmall' | 'card' | 'cardMedium' | 'cardSmall'
+  >(image!)
 
-  return (
-    <div className={imageContainer()}>
-      <Image src={imageURL} alt={image.alt} className={imageElement()} />
+  return settings === 'inset' ? (
+    <>
+      <ImageInset
+        alt={image.alt}
+        media={media!}
+        verticalImage={verticalImage}
+        mediaType={mediaType!}
+      />
       {caption && <span className={imageCaption()}>{caption}</span>}
-    </div>
+    </>
+  ) : (
+    <ImageFill
+      fillClass={fillClass}
+      media={media!}
+      verticalImage={verticalImage}
+      mediaType={mediaType!}
+    />
   )
 }
 

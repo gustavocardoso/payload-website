@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react'
+import { useMediaSizes } from '~/hooks/useMediaSizes'
 import type { Background } from '~/types/background'
+import { Media } from '~/types/media'
 import { setBgOpacity, slots } from './styles'
 
 export type Alignment = 'right' | 'center' | 'left'
@@ -19,9 +21,7 @@ export type BlockContainerProps = {
   children: ReactNode
   paddingY?: BlockPaddingY
   background: Background
-  backgroundImage?: {
-    url: string
-  }
+  backgroundImage?: Media
   backgroundOpacity?: BackgroundOpacity
   id?: string
 }
@@ -37,6 +37,13 @@ const BlockContainer: React.FC<BlockContainerProps> = ({
   id = undefined
 }) => {
   const opacity = setBgOpacity(backgroundOpacity)
+  let media, mediaType
+
+  if (background === 'image' && backgroundImage !== undefined) {
+    ;({ media, mediaType } = useMediaSizes<'background' | 'backgroundMedium' | 'backgroundSmall'>(
+      backgroundImage
+    ))
+  }
 
   return (
     <section
@@ -44,15 +51,23 @@ const BlockContainer: React.FC<BlockContainerProps> = ({
       className={`block-container ${paddingY} ${blockContainer()} background-${background} group overflow-hidden origin-center`}
     >
       <div className='relative z-20'>{children}</div>
-      {background === 'image' && backgroundImage && (
+      {background === 'image' && backgroundImage !== undefined && (
         <>
           <div className={blockImageContainer()}>
-            <img
-              src={backgroundImage.url}
-              className={`${blockBgImage()} ${opacity} group-hover:scale-105 transition-transform duration-[2000ms] ease-in-out`}
-              alt='Hero background'
-              role='presentation'
-            />
+            <picture>
+              {media && typeof media === 'object' && (
+                <>
+                  <source media='(min-width: 1000px)' srcSet={media.background.url} />
+                  <source media='(min-width: 800px)' srcSet={media.backgroundMedium.url} />
+                  <img
+                    className={`${blockBgImage()} ${opacity} group-hover:scale-105 transition-transform duration-[5000ms] ease-in-out`}
+                    alt='Hero background'
+                    role='presentation'
+                    src={media.backgroundMedium.url}
+                  />
+                </>
+              )}
+            </picture>
           </div>
           <div className={blockBgOverlay()}></div>
         </>

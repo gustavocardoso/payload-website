@@ -1,4 +1,5 @@
 import type { BlockPaddingY } from '~/components/BlockContainer'
+import { Media } from '~/types/media'
 import type { Background } from '../background'
 import type { ButtonColors } from '../buttons'
 
@@ -23,7 +24,7 @@ export type HeroDescriptionProps = {
 }
 
 export type HeroImageProps = {
-  media: string
+  media?: Media
   mediaAlt: string
   effects: {
     rotate: boolean
@@ -67,33 +68,13 @@ export type HeroBlock = {
   alignment: string
   description?: string
   buttons?: HeroBlockButton[]
-  media?: {
-    id: string
-    title: string
-    alt: string
-    filename: string
-    mimeType: string
-    filesize: number
-    width: number
-    height: number
-    sizes: {
-      thumbnail: object
-      card: object
-      featured: object
-      hero: {}
-    }
-    createdAt: string
-    updatedAt: string
-    url: string
-  }
+  media?: Media
   rotate?: boolean
   scale?: boolean
   shadow?: boolean
   grayscale?: boolean
   background: Background
-  backgroundImage?: {
-    url: string
-  }
+  backgroundImage?: Media
   backgroundOpacity?: string
   backgroundTextColor?: string
   padding?: BlockPaddingY

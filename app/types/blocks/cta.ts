@@ -1,6 +1,7 @@
 import type { BackgroundOpacity } from '~/components/BlockContainer'
 import type { Background } from '../background'
 import type { ButtonColors } from '../buttons'
+import { Media } from '../media'
 
 export type CtaSizes = 'fixed' | 'full'
 export type CtaSpacing = 'padding' | 'no-padding'
@@ -34,9 +35,7 @@ export type CtaBlock = {
     updatedAt: string
     subtitle: string
     background: Background
-    backgroundImage: {
-      url: string
-    }
+    backgroundImage: Media
     backgroundOpacity: BackgroundOpacity
     ctaImage: {
       url: string

@@ -43,7 +43,7 @@ const HeroTwoColumns: React.FC<HeroProps> = ({
       {media && (
         <div className={`hero-media ${heroMedia()}`}>
           <HeroImage
-            media={media.url}
+            media={media}
             mediaAlt={media.alt}
             effects={{ grayscale, rotate, scale, shadow }}
             maxSize='full'

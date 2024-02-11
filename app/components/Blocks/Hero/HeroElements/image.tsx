@@ -1,5 +1,7 @@
 import type { HeroImageProps } from '~/types/blocks/hero'
 
+import { useMediaSizes } from '~/hooks/useMediaSizes'
+import { Media } from '~/types/media'
 import { slots } from './styles'
 
 const { heroImage } = slots()
@@ -30,12 +32,34 @@ const HeroImage: React.FC<HeroImageProps> = ({
       break
   }
 
+  const { media: mediaObject, mediaType } = useMediaSizes<'hero' | 'heroMedium' | 'heroSmall'>(
+    media!
+  )
+
   return (
-    <img
-      className={`${imageEffects} ${imageMaxSize} ${heroImage()} duration-1000 ease-in-out`}
-      src={media}
-      alt={mediaAlt}
-    />
+    <>
+      {mediaType === 'svg' ? (
+        <img
+          className={`${imageEffects} ${imageMaxSize} ${heroImage()} duration-1000 ease-in-out`}
+          src={String(mediaObject)}
+          alt={mediaAlt}
+        />
+      ) : (
+        <picture>
+          {mediaObject && typeof mediaObject === 'object' && (
+            <>
+              <source media='(min-width: 1000px)' srcSet={mediaObject.hero.url} />
+              <source media='(min-width: 800px)' srcSet={mediaObject?.heroMedium.url} />
+              <img
+                className={`${imageEffects} ${imageMaxSize} ${heroImage()} duration-1000 ease-in-out`}
+                src={mediaObject?.heroSmall.url}
+                alt={mediaAlt}
+              />
+            </>
+          )}
+        </picture>
+      )}
+    </>
   )
 }
 
