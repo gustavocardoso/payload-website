@@ -8,3 +8,17 @@ export type MetaProps = {
     }
   }
 }
+
+export type PostMetaProps = {
+  docs: [
+    {
+      title?: string
+      excerpt?: string
+      meta: {
+        title: string
+        description: string
+        keywords: string
+      }
+    }
+  ]
+}

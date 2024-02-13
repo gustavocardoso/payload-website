@@ -9,15 +9,22 @@ import Hero from '~/components/Blocks/Hero'
 import ErrorMessage from '~/components/Common/Error'
 import PostAside from '~/components/Post/Aside'
 import PostContent from '~/components/Post/Content'
+import { PostMetaProps } from '~/types/meta'
 import type { siteOptionsProps } from '~/types/site-options'
 import { countWordsInPostContent, estimateReadingTime } from '~/utils/strings'
 // import { requireAuthCookie } from '../login._index/auth'
 
 export const meta: MetaFunction = ({ data }) => {
+  const {
+    docs: [metaData]
+  } = data as PostMetaProps
+
   return [
-    { title: 'Blog | Logoipsum' },
-    { name: 'description', content: 'Our awesome blog posts' },
-    { name: 'keywords', content: 'blog, post' }
+    {
+      title: metaData?.meta?.title ? metaData?.meta?.title : metaData?.title
+    },
+    { name: 'description', content: metaData?.meta?.description || '' },
+    { name: 'keywords', content: metaData?.meta?.keywords || '' }
   ]
 }
 
