@@ -88,12 +88,18 @@ export const postSchema = z.object({
           day: 'numeric'
         })
       ),
-      meta: z.object({
-        title: z.string().optional(),
-        description: z.string().optional(),
-        image: z.object({}).optional(),
-        keywords: z.string().optional()
-      }),
+      meta: z
+        .object({
+          title: z.string().optional(),
+          description: z.string().optional(),
+          image: z
+            .union([z.string(), z.object({})])
+            .optional()
+            .nullable(),
+          keywords: z.string().optional()
+        })
+        .nullable()
+        .optional(),
       layout: z.any(),
       category: z.array(
         z.object({
